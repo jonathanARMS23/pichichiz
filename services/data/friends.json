@@ -1,0 +1,86 @@
+{
+    "friends": [
+        {
+            "pseudo": "aDixon",
+            "actif": true,
+            "friendly": true
+        },
+        {
+            "pseudo": "bibiholmes",
+            "actif": true,
+            "friendly": true
+        },
+        {
+            "pseudo": "charlottetompson",
+            "actif": true,
+            "friendly": true
+        },
+        {
+            "pseudo": "didiboot",
+            "actif": true,
+            "friendly": true
+        },
+        {
+            "pseudo": "aunawillson",
+            "actif": false,
+            "friendly": true
+        },
+        {
+            "pseudo": "bammyhall",
+            "actif": false,
+            "friendly": true
+        },
+        {
+            "pseudo": "blueJustyne",
+            "actif": false,
+            "friendly": true
+        },
+        {
+            "pseudo": "catmax",
+            "actif": false,
+            "friendly": true
+        },
+        {
+            "pseudo": "arms",
+            "actif": false,
+            "friendly": true
+        },
+        {
+            "pseudo": "bmax",
+            "actif": false,
+            "friendly": true
+        }
+    ],
+    "asks": [
+        {
+            "pseudo": "johndoe",
+            "friendly": false,
+            "send": false,
+            "date": "11/06/2022"
+        },
+        {
+            "pseudo": "paynewalker",
+            "friendly": false,
+            "send": false,
+            "date": "11/06/2022"
+        },
+        {
+            "pseudo": "jameswillow",
+            "friendly": false,
+            "send": false,
+            "date": "11/06/2022"
+        },
+        {
+            "pseudo": "Ettawoods",
+            "friendly": false,
+            "send": true,
+            "date": "11/05/2022"
+        },
+        {
+            "pseudo": "rubygardner",
+            "friendly": false,
+            "send": true,
+            "date": "11/06/2022"
+        }
+    ]
+}

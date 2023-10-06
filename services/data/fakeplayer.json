@@ -1,0 +1,74 @@
+{
+    "players": [
+        {
+            "id": 1,
+            "code": "AZ-ZER-AZER",
+            "email": "loic@gmail.com",
+            "pseudo": "loic62",
+            "facebook": false
+        },
+        {
+            "id": 2,
+            "code": "AZ-REZ-AZER",
+            "email": "john@gmail.com",
+            "pseudo": "johnnn",
+            "facebook": false
+        },
+        {
+            "id": 3,
+            "code": "AZ-GHJ-AZER",
+            "email": "art@gmail.com",
+            "pseudo": "akartis",
+            "facebook": false
+        },
+        {
+            "id": 4,
+            "code": "AZ-LKJ-AZER",
+            "email": "zlatan@gmail.com",
+            "pseudo": "zlatan",
+            "facebook": false
+        },
+        {
+            "id": 5,
+            "code": "AB-ZER-AZER",
+            "email": "bob@gmail.com",
+            "pseudo": "bob23",
+            "facebook": false
+        },
+        {
+            "id": 6,
+            "code": "AA-BBB-CCCC",
+            "email": "demon@gmail.com",
+            "pseudo": "demon66",
+            "facebook": true
+        },
+        {
+            "id": 7,
+            "code": "AZ-RER-EZER",
+            "email": "eddy@gmail.com",
+            "pseudo": "eddyyyy",
+            "facebook": true
+        },
+        {
+            "id": 8,
+            "code": "AF-ZEG-AZEH",
+            "email": "nick@gmail.com",
+            "pseudo": "nick63",
+            "facebook": true
+        },
+        {
+            "id": 9,
+            "code": "AT-ZEQ-SZEY",
+            "email": "mike@gmail.com",
+            "pseudo": "mikeeee",
+            "facebook": true
+        },
+        {
+            "id": 10,
+            "code": "AI-YOO-AZER",
+            "email": "yo@gmail.com",
+            "pseudo": "yohan",
+            "facebook": true
+        }
+    ]
+}

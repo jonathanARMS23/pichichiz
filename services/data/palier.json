@@ -1,0 +1,34 @@
+{
+    "list": [
+        {
+            "type": "PASSER",
+            "level": 1,
+            "won": false
+        },
+        {
+            "type": "DOUBLE CHANCE",
+            "level": 3,
+            "won": false
+        },
+        {
+            "type": "TEMPS",
+            "level": 6,
+            "won": false
+        },
+        {
+            "type": "50/50",
+            "level": 8,
+            "won": false
+        },
+        {
+            "type": "TEMPS",
+            "level": 10,
+            "won": false
+        },
+        {
+            "type": "PASSER",
+            "level": 13,
+            "won": false
+        }
+    ]
+}

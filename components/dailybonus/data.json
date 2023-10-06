@@ -1,0 +1,185 @@
+{
+    "success": true,
+    "data": [
+        {
+            "list": [
+                {
+                    "index": 1,
+                    "filter": false
+                },
+                {
+                    "index": 2,
+                    "filter": false
+                },
+                {
+                    "index": 3,
+                    "filter": false
+                },
+                {
+                    "index": 4,
+                    "filter": false
+                },
+                {
+                    "index": 5,
+                    "filter": false
+                }
+            ],
+            "id": 7,
+            "type": "50/50",
+            "step": 5,
+            "winned": "NO",
+            "checked": "NO",
+            "daily_bonus_id": 2
+        },
+        {
+            "list": [
+                {
+                    "index": 6,
+                    "filter": false
+                },
+                {
+                    "index": 7,
+                    "filter": false
+                },
+                {
+                    "index": 8,
+                    "filter": false
+                },
+                {
+                    "index": 9,
+                    "filter": false
+                },
+                {
+                    "index": 10,
+                    "filter": false
+                }
+            ],
+            "id": 8,
+            "type": "TEMPS",
+            "step": 10,
+            "winned": "NO",
+            "checked": "NO",
+            "daily_bonus_id": 2
+        },
+        {
+            "list": [
+                {
+                    "index": 11,
+                    "filter": false
+                },
+                {
+                    "index": 12,
+                    "filter": false
+                },
+                {
+                    "index": 13,
+                    "filter": false
+                },
+                {
+                    "index": 14,
+                    "filter": false
+                },
+                {
+                    "index": 15,
+                    "filter": false
+                }
+            ],
+            "id": 9,
+            "type": "PASSER",
+            "step": 15,
+            "winned": "NO",
+            "checked": "NO",
+            "daily_bonus_id": 2
+        },
+        {
+            "list": [
+                {
+                    "index": 16,
+                    "filter": false
+                },
+                {
+                    "index": 17,
+                    "filter": false
+                },
+                {
+                    "index": 18,
+                    "filter": false
+                },
+                {
+                    "index": 19,
+                    "filter": true
+                },
+                {
+                    "index": 20,
+                    "filter": true
+                }
+            ],
+            "id": 10,
+            "type": "TEMPS",
+            "step": 20,
+            "winned": "NO",
+            "checked": "YES",
+            "daily_bonus_id": 2
+        },
+        {
+            "list": [
+                {
+                    "index": 21,
+                    "filter": false
+                },
+                {
+                    "index": 22,
+                    "filter": false
+                },
+                {
+                    "index": 23,
+                    "filter": false
+                },
+                {
+                    "index": 24,
+                    "filter": false
+                },
+                {
+                    "index": 25,
+                    "filter": false
+                }
+            ],
+            "id": 11,
+            "type": "DOUBLE CHANCE",
+            "step": 25,
+            "winned": "NO",
+            "checked": "NO",
+            "daily_bonus_id": 2
+        },
+        {
+            "list": [
+                {
+                    "index": 26,
+                    "filter": false
+                },
+                {
+                    "index": 27,
+                    "filter": false
+                },
+                {
+                    "index": 28,
+                    "filter": false
+                },
+                {
+                    "index": 29,
+                    "filter": false
+                },
+                {
+                    "index": 30,
+                    "filter": false
+                }
+            ],
+            "id": 12,
+            "type": "PASSER",
+            "step": 30,
+            "winned": "NO",
+            "checked": "NO",
+            "daily_bonus_id": 2
+        }
+    ]
+}

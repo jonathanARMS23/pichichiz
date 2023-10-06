@@ -1,0 +1,46 @@
+{
+    "bonus": [
+        {
+            "id": null,
+            "nom": "INDICE",
+            "introduced": false,
+            "description": "Le bonus INDICE te donne une indication vers la réponse.",
+            "count": 0
+        },
+        {
+            "id": null,
+            "nom": "PASSER",
+            "introduced": false,
+            "description": "Le bonus PASSER te permet de passer une question qui sera comptée comme un point cadeau.",
+            "count": 0
+        },
+        {
+            "id": null,
+            "nom": "DOUBLE CHANCE",
+            "introduced": true,
+            "description": "Le bonus DOUBLE CHANCE te permet de choisir 2 réponses, ainsi avoir une chance en plus pour trouver la bonne réponse.",
+            "count": 0
+        },
+        {
+            "id": null,
+            "nom": "TEMPS",
+            "introduced": false,
+            "description": "Le bonus TEMPS te permet de gagner 30 secondes supplémentaire pour répondre à la question.",
+            "count": 0
+        },
+        {
+            "id": null,
+            "nom": "LETTRES",
+            "introduced": false,
+            "description": "Le bonus LETTRES est disponible lors d’une question ouverte, et te permet d’afficher les premières lettres des mots de la réponse.",
+            "count": 0
+        },
+        {
+            "id": null,
+            "nom": "50/50",
+            "introduced": true,
+            "description": "Le bonus 50/50 est disponible lors d’une question à choix multiples, et te permet d’enlever 2 mauvaises réponses pour choisir la bonne réponse parmi 2 propositions.",
+            "count": 0
+        }
+    ]
+}

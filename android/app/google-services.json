@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "877541818466",
+    "project_id": "pichichiz",
+    "storage_bucket": "pichichiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877541818466:android:e0c52adb62cea57d73d13b",
+        "android_client_info": {
+          "package_name": "com.pichichiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877541818466-cd9i3fqrs1irb4qovglu5c48oodgvedk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX41eZxaMaClNWtts_jv8OKanELGjTgFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877541818466-cd9i3fqrs1irb4qovglu5c48oodgvedk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
