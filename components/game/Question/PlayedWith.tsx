@@ -20,15 +20,12 @@ interface IIProps {
 
 const Item = ({ data }: IIProps) => (
     <View style={Style.item}>
-        <Image
-            source={{ uri: `https://footballdatabase.eu${data.photos}` }}
-            style={Style.photo}
-        />
+        <Image source={{ uri: `${data.photos}` }} style={Style.photo} />
         <Text style={Style.text}>{`${data.first_name} ${data.last_name}`}</Text>
         <View style={Style.info}>
             <Image
                 source={{
-                    uri: `https://footballdatabase.eu${data.country_flag}`,
+                    uri: `${data.country_flag}`,
                 }}
                 style={Style.flag}
             />

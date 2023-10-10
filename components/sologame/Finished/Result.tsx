@@ -95,7 +95,7 @@ export default ({ rate, level, bonus }: IProps) => {
                         ? `tu as débloqué le niveau ${
                               level + 1
                           }`.toLocaleUpperCase()
-                        : `bien joué mais pas suffisant pour validé le niveau ${level}`.toLocaleUpperCase()}
+                        : `bien joué mais pas suffisant pour valider le niveau ${level}`.toLocaleUpperCase()}
                 </Text>
             </View>
             {bonus ? (

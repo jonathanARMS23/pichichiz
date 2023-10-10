@@ -7,7 +7,7 @@ export default class Penalty {
 
     protected types = models
 
-    protected url = `http://test2.footballdatabase.eu/quizz/quizz.php?`
+    protected url = `https://www.footballdatabase.eu/quizz/quizz.php?`
 
     // méthode pour récupérer les questions
     public getQuestions = async (model: string, level: number) => {

@@ -22,6 +22,7 @@ const Item = ({ data }: IIProps) => {
     const { text } = data
     const [text1, setText1] = useState<string | null>(null)
     const [text2, setText2] = useState<string | null>(null)
+    const [loadedComp, setLoadedComp] = useState<boolean>(true)
 
     useEffect(() => {
         if (text && text !== '' && typeof text === 'string') {
@@ -38,12 +39,23 @@ const Item = ({ data }: IIProps) => {
 
     return (
         <View style={Style.item}>
-            <Image
-                source={{
-                    uri: `https://footballdatabase.eu/${data.logo_comp}`,
-                }}
-                style={Style.logo}
-            />
+            {loadedComp ? (
+                <Image
+                    source={{
+                        uri: `https://footballdatabase.eu/${data.logo_comp}`,
+                    }}
+                    style={Style.logo}
+                    onError={() => setLoadedComp(false)}
+                    onLoad={() => setLoadedComp(true)}
+                />
+            ) : (
+                <Image
+                    source={{
+                        uri: `https://footballdatabase.eu${data.country_flag}`,
+                    }}
+                    style={Style.logo}
+                />
+            )}
             <View style={Style.info}>
                 {text1 ? <Text style={Style.text}>{`${text1}`}</Text> : null}
                 {text2 ? <Text style={Style.season}>{`${text2}`}</Text> : null}
@@ -91,8 +103,8 @@ const Style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: 200,
-        maxHeight: 200,
+        minHeight: 310,
+        maxHeight: 310,
         minWidth: 359,
         maxWidth: 359,
         borderRadius: 10,

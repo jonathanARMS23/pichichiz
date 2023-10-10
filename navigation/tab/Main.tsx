@@ -55,7 +55,11 @@ export default () => (
         })}
     >
         <Screen name="main" component={Main} />
-        <Screen name="friends" component={Friends} />
+        <Screen
+            name="friends"
+            component={Friends}
+            initialParams={{ screen: 'manage', params: { option: 1 } }}
+        />
         <Screen name="store" component={Store} />
         {/** <Screen name="reward" component={Reward} /> */}
         <Screen name="profil" component={Profil} />

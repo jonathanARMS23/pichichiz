@@ -37,7 +37,7 @@ export default () => {
 
     useEffect(() => {
         let tmp = 0
-        socket.on('finished_serie', (data) => {
+        const handleFinishSerie = (data: any) => {
             tmp += 1
             /** console.log('finished serie')
             console.log(`serie data:`)
@@ -57,11 +57,19 @@ export default () => {
                 setId_duel(data.id_duel)
                 setHvisible(true)
             }
-        })
-
-        socket.on('success_request', () => {
+        }
+        const handleNotification = () => {
             Notifications.friendNotification()
-        })
+        }
+
+        socket.on('finished_serie', handleFinishSerie)
+
+        socket.on('success_request', handleNotification)
+
+        return () => {
+            socket.off('finished_serie', handleFinishSerie)
+            socket.off('success_request', handleNotification)
+        }
     }, [])
 
     const onShow = () => {

@@ -18,13 +18,17 @@ export default () => {
     const navigation = useNavigation<FriendNavProp>()
     const { params } = useRoute<FriendRouteProp>()
     const { option: paramsOption } = params
-    const [option, setOption] = useState(paramsOption ?? 1)
+    const [option, setOption] = useState(1)
 
     useEffect(() => {
         if (!user.id) {
             navigation.navigate('noaccess')
         }
     }, [user])
+
+    useEffect(() => {
+        setOption(paramsOption)
+    }, [paramsOption])
 
     const onPressList = () => {
         setOption(1)

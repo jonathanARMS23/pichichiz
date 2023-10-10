@@ -125,10 +125,15 @@ export default () => {
 
     // connexion au serveur socket
     useEffect(() => {
-        Socket.on('connect', () => {
+        const onConnect = () => {
             console.log('connected')
-        })
+        }
+        Socket.on('connect', onConnect)
         Socket.emit('launch', user)
+
+        return () => {
+            Socket.off('connect', onConnect)
+        }
     }, [])
 
     return (

@@ -39,7 +39,7 @@ export default class Quiz {
 
     protected types = models
 
-    protected url = `http://test2.footballdatabase.eu/quizz/quizz.php?log=${this.log}&pass=${this.pass}`
+    protected url = `https://www.footballdatabase.eu/quizz/quizz.php?log=${this.log}&pass=${this.pass}`
 
     // méthode pour récupérer les questions
     public getQuestions = async (model: string, level: number) => {

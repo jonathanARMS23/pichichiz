@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@addapptr/react-native-aatkit": "^2.3.0",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/push-notification-ios": "^1.10.1",
     "@react-navigation/bottom-tabs": "^6.5.7",

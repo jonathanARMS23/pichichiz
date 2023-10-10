@@ -10,20 +10,6 @@ import Stack from './navigation/stack/Stack'
 import Store from './store/configureStore'
 
 export default () => {
-    // concentrer les opération socket-io ici notamment les events reçu
-    /** socket.emit('friend_request', {
-            auth: {
-                token: `${token}`,
-            },
-            data: {
-                user_id: parseInt(`${User.id}`, 10),
-                friend_id: data.user_id,
-            },
-        }) */
-
-    // initialise notification
-
-    // initialisation from classic API server
     useEffect(() => {
         const API = new OAuth()
         ;(async () => {

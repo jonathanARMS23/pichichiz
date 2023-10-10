@@ -201,9 +201,17 @@ export default () => {
     const [data, setData] = useState<Array<any>>([])
     const [reload, setReload] = useState<boolean>(true)
 
-    socket.on('success_request', () => {
-        onReload()
-    })
+    useEffect(() => {
+        const onSuccess = () => {
+            onReload()
+        }
+
+        socket.on('success_request', onSuccess)
+
+        return () => {
+            socket.off('success_request', onSuccess)
+        }
+    }, [])
 
     useEffect(() => {
         const API = new FriendAPI()

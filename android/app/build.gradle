@@ -107,7 +107,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
     }
 
     splits {
@@ -162,8 +161,6 @@ dependencies {
 
     implementation project(':react-native-notifications')
     implementation 'com.google.firebase:firebase-core:16.0.0'
-
-    implementation 'androidx.multidex:multidex:2.0.1'
 
     // Import the Firebase BoM
     // implementation(platform("com.google.firebase:firebase-bom:32.2.3"))

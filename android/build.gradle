@@ -16,35 +16,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
-
-        maven {
-            url 'https://android-sdk.aatkit.com/maven/'
-        }
-        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" } //Smaato repository
-        maven { url 'https://verve.jfrog.io/artifactory/verve-gradle-release' } //PubNative repository
-        maven { //ironSource repository
-            url 'https://android-sdk.is.com/'
-        }
-        maven { //Bluestack repository
-            credentials {
-                username "madvertise-maven"
-                password "GpdGZ9GE9SK7ByWdM987"
-            }
-            url "https://api.bitbucket.org/2.0/repositories/mngcorp/deploy-maven-bluestack/src/master"
-            authentication {
-                basic(BasicAuthentication)
-            }
-        }
-        maven {
-            url  "https://teads.jfrog.io/artifactory/SDKAndroid-maven-prod"
-        }
-        maven {
-            url 'https://maven.ogury.co'
-        }
-        maven {
-            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
-        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.3.1")
