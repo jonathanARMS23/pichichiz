@@ -34,6 +34,7 @@ const Item = ({ data }: IIProps) => (
                 />
                 <Text style={Style.text}>{`  ${data.age} ans`}</Text>
             </View>
+            <Text style={Style.text}>{`${data.nbp} matchs joués`}</Text>
         </View>
         {/* <Text>{`${}`}</Text> */}
     </View>
