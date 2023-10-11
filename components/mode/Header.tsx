@@ -12,7 +12,7 @@ import { Icon } from 'react-native-eva-icons'
 import { Badge } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../store/hooks/hooks'
 import { RootStackParams } from '../../navigation/tool/tool'
 import Notifications from '../../services/notification'
 import socket from '../../services/socket/socket'
@@ -24,7 +24,7 @@ export default () => {
     const [hvisible, setHvisible] = useState(false)
     const [id_duel, setId_duel] = useState<any>(null)
     const [id_serie, setId_serie] = useState<any>(null)
-    const User = useSelector((state: any) => state.user)
+    const User = useAppSelector((state) => state.user)
     const navigation = useNavigation<SoloHeaderNavProp>()
 
     const onGoBack = () => {
@@ -58,8 +58,9 @@ export default () => {
                 setHvisible(true)
             }
         }
-        const handleNotification = () => {
-            Notifications.friendNotification()
+        const handleNotification = (data: any) => {
+            if (data.friend_id === User.id || data.email === User.email)
+                Notifications.friendNotification()
         }
 
         socket.on('finished_serie', handleFinishSerie)

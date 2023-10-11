@@ -6,7 +6,7 @@ import API from './API'
 import { SOCKET_SERVER_URL } from '../socket/socket'
 
 export default class OAuth extends API {
-    private URL = `https://test2.footballdatabase.eu/api/quizz/index.php?controller=player`
+    private URL = `https://www.footballdatabase.eu/api/quizz/index.php?controller=player`
 
     private SOCKET_SERVER_URL = `${SOCKET_SERVER_URL}/api`
 

@@ -21,15 +21,19 @@ interface IIProps {
 const Item = ({ data }: IIProps) => (
     <View style={Style.item}>
         <Image source={{ uri: `${data.photos}` }} style={Style.photo} />
-        <Text style={Style.text}>{`${data.first_name} ${data.last_name}`}</Text>
-        <View style={Style.info}>
-            <Image
-                source={{
-                    uri: `${data.country_flag}`,
-                }}
-                style={Style.flag}
-            />
-            <Text style={Style.text}>{`  ${data.age} ans`}</Text>
+        <View style={Style.nameBlock}>
+            <Text
+                style={Style.text}
+            >{`${data.first_name} ${data.last_name}`}</Text>
+            <View style={Style.info}>
+                <Image
+                    source={{
+                        uri: `${data.country_flag}`,
+                    }}
+                    style={Style.flag}
+                />
+                <Text style={Style.text}>{`  ${data.age} ans`}</Text>
+            </View>
         </View>
         {/* <Text>{`${}`}</Text> */}
     </View>
@@ -98,10 +102,20 @@ const Style = StyleSheet.create({
         height: 10,
         width: 15,
     },
+    nameBlock: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: 97,
+        maxWidth: 97,
+    },
     info: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
+        maxHeight: 12,
+        minHeight: 12,
     },
     text: {
         fontSize: 9,
