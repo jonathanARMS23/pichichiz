@@ -18,20 +18,37 @@ interface IIProps {
     data: any
 }
 
-const Item = ({ data }: IIProps) => (
-    <View style={Style.item}>
-        <Image
-            source={{
-                uri: `https://footballdatabase.eu/${data.competition_logo}`,
-            }}
-            style={Style.logo}
-        />
-        <View style={Style.info}>
-            <Text style={Style.text}>{`${data.competition_season_name}`}</Text>
-            <Text style={Style.season}>{`${data.season}`}</Text>
+const Item = ({ data }: IIProps) => {
+    const [loadedComp, setLoadedComp] = useState<boolean>(true)
+
+    return (
+        <View style={Style.item}>
+            {loadedComp ? (
+                <Image
+                    source={{
+                        uri: `https://footballdatabase.eu/${data.competition_logo}`,
+                    }}
+                    style={Style.logo}
+                    onError={() => setLoadedComp(false)}
+                    onLoad={() => setLoadedComp(true)}
+                />
+            ) : (
+                <Image
+                    source={{
+                        uri: `https://footballdatabase.eu${data.country_flag}`,
+                    }}
+                    style={Style.flag}
+                />
+            )}
+            <View style={Style.info}>
+                <Text
+                    style={Style.text}
+                >{`${data.competition_season_name}`}</Text>
+                <Text style={Style.season}>{`${data.season}`}</Text>
+            </View>
         </View>
-    </View>
-)
+    )
+}
 
 export default ({ data }: IProps) => {
     const { width } = useWindowDimensions()
@@ -113,5 +130,9 @@ const Style = StyleSheet.create({
         maxWidth: 100,
         fontSize: 10,
         textAlign: 'center',
+    },
+    flag: {
+        width: 63,
+        height: 42,
     },
 })
