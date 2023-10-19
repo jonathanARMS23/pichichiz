@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { ScrollView, View, StyleSheet, useWindowDimensions } from 'react-native'
-import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useAppSelector } from '../store/hooks/hooks'
 import { RootStackParams } from '../navigation/tool/tool'
-import { IState } from '../store/configureStore'
 import Option from './online/Option'
 import Banner from './online/Banner'
 import Header from './mode/Header'
@@ -13,7 +12,8 @@ type OnlineNavProp = StackNavigationProp<RootStackParams, 'room'>
 
 export default () => {
     const { width } = useWindowDimensions()
-    const user = useSelector((state: IState) => state.user)
+    const user = useAppSelector((state) => state.user)
+    const mode = useAppSelector((state) => state.mode)
     const navigation = useNavigation<OnlineNavProp>()
 
     useEffect(() => {
@@ -34,6 +34,7 @@ export default () => {
                         subtitle="Lance un duel à un ami !"
                         description="Vous vous affronterez sur 5 séries de 5 questions. Que le meilleur gagne !"
                         color="#FFDFC8"
+                        disabled={!mode.duelaccess}
                     />
                     <Option
                         title="LIGUE"

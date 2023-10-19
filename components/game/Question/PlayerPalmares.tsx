@@ -21,6 +21,8 @@ interface IIProps {
 const Item = ({ data }: IIProps) => {
     const [loadedComp, setLoadedComp] = useState<boolean>(true)
 
+    if (!data) return null
+
     return (
         <View style={Style.item}>
             {loadedComp ? (
@@ -44,7 +46,9 @@ const Item = ({ data }: IIProps) => {
                 <Text
                     style={Style.text}
                 >{`${data.competition_season_name}`}</Text>
-                <Text style={Style.season}>{`${data.season}`}</Text>
+                {data.season ? (
+                    <Text style={Style.season}>{`${data.season}`}</Text>
+                ) : null}
             </View>
         </View>
     )

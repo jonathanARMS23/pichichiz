@@ -55,6 +55,7 @@ export default ({
     const navigation = useNavigation<OptionNavProp>()
 
     const handlePress = () => {
+        if (disabled) return
         if (type === 'duel') navigation.navigate('duel')
     }
 

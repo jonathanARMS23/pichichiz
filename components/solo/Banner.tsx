@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-raw-text */
 import React, { useState } from 'react'
 import {
     View,
@@ -116,12 +117,28 @@ export default () => {
                             </Text>
                             <Text>
                                 Pour parvenir au niveau supérieur, tu dois
-                                valider au moins 8 réponses sur 10 du niveau
-                                actuel.
+                                valider au moins{' '}
+                                <Text style={Style.strong}>
+                                    8 réponses sur 10
+                                </Text>{' '}
+                                du niveau actuel.
+                            </Text>
+                            <Text>
+                                Si tu fais moins de 8, tu perdras une vie. Ton
+                                nombre de vies se réinitialise à{' '}
+                                <Text style={Style.strong}>5 minimum</Text>{' '}
+                                chaque jour.
                             </Text>
                             <Text>
                                 Une fois atteint le niveau 50, tu auras débloqué
-                                le mode MULTI-JOUEURS.
+                                le mode{' '}
+                                <Text style={Style.strong}>MULTI-JOUEURS</Text>.
+                            </Text>
+                            <Text>
+                                Tu peux retenter ta chance sur un niveau déjà
+                                réussi sans risque de perdre des vies pour
+                                améliorer ton score ou simplement avoir d'autres
+                                questions.
                             </Text>
                         </View>
                     </View>
@@ -297,8 +314,8 @@ const Style = StyleSheet.create({
         justifyContent: 'space-around',
         minWidth: 350,
         maxWidth: 350,
-        minHeight: 300,
-        maxHeight: 300,
+        minHeight: 370,
+        maxHeight: 370,
         borderRadius: 10,
         padding: 20,
         backgroundColor: '#FFFFFF',
@@ -335,8 +352,8 @@ const Style = StyleSheet.create({
         justifyContent: 'space-around',
         minWidth: 340,
         maxWidth: 340,
-        minHeight: 200,
-        maxHeight: 200,
+        minHeight: 300,
+        maxHeight: 300,
     },
     healthModalWrapper: {
         flex: 1,
@@ -385,6 +402,10 @@ const Style = StyleSheet.create({
         borderRadius: 7,
     },
     title: {
+        fontWeight: 'bold',
+    },
+    strong: {
+        color: '#1B2444',
         fontWeight: 'bold',
     },
 })

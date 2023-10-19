@@ -1,5 +1,6 @@
 /* eslint-disable no-lonely-if */
 import React, { useEffect, useState } from 'react'
+import { BackHandler } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useRoute, RouteProp } from '@react-navigation/native'
 import { RootStackParams } from '../navigation/tool/tool'
@@ -25,6 +26,15 @@ export default () => {
     const [step, setStep] = useState(0)
     const [verify, setVerify] = useState(false)
     const [SType, setSType] = useState('classic')
+
+    // empêcher le retour en arrière
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true)
+
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', () => true)
+        }
+    }, [])
 
     useEffect(() => {
         // get serie

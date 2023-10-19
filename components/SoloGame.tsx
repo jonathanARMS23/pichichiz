@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react'
+import { BackHandler, AppState } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRoute, RouteProp } from '@react-navigation/native'
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParams } from '../navigation/tool/tool'
 import { initialize } from '../store/reducers/game'
+import { setPlayerHP } from '../services/factory/User'
+import { setHP } from '../store/reducers/user'
 import Quiz from '../services/store/quiz'
 import Quizz from './sologame/Quizz'
 import NoHP from './sologame/NoHP'
 import Finished from './sologame/Finished'
 import Loading from './game/Loading'
 import ErrorLoading from './sologame/ErrorLoading'
+import HPStore from '../services/store/HP'
 
 type SoloGameNavProp = RouteProp<RootStackParams, 'sologame'>
+type SoloGameNav = StackNavigationProp<RootStackParams, 'sologame'>
 
 export default () => {
+    const navigation = useNavigation<SoloGameNav>()
     const { params } = useRoute<SoloGameNavProp>()
     const stage = params.level
     const dispatch = useDispatch()
@@ -73,6 +80,41 @@ export default () => {
         setStep9(null)
         setStep10(null)
     }
+
+    // empêcher le retour en arrière
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true)
+
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', () => true)
+        }
+    }, [])
+
+    // si le joueur quitte l'app en plein jeu
+    useEffect(() => {
+        const onLeave = async () => {
+            if (user.career.length < level + 1) {
+                if (user.id) {
+                    // le hp diminue
+                    const API = new HPStore()
+                    if (user.career.length < level + 1) {
+                        const response = await API.substractHP(user.id, 1)
+                        if (!response.canceled) {
+                            dispatch(setHP(response))
+                            await setPlayerHP(response)
+                        }
+                    }
+                } else {
+                    dispatch(setHP(user.hp - 1))
+                    await setPlayerHP(user.hp - 1)
+                }
+                console.log('lose one life')
+                navigation.navigate('solo')
+            }
+        }
+
+        AppState.addEventListener('change', onLeave)
+    }, [])
 
     useEffect(() => {
         dispatch(initialize({ pseudo: user.pseudo, score: user.score }))

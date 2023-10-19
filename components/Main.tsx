@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useEffect } from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, BackHandler } from 'react-native'
 // import { useSelector } from 'react-redux'
 import { InitializeBonusState } from '../store/reducers/bonus'
 import { setCareer, setHP } from '../store/reducers/user'
@@ -11,6 +11,7 @@ import {
     formatBonus,
 } from '../services/factory/bonus'
 import { setInit } from '../store/reducers/dailyBonus'
+import { setDuelAccess } from '../store/reducers/mode'
 import { useAppSelector, useAppDispatch } from '../store/hooks/hooks'
 import Option from './main/Option'
 import User from './main/User'
@@ -29,8 +30,17 @@ export default () => {
     const { pseudo, career } = user
     const { level } = career[career.length - 1]
 
+    // empêcher le retour en arrière
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true)
+
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', () => true)
+        }
+    }, [])
+
     // fonction pour charger le parcour du joueur connecté
-    const InitUserCareer = async (user_id: number) => {
+    const InitUserCareer = async (user_id: number): Promise<Array<any>> => {
         const API = new Solo()
         const response = await API.get(user_id)
         if (!response.canceled && Array.isArray(response)) {
@@ -91,6 +101,7 @@ export default () => {
                         parseInt(`${user.id}`, 10)
                     )
                     Dispatch(setCareer(loaded_career))
+                    Dispatch(setDuelAccess(loaded_career.length))
                     // sinon on charge les bonus du local data
 
                     // initialisation daily bonus

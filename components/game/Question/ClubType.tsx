@@ -42,6 +42,11 @@ export default ({ data }: IProps) => {
         }
     }, [])
 
+    const isChampionnat = () => {
+        const hasJournee = `${info.text}`.toLowerCase().includes('journée')
+        return hasJournee
+    }
+
     if (!info) return null
 
     return (
@@ -58,14 +63,16 @@ export default ({ data }: IProps) => {
             </View>
             <View
                 style={
-                    scoring.length > 0 || scoring_vs.length > 0
+                    (scoring.length > 0 || scoring_vs.length > 0) &&
+                    !isChampionnat()
                         ? { ...Style.match, minHeight: 147, maxHeight: 147 }
                         : Style.match
                 }
             >
                 <View
                     style={
-                        scoring.length > 0 || scoring_vs.length > 0
+                        (scoring.length > 0 || scoring_vs.length > 0) &&
+                        !isChampionnat()
                             ? {
                                   ...Style.section,
                                   minWidth: 144,
@@ -87,8 +94,8 @@ export default ({ data }: IProps) => {
                             ...Style.clubs,
                             minWidth: 144,
                             maxWidth: 144,
-                            minHeight: 44,
-                            maxHeight: 44,
+                            minHeight: 60,
+                            maxHeight: 60,
                         }}
                     >
                         <Image
@@ -96,15 +103,18 @@ export default ({ data }: IProps) => {
                             style={Style.icon}
                         />
                     </View>
-                    <FlatList
-                        data={scoring}
-                        keyExtractor={(item, index) => `player${index}`}
-                        renderItem={({ item }) => <Player data={item} />}
-                    />
+                    {!isChampionnat() ? (
+                        <FlatList
+                            data={scoring}
+                            keyExtractor={(item, index) => `player${index}`}
+                            renderItem={({ item }) => <Player data={item} />}
+                        />
+                    ) : null}
                 </View>
                 <View
                     style={
-                        scoring.length > 0 || scoring_vs.length > 0
+                        (scoring.length > 0 || scoring_vs.length > 0) &&
+                        !isChampionnat()
                             ? {
                                   ...Style.section,
                                   flexDirection: 'row',
@@ -130,7 +140,8 @@ export default ({ data }: IProps) => {
                 </View>
                 <View
                     style={
-                        scoring.length > 0 || scoring_vs.length > 0
+                        (scoring.length > 0 || scoring_vs.length > 0) &&
+                        !isChampionnat()
                             ? {
                                   ...Style.section,
                                   minWidth: 144,
@@ -152,8 +163,8 @@ export default ({ data }: IProps) => {
                             ...Style.clubs,
                             minWidth: 144,
                             maxWidth: 144,
-                            minHeight: 44,
-                            maxHeight: 44,
+                            minHeight: 60,
+                            maxHeight: 60,
                         }}
                     >
                         <Text
@@ -161,16 +172,16 @@ export default ({ data }: IProps) => {
                                 ...Style.club,
                                 minWidth: 144,
                                 maxWidth: 144,
-                                minHeight: 60,
-                                maxHeight: 60,
                             }}
                         >{`${info.vs}`}</Text>
                     </View>
-                    <FlatList
-                        data={scoring_vs}
-                        keyExtractor={(item, index) => `playervs${index}`}
-                        renderItem={({ item }) => <Player data={item} />}
-                    />
+                    {!isChampionnat ? (
+                        <FlatList
+                            data={scoring_vs}
+                            keyExtractor={(item, index) => `playervs${index}`}
+                            renderItem={({ item }) => <Player data={item} />}
+                        />
+                    ) : null}
                 </View>
             </View>
         </View>

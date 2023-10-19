@@ -89,7 +89,7 @@ export default ({ data, type }: IProps) => {
             case 'who_is_this_player_by_nationality':
                 return `Pour quelle équipe nationale a joué ce joueur ?`
             case 'who_is_this_player_by_palmares':
-                return `Qui est ce joueur ?`
+                return `Qui est ce joueur qui a obtenu ces palmarès ?`
             default:
                 return ''
         }
