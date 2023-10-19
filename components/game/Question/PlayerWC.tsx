@@ -25,7 +25,7 @@ const Item = ({ data }: IIProps) => (
     <View style={Style.item}>
         <Image
             source={{
-                uri: `https://footballdatabase.eu/${data.logo}`,
+                uri: `${data.logo}`,
             }}
             style={Style.logo}
         />

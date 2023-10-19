@@ -41,7 +41,7 @@ const Player = ({ data }: IPProps) => {
             <View style={Style.item}>
                 <Image
                     source={{
-                        uri: `https://footballdatabase.eu${data.country_flag}`,
+                        uri: `${data.country_flag}`,
                     }}
                     style={Style.flag}
                 />

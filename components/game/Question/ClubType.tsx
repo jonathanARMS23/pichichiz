@@ -48,7 +48,7 @@ export default ({ data }: IProps) => {
         <View style={{ ...Style.container, minWidth: width, maxWidth: width }}>
             <Image
                 source={{
-                    uri: `https://footballdatabase.eu/${info.logo_comp}`,
+                    uri: `${info.logo_comp}`,
                 }}
                 style={Style.logo}
             />

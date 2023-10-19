@@ -26,7 +26,7 @@ const Item = ({ data }: IIProps) => {
             {loadedComp ? (
                 <Image
                     source={{
-                        uri: `https://footballdatabase.eu/${data.competition_logo}`,
+                        uri: `${data.competition_logo}`,
                     }}
                     style={Style.logo}
                     onError={() => setLoadedComp(false)}
@@ -35,7 +35,7 @@ const Item = ({ data }: IIProps) => {
             ) : (
                 <Image
                     source={{
-                        uri: `https://footballdatabase.eu${data.country_flag}`,
+                        uri: `${data.country_flag}`,
                     }}
                     style={Style.flag}
                 />

@@ -19,10 +19,7 @@ export default ({ data }: IProps) => {
 
     return (
         <View style={{ ...Style.wrapper, minWidth: width, maxWidth: width }}>
-            <Image
-                source={{ uri: `https://footballdatabase.eu${info.photos}` }}
-                style={Style.image}
-            />
+            <Image source={{ uri: `${info.photos}` }} style={Style.image} />
         </View>
     )
 }
