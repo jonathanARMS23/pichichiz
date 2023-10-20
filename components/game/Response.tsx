@@ -13,7 +13,11 @@ import { Icon } from 'react-native-eva-icons'
 import { useDispatch } from 'react-redux'
 import { upScore } from '../../store/reducers/game'
 // import { useBonus, InitializeBonusState } from '../../store/reducers/bonus'
-import { extractResponseData, rightResponse } from '../../services/factory/Game'
+import {
+    extractResponseData,
+    rightResponse,
+    manageIndice,
+} from '../../services/factory/Game'
 // import { useBonusFactory } from '../../services/factory/bonus'
 import Option from './Option'
 import Bonus from './Bonus/Bonus'
@@ -37,6 +41,8 @@ export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
     const [valid, setValid] = useState(false)
     const [chance, setChance] = useState(1)
     const [reload, setReload] = useState(false)
+    const [indice, setIndice] = useState<string | null>(null)
+    const [showIndice, setShowIndice] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -44,6 +50,8 @@ export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
         if (extractChoice) setChoice(extractChoice)
         const extract = rightResponse(data)
         if (extract) setRight(extract)
+        const extractIndice = manageIndice(data)
+        if (extractIndice) setIndice(extractIndice)
     }, [])
 
     useEffect(() => {
@@ -133,6 +141,9 @@ export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
         if (type === '50/50') {
             fifty()
         }
+        if (type === 'INDICE') {
+            setShowIndice(true)
+        }
     }
 
     if (reload) return null
@@ -140,71 +151,113 @@ export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
     return (
         <View
             style={{
-                ...Style.container,
+                ...Style.supercontainer,
                 minWidth: width,
                 maxWidth: width,
-                minHeight: ResponseHeight,
-                maxHeight: ResponseHeight,
+                minHeight: showIndice ? ResponseHeight + 40 : ResponseHeight,
+                maxHeight: showIndice ? ResponseHeight + 40 : ResponseHeight,
             }}
         >
-            <View
-                style={{
-                    ...Style.listContainer,
-                    minWidth: width,
-                    maxWidth: width,
-                    minHeight: ResponseHeight - 90,
-                    maxHeight: ResponseHeight - 90,
-                }}
-            >
-                <ScrollView horizontal>
-                    <FlatList
-                        data={choice}
-                        keyExtractor={(item, index) => `choice${index}`}
-                        renderItem={({ item }) => (
-                            <Option
-                                id={item.id}
-                                response={item.text}
-                                responseId={right}
-                                verified={verify}
-                                verify={setVerify}
-                                setValid={setValid}
-                                chance={chance}
-                                setChance={setChance}
-                                setStopped={setStopped}
-                            />
-                        )}
-                    />
-                </ScrollView>
-            </View>
-            {verify ? (
+            {showIndice ? (
                 <View
                     style={{
-                        ...Style.footer,
+                        ...Style.indice,
                         minWidth: width,
                         maxWidth: width,
                     }}
                 >
-                    <TouchableOpacity
-                        style={Style.button}
-                        onPress={handlePress}
-                    >
-                        <Text>SUIVANT</Text>
-                        <Icon
-                            name="arrow-forward"
-                            fill="#000000"
-                            height={20}
-                            width={20}
-                        />
-                    </TouchableOpacity>
+                    <Text style={{ fontSize: 11 }}>
+                        {indice ?? `Indice non disponible pour cette question`}
+                    </Text>
                 </View>
-            ) : (
-                <Bonus onUse={onUse} />
-            )}
+            ) : null}
+            <View
+                style={{
+                    ...Style.container,
+                    minWidth: width,
+                    maxWidth: width,
+                    minHeight: ResponseHeight,
+                    maxHeight: ResponseHeight,
+                }}
+            >
+                <View
+                    style={{
+                        ...Style.listContainer,
+                        minWidth: width,
+                        maxWidth: width,
+                        minHeight: showIndice
+                            ? ResponseHeight - 130
+                            : ResponseHeight - 90,
+                        maxHeight: showIndice
+                            ? ResponseHeight - 130
+                            : ResponseHeight - 90,
+                    }}
+                >
+                    <ScrollView horizontal>
+                        <FlatList
+                            data={choice}
+                            keyExtractor={(item, index) => `choice${index}`}
+                            renderItem={({ item }) => (
+                                <Option
+                                    id={item.id}
+                                    response={item.text}
+                                    responseId={right}
+                                    verified={verify}
+                                    verify={setVerify}
+                                    setValid={setValid}
+                                    chance={chance}
+                                    setChance={setChance}
+                                    setStopped={setStopped}
+                                />
+                            )}
+                        />
+                    </ScrollView>
+                </View>
+                {verify ? (
+                    <View
+                        style={{
+                            ...Style.footer,
+                            minWidth: width,
+                            maxWidth: width,
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={Style.button}
+                            onPress={handlePress}
+                        >
+                            <Text>SUIVANT</Text>
+                            <Icon
+                                name="arrow-forward"
+                                fill="#000000"
+                                height={20}
+                                width={20}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                    <Bonus onUse={onUse} />
+                )}
+            </View>
         </View>
     )
 }
 
 const Style = StyleSheet.create({
+    indice: {
+        flex: 1,
+        minHeight: 40,
+        maxHeight: 40,
+        backgroundColor: '#EBECF0',
+        paddingHorizontal: 3,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    supercontainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
