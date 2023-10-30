@@ -317,4 +317,36 @@ export default class SerieStore extends API {
             throw error
         }
     }
+
+    public GetQuestions = async (id_serie: number | string) => {
+        try {
+            const dataToken = await AsyncStorage.getItem('socket_token')
+            if (!dataToken) return { canceled: true }
+
+            console.log('je lance la recup')
+
+            const { token } = JSON.parse(dataToken)
+            if (!token) return { canceled: true }
+
+            const response = (
+                await axios.get(
+                    `${this.URL}/serie/questions/full/${id_serie}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+            ).data
+
+            console.log(response)
+
+            if (!response.success) return { canceled: true }
+
+            return { saved: response.saved, data: response.data }
+        } catch (error) {
+            if (axios.isCancel(error)) return { canceled: true }
+            throw error
+        }
+    }
 }

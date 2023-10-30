@@ -24,15 +24,9 @@ export default ({ level, steps, vs }: IProps) => {
     // const User = useSelector((state: any) => state.user)
     const [inputResponse, setInputResponse] = useState(0)
     const [step1, setStep1] = useState<any>(null)
-    /** const [step2, setStep2] = useState<any>(null)
-    const [step3, setStep3] = useState<any>(null)
-    const [step4, setStep4] = useState<any>(null)
-    const [step5, setStep5] = useState<any>(null)
-    const [step6, setStep6] = useState<any>(null) */
     const [step, setStep] = useState(parseInt(`${steps}`, 10))
     const [questions, setQuestions] = useState<Array<any>>([])
     const [finished, setFinished] = useState(false) // duel is finished ?
-    // const [equal, setEqual] = useState(false)
     const [error, setError] = useState(false)
 
     // chargement des questions
@@ -54,11 +48,6 @@ export default ({ level, steps, vs }: IProps) => {
                         response.length > 0
                     ) {
                         setStep1(response[0])
-                        /* setStep2(response[1])
-                        setStep3(response[2])
-                        setStep4(response[3])
-                        setStep5(response[4])
-                        setStep6(response[5]) */
                     }
                 }
             }
@@ -76,14 +65,6 @@ export default ({ level, steps, vs }: IProps) => {
         switch (indice) {
             case 0:
                 return step1
-            /* case 1:
-                return step2
-            case 2:
-                return step3
-            case 3:
-                return step4
-            case 4:
-                return step5 */
             default:
                 return step1
         }
@@ -158,91 +139,6 @@ export default ({ level, steps, vs }: IProps) => {
                                     id_serie: Duel.id_serie,
                                 })
                             }
-                            // récupérer le numéro de la série pour savoir si on doit cloturer le duel ou non (limité à 5 série)
-                            /** const currentSerieNumber =
-                                await SAPI.GetSerieNumber(Duel.id_duel)
-                            if (!currentSerieNumber.canceled) {
-                                let DS_response: any
-                                let isFinished = false
-                                // si c'est la dernière
-                                if (currentSerieNumber === 5) {
-                                    // vérifier si cette dernière est sujette à un tir au but
-                                    if (
-                                        parseInt(
-                                            `${response_S.score_player1}`,
-                                            10
-                                        ) ===
-                                            parseInt(
-                                                `${response_S.score_player2}`,
-                                                10
-                                            ) &&
-                                        response_S.type === 'classic'
-                                    ) {
-                                        // confirmer le tir au but en mettant Equal sur true
-                                        setEqual(true)
-                                        // create new Serie (tir au but)
-                                        DS_response = await SAPI.CreateSerie(
-                                            Duel.id_duel,
-                                            Type.PENALTY
-                                        )
-                                    } else {
-                                        setEqual(false)
-                                        // finish duel
-                                        const D_response =
-                                            await DAPI.FinishDuel(Duel.id_duel)
-                                        if (!D_response.canceled) {
-                                            setFinished(true)
-                                            isFinished = true
-                                        }
-                                    }
-                                } else {
-                                    // vérifier si cette dernière est sujette à un tir au but
-                                    if (
-                                        parseInt(
-                                            `${response_S.score_player1}`,
-                                            10
-                                        ) ===
-                                            parseInt(
-                                                `${response_S.score_player2}`,
-                                                10
-                                            ) &&
-                                        response_S.type === 'classic'
-                                    ) {
-                                        // confirmer le tir au but en mettant Equal sur true
-                                        setEqual(true)
-                                        // create new Serie (tir au but)
-                                        DS_response = await SAPI.CreateSerie(
-                                            Duel.id_duel,
-                                            Type.PENALTY
-                                        )
-                                    } else {
-                                        setEqual(false)
-                                        // create new Serie
-                                        DS_response = await SAPI.CreateSerie(
-                                            Duel.id_duel,
-                                            Type.CLASSIC
-                                        )
-                                    }
-                                }
-
-                                if (isFinished) {
-                                    console.log(`duel terminé`)
-                                    newstep++
-                                    setStep(newstep)
-                                } else {
-                                    if (!DS_response.canceled) {
-                                        console.log(`serie terminé`)
-                                        // envoie du notification de fin de série
-                                        socket.emit(`onFinishSerie`, {
-                                            id_duel: Duel.id_duel,
-                                            user_id: Duel.id_player1,
-                                            id_serie: Duel.id_serie,
-                                        })
-                                        newstep++
-                                        setStep(newstep)
-                                    } else setError(true)
-                                }
-                            } else setError(true) */
                         } else setError(true)
                     } else setError(true)
                 } else setError(true)
@@ -264,71 +160,6 @@ export default ({ level, steps, vs }: IProps) => {
                 setInput={setInputResponse}
             />
         )
-
-    /** if (step2 && step === 1)
-        return (
-            <Quizz
-                type={step2.quizz_question}
-                data={step2}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step3 && step === 2)
-        return (
-            <Quizz
-                type={step3.quizz_question}
-                data={step3}
-                level={level}
-                question={step}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step4 && step === 3)
-        return (
-            <Quizz
-                type={step4.quizz_question}
-                data={step4}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step5 && step === 4)
-        return (
-            <Quizz
-                type={step5.quizz_question}
-                data={step5}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step6 && step === 5)
-        return (
-            <Quizz
-                type={step6.quizz_question}
-                data={step6}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        ) */
 
     if (step === 1)
         return (

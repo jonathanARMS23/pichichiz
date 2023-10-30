@@ -40,6 +40,7 @@ export type RootStackParams = {
     solo: undefined
     duel: undefined
     notification: undefined
+    duelfinished: undefined
     duelgame: {
         id_duel: number | string
         id_serie: number | string

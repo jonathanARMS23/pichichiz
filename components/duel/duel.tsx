@@ -89,7 +89,9 @@ const Item = ({ data }: IIProps) => {
             const API = new SerieStore()
             const DAPI = new DuelStore()
             const myTurn =
+                !data.turn ||
                 parseInt(`${User.id}`, 10) === parseInt(`${data.turn}`, 10)
+
             if (
                 parseInt(`${User.id}`, 10) === parseInt(`${data.id_user}`, 10)
             ) {
@@ -331,7 +333,8 @@ const Item = ({ data }: IIProps) => {
                 <Text>{`  ${data.pseudo_vs}`}</Text>
             </View>
             <View style={Style.playerAction}>
-                {parseInt(`${User.id}`, 10) === parseInt(`${data.turn}`, 10) ? (
+                {!data.turn ||
+                parseInt(`${User.id}`, 10) === parseInt(`${data.turn}`, 10) ? (
                     <>
                         <TouchableOpacity
                             onPress={onFight}

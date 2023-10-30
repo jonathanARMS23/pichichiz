@@ -91,7 +91,7 @@ export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
             const options: Array<any> = []
             let response: any
             for (const el of choice) {
-                if (el.id !== right) options.push(el)
+                if (`${el.id}` !== `${right}`) options.push(el)
                 else response = el
             }
             const randomIndex = Math.floor(Math.random() * 3)

@@ -3,8 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import Header from './mode/Header'
 import Board from './profil/ Board'
-import Menu from './profil/Menu'
-import BottomMenu from './profil/BottomMenu'
+import List from './finishduel/List'
 
 export default () => {
     const user = useSelector((state: any) => state.user)
@@ -16,9 +15,7 @@ export default () => {
             <ScrollView>
                 <View style={Style.body}>
                     <Board pseudo={pseudo} />
-                    <Menu />
-                    <View style={Style.space}></View>
-                    <BottomMenu />
+                    <List />
                 </View>
             </ScrollView>
         </View>
@@ -33,9 +30,5 @@ const Style = StyleSheet.create({
     body: {
         flex: 1,
         alignItems: 'center',
-    },
-    space: {
-        flex: 1,
-        minHeight: 100,
     },
 })

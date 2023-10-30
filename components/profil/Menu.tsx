@@ -10,17 +10,23 @@ export default () => {
     // eslint-disable-next-line no-unused-vars
     const navigation = useNavigation<MenuNavProp>()
 
+    const openDuels = () => {
+        navigation.navigate('duelfinished')
+    }
+
     return (
         <View style={Style.container}>
             <View style={Style.bloc}>
                 <TouchableOpacity
                     style={{
                         ...Style.button1,
-                        ...Style.disabled,
+                        // ...Style.disabled,
                         backgroundColor: '#1B2444',
                     }}
                 >
-                    <Text style={Style.textButton}>MES DUELS</Text>
+                    <Text onPress={openDuels} style={Style.textButton}>
+                        MES DUELS
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{

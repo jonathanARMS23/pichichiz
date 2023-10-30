@@ -146,6 +146,59 @@ export default class DuelStore extends API {
         }
     }
 
+    public GetMyFinishedDuel = async (id_user: number) => {
+        try {
+            const dataToken = await AsyncStorage.getItem('socket_token')
+            if (!dataToken) return { canceled: true }
+
+            const { token } = JSON.parse(dataToken)
+            if (!token) return { canceled: true }
+
+            const response = (
+                await axios.get(
+                    `${this.URL}/duels/finished?id_user=${id_user}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+            ).data
+
+            if (!response.success) return { canceled: true }
+
+            return response.data
+        } catch (error) {
+            if (axios.isCancel(error)) return { canceled: true }
+            throw error
+        }
+    }
+
+    public getDuelWinner = async (id_duel: number) => {
+        try {
+            const dataToken = await AsyncStorage.getItem('socket_token')
+            if (!dataToken) return { canceled: true }
+
+            const { token } = JSON.parse(dataToken)
+            if (!token) return { canceled: true }
+
+            const response = (
+                await axios.get(`${this.URL}/duel/winner/${id_duel}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            ).data
+
+            if (!response.success) return { canceled: true }
+
+            return response.data
+        } catch (error) {
+            if (axios.isCancel(error)) return { canceled: true }
+            throw error
+        }
+    }
+
     public GetDuels = async (id_user: number) => {
         try {
             const dataToken = await AsyncStorage.getItem('socket_token')

@@ -42,10 +42,10 @@ export default ({ data }: IProps) => {
         }
     }, [])
 
-    const isChampionnat = () => {
-        const hasJournee = `${info.text}`.toLowerCase().includes('journée')
-        return hasJournee
-    }
+    // const hasJournee = `${info.text}`.toLowerCase().includes('journée')
+    // return hasJournee
+
+    const isChampionnat = () => info.championnat && info.championnat !== false
 
     if (!info) return null
 
@@ -64,7 +64,7 @@ export default ({ data }: IProps) => {
             <View
                 style={
                     (scoring.length > 0 || scoring_vs.length > 0) &&
-                    !isChampionnat()
+                    isChampionnat()
                         ? { ...Style.match, minHeight: 147, maxHeight: 147 }
                         : Style.match
                 }
@@ -72,7 +72,7 @@ export default ({ data }: IProps) => {
                 <View
                     style={
                         (scoring.length > 0 || scoring_vs.length > 0) &&
-                        !isChampionnat()
+                        isChampionnat()
                             ? {
                                   ...Style.section,
                                   minWidth: 144,
@@ -103,7 +103,7 @@ export default ({ data }: IProps) => {
                             style={Style.icon}
                         />
                     </View>
-                    {!isChampionnat() ? (
+                    {isChampionnat() ? (
                         <FlatList
                             data={scoring}
                             keyExtractor={(item, index) => `player${index}`}
@@ -114,7 +114,7 @@ export default ({ data }: IProps) => {
                 <View
                     style={
                         (scoring.length > 0 || scoring_vs.length > 0) &&
-                        !isChampionnat()
+                        isChampionnat()
                             ? {
                                   ...Style.section,
                                   flexDirection: 'row',
@@ -141,7 +141,7 @@ export default ({ data }: IProps) => {
                 <View
                     style={
                         (scoring.length > 0 || scoring_vs.length > 0) &&
-                        !isChampionnat()
+                        isChampionnat()
                             ? {
                                   ...Style.section,
                                   minWidth: 144,
@@ -175,7 +175,7 @@ export default ({ data }: IProps) => {
                             }}
                         >{`${info.vs}`}</Text>
                     </View>
-                    {!isChampionnat ? (
+                    {isChampionnat() ? (
                         <FlatList
                             data={scoring_vs}
                             keyExtractor={(item, index) => `playervs${index}`}

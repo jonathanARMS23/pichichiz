@@ -16,11 +16,11 @@ import { clearDuel } from '../../../store/reducers/duel'
 type FooterNavProp = StackNavigationProp<RootStackParams, 'sologame'>
 
 interface IProps {
-    isEqual: boolean
+    isEqual?: boolean
     isFinished: boolean
 }
 
-export default ({ isFinished, isEqual }: IProps) => {
+export default ({ isFinished, isEqual = false }: IProps) => {
     const navigation = useNavigation<FooterNavProp>()
     const { width } = useWindowDimensions()
     const dispatch = useDispatch()

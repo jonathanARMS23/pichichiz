@@ -37,7 +37,7 @@ export default ({
 
     useEffect(() => {
         if (verified) {
-            if (id === responseId) setResult(true)
+            if (`${id}` === `${responseId}`) setResult(true)
             else setResult(false)
         }
     }, [verified, chance])

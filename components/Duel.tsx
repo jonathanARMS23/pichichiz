@@ -27,10 +27,12 @@ export default () => {
         let timeout: number = 0
         ;(async () => {
             if (isSubscribed && reload) {
+                // charger les duels en progrssion
                 const D_response = await DAPI.GetInProgressDuel(User.id)
                 if (!D_response.canceled && Array.isArray(D_response))
                     setDuel(D_response)
 
+                // charger la liste des amis
                 const F_response = await FAPI.getUserFriends(User.id)
                 if (
                     !F_response.canceled &&

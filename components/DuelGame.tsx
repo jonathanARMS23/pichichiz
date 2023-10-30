@@ -1,14 +1,15 @@
 /* eslint-disable no-lonely-if */
 import React, { useEffect, useState } from 'react'
 import { BackHandler } from 'react-native'
-import { useSelector } from 'react-redux'
 import { useRoute, RouteProp } from '@react-navigation/native'
 import { RootStackParams } from '../navigation/tool/tool'
+import { useAppSelector } from '../store/hooks/hooks'
 import SerieStore from '../services/store/Serie'
 import SerieQuestionStore from '../services/store/SerieQuestion'
 import Loading from './duelgame/Loading'
-import Serie from './duelgame/Serie'
-import Serie2 from './duelgame/Serie2'
+// import Serie from './duelgame/Serie'
+// import Serie2 from './duelgame/Serie2'
+import DuelSerie from './duelgame/DuelSerie'
 import Penalty from './duelgame/Penalty'
 import Penalty2 from './duelgame/Penalty2'
 import Wait from './duelgame/Wait'
@@ -18,8 +19,9 @@ type duelGameNavigationProp = RouteProp<RootStackParams, 'duelgame'>
 export default () => {
     const route = useRoute<duelGameNavigationProp>()
     const { id_duel, id_serie } = route.params
-    const User = useSelector((state: any) => state.user)
-    const Duel = useSelector((state: any) => state.duel)
+    const User = useAppSelector((state) => state.user)
+    const Duel = useAppSelector((state) => state.duel)
+    const [player, setPlayer] = useState(1)
     const [level, setLevel] = useState(1)
     // eslint-disable-next-line no-unused-vars
     const [waiting, setWaiting] = useState(false)
@@ -29,6 +31,13 @@ export default () => {
 
     // empêcher le retour en arrière
     useEffect(() => {
+        // user verification
+        const person =
+            parseInt(`${User.id}`, 10) === parseInt(`${Duel.id_player1}`, 10)
+                ? 1
+                : 2
+        setPlayer(person)
+        // control back button
         BackHandler.addEventListener('hardwareBackPress', () => true)
 
         return () => {
@@ -53,6 +62,7 @@ export default () => {
                     parseInt(`${id_duel}`, 10)
                 )
                 if (!Sresponse.canceled) {
+                    console.log(Sresponse)
                     setSType(Sresponse.type)
                     /**
                      * Si je suis le défieur:
@@ -65,35 +75,45 @@ export default () => {
                      * 3 - à la fin de mon jeu une nouvelle serie est créer
                      */
                     if (
-                        parseInt(`${User.id}`, 10) ===
-                        parseInt(`${Duel.id_player1}`, 10)
-                    ) {
-                        // je suis le joueur 1
-                        if (Sresponse.score_player1 === null) {
-                            // joueur 1 doit jouer
-                            // définir l'attente sur false
-                            setWaiting(false)
-                            // verifier le steps
-                            const SQ_response =
-                                await SQAPI.GetSerieQuestionCount(
-                                    parseInt(`${id_serie}`, 10)
-                                )
-                            if (!SQ_response.canceled) setStep(SQ_response)
+                        Sresponse.score_player1 === null &&
+                        Sresponse.score_player2 === null
+                    )
+                        setWaiting(false)
+                    else {
+                        if (
+                            parseInt(`${User.id}`, 10) ===
+                            parseInt(`${Duel.id_player1}`, 10)
+                        ) {
+                            // je suis le joueur 1
+                            if (Sresponse.score_player1 === null) {
+                                // joueur 1 doit jouer
+                                // définir l'attente sur false
+                                setWaiting(false)
+                                // verifier le steps
+                                const SQ_response =
+                                    await SQAPI.GetValidatedCount(
+                                        parseInt(`${id_serie}`, 10),
+                                        1
+                                    )
+                                if (!SQ_response.canceled) setStep(SQ_response)
 
-                            // sinon joueur 1 doit patienter
-                        } else setWaiting(true)
-                    } else {
-                        // je suis le joueur 2
-                        // je dois attendre que le joueur 1 ait fini la série
-                        if (Sresponse.score_player1 === null) setWaiting(true)
-                        else {
-                            setWaiting(false)
-                            // verifier le steps
-                            const SQ_response = await SQAPI.GetValidatedCount(
-                                parseInt(`${id_serie}`, 10),
-                                2
-                            )
-                            if (!SQ_response.canceled) setStep(SQ_response)
+                                // sinon joueur 1 doit patienter
+                            } else setWaiting(true)
+                        } else {
+                            // je suis le joueur 2
+                            // je dois attendre que le joueur 1 ait fini la série
+                            if (Sresponse.score_player1 === null)
+                                setWaiting(true)
+                            else {
+                                setWaiting(false)
+                                // verifier le steps
+                                const SQ_response =
+                                    await SQAPI.GetValidatedCount(
+                                        parseInt(`${id_serie}`, 10),
+                                        2
+                                    )
+                                if (!SQ_response.canceled) setStep(SQ_response)
+                            }
                         }
                     }
                     console.log(`finish verify: ${true}`)
@@ -135,10 +155,18 @@ export default () => {
     if (SType !== 'classic')
         return <Penalty2 level={level} steps={step} vs={Duel.pseudo_player1} />
 
+    return (
+        <DuelSerie
+            level={level}
+            steps={step}
+            vs={player === 1 ? Duel.pseudo_player2 : Duel.pseudo_player1}
+        />
+    )
+
     // si c'est le tour du joueur 1 de jouer
-    if (parseInt(`${User.id}`, 10) === parseInt(`${Duel.id_player1}`, 10))
+    /** if (parseInt(`${User.id}`, 10) === parseInt(`${Duel.id_player1}`, 10))
         return <Serie level={level} steps={step} vs={Duel.pseudo_player2} />
 
     // si c'est le tour du joueur 2 de jouer
-    return <Serie2 level={level} steps={step} vs={Duel.pseudo_player1} />
+    return <Serie2 level={level} steps={step} vs={Duel.pseudo_player1} /> */
 }

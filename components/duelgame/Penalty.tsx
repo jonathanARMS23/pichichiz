@@ -25,11 +25,6 @@ export default ({ level, steps, vs }: IProps) => {
     const Duel = useSelector((state: any) => state.duel)
     const [inputResponse, setInputResponse] = useState(0)
     const [step1, setStep1] = useState<any>(null)
-    /* const [step2, setStep2] = useState<any>(null)
-    const [step3, setStep3] = useState<any>(null)
-    const [step4, setStep4] = useState<any>(null)
-    const [step5, setStep5] = useState<any>(null)
-    const [step6, setStep6] = useState<any>(null) */
     const [step, setStep] = useState(parseInt(`${steps}`, 10))
     const [error, setError] = useState(false)
 
@@ -57,89 +52,6 @@ export default ({ level, steps, vs }: IProps) => {
     }, [level])
 
     // Step 2
-    /** useEffect(() => {
-        const API = new Quiz()
-        let isSubscribed = true
-        if (isSubscribed) {
-            ;(async () => {
-                const response = await API.getQuestionByStep(1, QuestionLevel)
-                setStep2(response)
-            })()
-        }
-
-        return () => {
-            isSubscribed = false
-            API.Cancel()
-        }
-    }, [level])
-
-    // Step 3
-    useEffect(() => {
-        const API = new Quiz()
-        let isSubscribed = true
-        if (isSubscribed) {
-            ;(async () => {
-                const response = await API.getQuestionByStep(1, QuestionLevel)
-                setStep3(response)
-            })()
-        }
-
-        return () => {
-            isSubscribed = false
-            API.Cancel()
-        }
-    }, [level])
-
-    // Step 4
-    useEffect(() => {
-        const API = new Quiz()
-        let isSubscribed = true
-        if (isSubscribed) {
-            ;(async () => {
-                const response = await API.getQuestionByStep(0, QuestionLevel)
-                setStep4(response)
-            })()
-        }
-
-        return () => {
-            isSubscribed = false
-            API.Cancel()
-        }
-    }, [level])
-
-    // Step 5
-    useEffect(() => {
-        const API = new Quiz()
-        let isSubscribed = true
-        if (isSubscribed) {
-            ;(async () => {
-                const response = await API.getQuestionByStep(1, QuestionLevel)
-                setStep5(response)
-            })()
-        }
-
-        return () => {
-            isSubscribed = false
-            API.Cancel()
-        }
-    }, [level])
-
-    // Step 6
-    useEffect(() => {
-        const API = new Quiz()
-        let isSubscribed = true
-        if (isSubscribed) {
-            ;(async () => {
-                const response = await API.getQuestionByStep(0, QuestionLevel)
-                setStep6(response)
-            })()
-        }
-
-        return () => {
-            isSubscribed = false
-            API.Cancel()
-        }
-    }, [level]) */
 
     // fin du chargement
 
@@ -147,16 +59,6 @@ export default ({ level, steps, vs }: IProps) => {
         switch (indice) {
             case 0:
                 return step1
-            /* case 1:
-                return step2
-            case 2:
-                return step3
-            case 3:
-                return step4
-            case 4:
-                return step5
-            case 5:
-                return step6 */
             default:
                 return step1
         }
@@ -257,71 +159,6 @@ export default ({ level, steps, vs }: IProps) => {
                 setInput={setInputResponse}
             />
         )
-
-    /** if (step2 && step === 1)
-        return (
-            <Quizz
-                type={step2.quizz_question}
-                data={step2}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step3 && step === 2)
-        return (
-            <Quizz
-                type={step3.quizz_question}
-                data={step3}
-                level={level}
-                question={step}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step4 && step === 3)
-        return (
-            <Quizz
-                type={step4.quizz_question}
-                data={step4}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step5 && step === 4)
-        return (
-            <Quizz
-                type={step5.quizz_question}
-                data={step5}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        )
-
-    if (step6 && step === 5)
-        return (
-            <Quizz
-                type={step6.quizz_question}
-                data={step6}
-                level={level}
-                question={step + 1}
-                onNext={onNext}
-                vs={vs}
-                setInput={setInputResponse}
-            />
-        ) */
 
     if (step === 1)
         return (

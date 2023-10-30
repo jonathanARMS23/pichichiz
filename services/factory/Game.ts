@@ -125,10 +125,11 @@ export const formatDateInPalmares = (date: string) => {
     return `${start} - ${end}`
 }
 
-export const extractClubTypeSeason = (data: string) => {
+export const extractClubTypeSeason = (data: any) => {
     const list = extractQuestionData(data)
-    if (list) {
+    if (Array.isArray(list) && list.length > 0) {
         const { season } = list[0]
+        if (!season) return `Quel est ce club qui avait cette équipe type ?`
         return `Quel est ce club qui avait cette équipe type lors de la saison ${season} ?`
     }
 

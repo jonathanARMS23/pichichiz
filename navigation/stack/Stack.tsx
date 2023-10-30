@@ -16,6 +16,7 @@ import Launch from '../../components/Launch'
 import NoAccess from '../../screens/NoAccess'
 import Results from '../../screens/Results'
 import Notification from '../../screens/notification'
+import FinishedDuel from '../../screens/FinishedDuel'
 /** import navigation screen */
 import Main from '../tab/Main'
 
@@ -41,6 +42,7 @@ export default () => (
             <Screen name="noaccess" component={NoAccess} />
             <Screen name="results" component={Results} />
             <Screen name="notification" component={Notification} />
+            <Screen name="duelfinished" component={FinishedDuel} />
         </Navigator>
     </NavigationContainer>
 )
