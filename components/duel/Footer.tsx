@@ -40,6 +40,7 @@ export default () => {
                             score_player2: 0,
                             id_duel: D_response.id_duel,
                             id_serie: S_response.id_serie,
+                            winner: null,
                         })
                     )
                     navigation.navigate('duelgame', {

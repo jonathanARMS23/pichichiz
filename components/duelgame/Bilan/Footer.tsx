@@ -1,5 +1,4 @@
-/* eslint-disable consistent-return */
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
     View,
     Text,
@@ -12,70 +11,51 @@ import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParams } from '../../../navigation/tool/tool'
-import { clearDuel, setWinner } from '../../../store/reducers/duel'
+import { clearDuel } from '../../../store/reducers/duel'
 import { useAppSelector } from '../../../store/hooks/hooks'
-import DuelStore from '../../../services/store/Duel'
 
-type FooterNavProp = StackNavigationProp<RootStackParams, 'sologame'>
+type FooterNavProp = StackNavigationProp<RootStackParams, 'bilan'>
 
-interface IProps {
-    isEqual?: boolean
-    isFinished: boolean
-}
-
-export default ({ isFinished, isEqual = false }: IProps) => {
+export default () => {
     const navigation = useNavigation<FooterNavProp>()
     const { width } = useWindowDimensions()
-    const dispatch = useDispatch()
     const Duel = useAppSelector((state) => state.duel)
+    const User = useAppSelector((state) => state.user)
+    const dispatch = useDispatch()
 
     const onCancel = () => {
         dispatch(clearDuel())
         navigation.navigate('duel')
     }
 
-    useEffect(() => {
-        const API = new DuelStore()
-        let isSubscribe = true
-        if (!isFinished) return
-        ;(async () => {
-            if (isSubscribe) {
-                const response = await API.GetDuelById(
-                    parseInt(`${Duel.id_duel}`, 10)
-                )
-                if (response && !response.canceled) {
-                    dispatch(setWinner(response.winner))
-                }
-            }
-        })()
-
-        return () => {
-            isSubscribe = false
-            API.Cancel()
-        }
-    }, [isFinished])
-
-    const onShowResult = () => {
-        navigation.navigate('bilan')
-    }
-
-    return (
-        <View style={{ ...Style.container, minWidth: width, maxWidth: width }}>
-            {isEqual ? (
-                <Text style={Style.title}>Egalité, place aux "tir au but"</Text>
-            ) : null}
-            {isFinished ? <Text style={Style.title}>Fin du duel</Text> : null}
-            {isFinished && Duel.winner ? (
-                <TouchableOpacity onPress={onShowResult} style={Style.revenge}>
-                    <Text style={{ color: '#1B2444' }}>VOIR LE RESULTAT</Text>
+    if (parseInt(`${Duel.winner}`, 10) === parseInt(`${User.id}`, 10))
+        return (
+            <View
+                style={{ ...Style.container, minWidth: width, maxWidth: width }}
+            >
+                <Text style={Style.title}>Quitter</Text>
+                <TouchableOpacity onPress={onCancel} style={Style.cancel}>
                     <Icon
-                        name="arrow-forward-outline"
-                        fill="#1B2444"
+                        name="close-outline"
+                        fill="#FFFFFF"
                         height={35}
                         width={35}
                     />
                 </TouchableOpacity>
-            ) : null}
+            </View>
+        )
+
+    return (
+        <View style={{ ...Style.container, minWidth: width, maxWidth: width }}>
+            <TouchableOpacity style={Style.revenge}>
+                <Text style={{ color: '#1B2444' }}>REVANCHE</Text>
+                <Icon
+                    name="arrow-forward-outline"
+                    fill="#1B2444"
+                    height={35}
+                    width={35}
+                />
+            </TouchableOpacity>
             <TouchableOpacity onPress={onCancel} style={Style.cancel}>
                 <Icon
                     name="close-outline"

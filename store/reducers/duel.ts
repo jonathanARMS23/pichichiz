@@ -11,6 +11,7 @@ const initialState = {
     score_player2: 0,
     id_duel: '',
     id_serie: '',
+    winner: null,
 }
 
 const DuelSlice = createSlice({
@@ -24,6 +25,7 @@ const DuelSlice = createSlice({
             state.id_player2 = action.payload.id_player2
             state.pseudo_player1 = action.payload.pseudo_player1
             state.pseudo_player2 = action.payload.pseudo_player2
+            state.winner = action.payload.winner ?? null
         },
         Clear: (state) => {
             // eslint-disable-next-line no-unused-vars
@@ -44,6 +46,9 @@ const DuelSlice = createSlice({
         SetScore2: (state, action) => {
             state.score_player2 = action.payload
         },
+        setWinner: (state, action) => {
+            state.winner = action.payload
+        },
         clearDuel: (state) => {
             state = initialState
         },
@@ -58,6 +63,7 @@ export const {
     clearDuel,
     SetScore1,
     SetScore2,
+    setWinner,
 } = DuelSlice.actions
 
 export default DuelSlice.reducer

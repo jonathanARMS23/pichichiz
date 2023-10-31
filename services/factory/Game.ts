@@ -344,7 +344,15 @@ export const manageIndice = (data: any) => {
             'who_is_this_player_by_nationality',
             'who_is_this_player_by_photos',
             'who_is_this_player_by_palmares',
+            'who_is_this_player_by_teammate',
         ]
+        const club = [
+            'who_is_this_club_type',
+            'who_is_this_club',
+            'who_is_this_club_by_logo',
+            'who_is_this_club_by_palmares',
+        ]
+        // const logo = ['who_is_this_club_by_logo']
         const type = data.quizz_question
         if (playersType.find((el) => el === type)) {
             if (indices.current_club === 'Retraité')
@@ -359,6 +367,19 @@ export const manageIndice = (data: any) => {
                 pays.find((el) => el.includes(indices.nationality)) ??
                 `de ${indices.nationality}`
             }`
+        }
+
+        if (club.find((el) => el === type)) {
+            if (!indices) return null
+            if (Array.isArray(indices.players) && indices.players.length > 0) {
+                const players = indices.players.map(
+                    (item: any) => `${item.first_name} ${item.last_name}`
+                )
+                return `Ce club a été fondé en ${
+                    indices.fundation_date
+                }. Et ces joueurs en font partie: ${players.join(', ')}`
+            }
+            return `Ce club a été fondé en ${indices.fundation_date}.`
         }
 
         return null

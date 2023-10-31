@@ -9,16 +9,24 @@ import {
     useWindowDimensions,
     TouchableOpacity,
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import moment from 'moment'
-import { useAppSelector } from '../../store/hooks/hooks'
+import { RootStackParams } from '../../navigation/tool/tool'
+import { useAppSelector, useAppDispatch } from '../../store/hooks/hooks'
+import { CreateDuel } from '../../store/reducers/duel'
 import DuelStore from '../../services/store/Duel'
 
 interface IIProps {
     data: any
 }
 
+type finishduelNavProp = StackNavigationProp<RootStackParams, 'duelfinished'>
+
 const Item = ({ data }: IIProps) => {
+    const navigation = useNavigation<finishduelNavProp>()
     const User = useAppSelector((state) => state.user)
+    const Dispatch = useAppDispatch()
     const [winned, setWinned] = useState(false)
 
     useEffect(() => {
@@ -27,8 +35,36 @@ const Item = ({ data }: IIProps) => {
         else setWinned(false)
     }, [data])
 
+    const handleSelect = async () => {
+        Dispatch(
+            CreateDuel({
+                id_player1: data.id_user,
+                pseudo_player1: data.pseudo_player1,
+                id_player2: data.id_friend,
+                pseudo_player2: data.pseudo_player2,
+                score_player1: data.score_player1,
+                score_player2: data.score_player2,
+                id_duel: data.id_duel,
+                id_serie: data.id_serie,
+                winner: data.winner,
+            })
+        )
+        console.log({
+            id_player1: data.id_user,
+            pseudo_player1: data.pseudo_player1,
+            id_player2: data.id_friend,
+            pseudo_player2: data.pseudo_player2,
+            score_player1: data.score_player1,
+            score_player2: data.score_player2,
+            id_duel: data.id_duel,
+            id_serie: data.id_serie,
+        })
+        navigation.navigate('bilan')
+    }
+
     return (
         <TouchableOpacity
+            onPress={handleSelect}
             style={{
                 ...Style.item,
                 borderColor: winned ? '#31CCC0' : '#CC317C',
@@ -39,9 +75,12 @@ const Item = ({ data }: IIProps) => {
             {winned ? (
                 <Text style={{ color: '#31CCC0' }}>Tu as remporté ce duel</Text>
             ) : (
-                <Text
-                    style={{ color: '#CC317C' }}
-                >{`${data.pseudo_vs} a gagné ce duel`}</Text>
+                <Text style={{ color: '#CC317C' }}>{`${
+                    parseInt(`${data.id_user}`, 10) ===
+                    parseInt(`${User.id}`, 10)
+                        ? data.pseudo_player2
+                        : data.pseudo_player1
+                } a gagné ce duel`}</Text>
             )}
             <View style={Style.imageContainer}>
                 {winned ? (

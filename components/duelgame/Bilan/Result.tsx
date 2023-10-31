@@ -8,17 +8,12 @@ import {
     useWindowDimensions,
     StyleSheet,
     ActivityIndicator,
+    Image,
 } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { useAppSelector } from '../../../store/hooks/hooks'
 import SerieStore from '../../../services/store/Serie'
 import DuelStore from '../../../services/store/Duel'
-import DynamicRate from '../Finished/DynamicRate'
-
-interface IProps {
-    serie: number
-    Duel: any
-}
 
 interface ISProps {
     serie: number
@@ -63,9 +58,9 @@ const Item = ({ name, result }: IIProps) => {
     )
 }
 
-const Serie = ({ serie, series, result }: ISProps) => {
+const Serie = ({ series, result }: ISProps) => {
     const getBackgroundColor = () => {
-        if (result.win === 2) return serie === series ? '#1B2444' : '#323D65'
+        // if (result.win === 2) return serie === series ? '#1B2444' : '#323D65'
         if (result.win === 0) return '#EBECF0'
         if (result.win === -1) return '#CC317C'
         if (result.win === 1) return '#31CCC0'
@@ -85,19 +80,18 @@ const Serie = ({ serie, series, result }: ISProps) => {
                 borderRadius: 23,
                 backgroundColor: getBackgroundColor(),
                 borderWidth: 1,
-                borderColor: serie === series ? '#FFFFFF' : '#1B2444',
+                borderColor: '#1B2444',
             }}
         >
-            <Text style={{ color: serie === series ? '#FFFFFF' : '#1B2444' }}>
-                {series}
-            </Text>
+            <Text style={{ color: '#1B2444' }}>{series}</Text>
         </View>
     )
 }
 
-export default ({ serie, Duel }: IProps) => {
+export default () => {
     const { width } = useWindowDimensions()
     const User = useAppSelector((state) => state.user)
+    const Duel = useAppSelector((state) => state.duel)
     const [loaded, setLoaded] = useState(false)
     const [result_player1, setResult_player1] = useState<Array<any> | null>(
         null
@@ -105,7 +99,6 @@ export default ({ serie, Duel }: IProps) => {
     const [result_player2, setResult_player2] = useState<Array<any> | null>(
         null
     )
-    const [score, setScore] = useState(0)
     const [result, setResult] = useState<Array<any>>([])
     const [winned, setWinned] = useState(false)
     const [winner, setWinner] = useState('')
@@ -115,7 +108,9 @@ export default ({ serie, Duel }: IProps) => {
         let isSubscribed = true
         ;(async () => {
             if (isSubscribed) {
-                const response = await API.getDuelWinner(Duel.id_duel)
+                const response = await API.getDuelWinner(
+                    parseInt(`${Duel.id_duel}`, 10)
+                )
                 if (response && !response.canceled) {
                     if (
                         parseInt(`${response.winner}`, 10) ===
@@ -147,13 +142,10 @@ export default ({ serie, Duel }: IProps) => {
                     parseInt(`${User.id}`, 10)
                         ? 1
                         : 2
-                const response = await API.GetSerieResult(Duel.id_serie)
+                const response = await API.GetSerieResult(
+                    parseInt(`${Duel.id_serie}`, 10)
+                )
                 if (!response.canceled) {
-                    setScore(
-                        player === 1
-                            ? parseInt(`${response.score1}`, 10)
-                            : parseInt(`${response.score2}`, 10)
-                    )
                     setResult_player1(
                         response.player1Road.length > 0
                             ? response.player1Road
@@ -166,7 +158,7 @@ export default ({ serie, Duel }: IProps) => {
                     )
 
                     const SR_response = await API.GetSeriesResult(
-                        Duel.id_duel,
+                        parseInt(`${Duel.id_duel}`, 10),
                         player
                     )
                     console.log(SR_response)
@@ -203,16 +195,49 @@ export default ({ serie, Duel }: IProps) => {
                     source={require('../../../assets/images/victoryElipse.png')}
                     style={Style.elipse}
                 >
-                    <DynamicRate rate={score} setLoad={setLoaded} />
                     {winned ? (
-                        <Text style={{ color: '#FFFFFF' }}>
+                        <Image
+                            source={require('../../../assets/images/winned.png')}
+                            style={{ height: 121.55, width: 83.56 }}
+                        />
+                    ) : (
+                        <Image
+                            source={require('../../../assets/images/losed.png')}
+                            style={{ height: 119, width: 119 }}
+                        />
+                    )}
+                    {winned ? (
+                        <Text
+                            style={{
+                                color: '#FFFFFF',
+                                minWidth: 350,
+                                maxWidth: 350,
+                                textAlign: 'center',
+                            }}
+                        >
                             BRAVO TU AS REMPORTÉ LE DUEL !
                         </Text>
                     ) : (
-                        <Text style={{ color: '#FFFFFF' }}>BIEN JOUÉ!</Text>
+                        <Text
+                            style={{
+                                color: '#FFFFFF',
+                                minWidth: 350,
+                                maxWidth: 350,
+                                textAlign: 'center',
+                            }}
+                        >
+                            BIEN JOUÉ!
+                        </Text>
                     )}
                     {!winned ? (
-                        <Text>
+                        <Text
+                            style={{
+                                color: '#FFFFFF',
+                                minWidth: 350,
+                                maxWidth: 350,
+                                textAlign: 'center',
+                            }}
+                        >
                             {`MAIS C'EST ${winner} QUI GAGNE LE DUEL`.toUpperCase()}
                         </Text>
                     ) : null}
@@ -224,7 +249,7 @@ export default ({ serie, Duel }: IProps) => {
                     {result.map((item, index) => (
                         <Serie
                             key={`serie${index}`}
-                            serie={serie}
+                            serie={5}
                             series={index + 1}
                             result={item}
                         />

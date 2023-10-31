@@ -1,17 +1,10 @@
 import React from 'react'
 import { View, useWindowDimensions, StyleSheet } from 'react-native'
-import Header from './Finished/Header'
-import Footer from './Finished/Footer'
-import Result from './Bilan/Result'
+import Header from './duelgame/Bilan/Header'
+import Footer from './duelgame/Bilan/Footer'
+import Result from './duelgame/Bilan/Result'
 
-interface IProps {
-    serie: number // numero du serie
-    name: string
-    isFinished: boolean
-    duel: any
-}
-
-export default ({ serie, name, isFinished, duel }: IProps) => {
+export default () => {
     const { width, height } = useWindowDimensions()
 
     return (
@@ -24,9 +17,9 @@ export default ({ serie, name, isFinished, duel }: IProps) => {
                 maxHeight: height,
             }}
         >
-            <Header name={name} />
-            <Result serie={serie} Duel={duel} />
-            <Footer isFinished={isFinished} />
+            <Header />
+            <Result />
+            <Footer />
         </View>
     )
 }

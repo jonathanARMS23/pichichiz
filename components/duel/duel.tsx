@@ -63,6 +63,7 @@ const Item = ({ data }: IIProps) => {
                             score_player2: player2.score ?? 0,
                             id_duel: D_response.id_duel,
                             id_serie: response.id_serie,
+                            winner: null,
                         })
                     )
                     console.log({
@@ -111,6 +112,7 @@ const Item = ({ data }: IIProps) => {
                                     score_player2: player2.score ?? 0,
                                     id_duel: D_response.id_duel,
                                     id_serie: data.lastSerie,
+                                    winner: null,
                                 })
                             )
                             console.log({
@@ -122,6 +124,7 @@ const Item = ({ data }: IIProps) => {
                                 score_player2: player2.score ?? 0,
                                 id_duel: D_response.id_duel,
                                 id_serie: data.lastSerie,
+                                winner: null,
                             })
                             navigation.navigate('results', {
                                 id_duel: D_response.id_duel,
@@ -151,6 +154,7 @@ const Item = ({ data }: IIProps) => {
                                         score_player2: player2.score ?? 0,
                                         id_duel: D_response.id_duel,
                                         id_serie: response.id_serie,
+                                        winner: null,
                                     })
                                 )
                                 console.log({
@@ -189,6 +193,7 @@ const Item = ({ data }: IIProps) => {
                                     score_player2: player2.score ?? 0,
                                     id_duel: D_response.id_duel,
                                     id_serie: response.id_serie,
+                                    winner: null,
                                 })
                             )
                             console.log({
@@ -228,6 +233,7 @@ const Item = ({ data }: IIProps) => {
                                     score_player2: player2.score ?? 0,
                                     id_duel: D_response.id_duel,
                                     id_serie: response.id_serie,
+                                    winner: null,
                                 })
                             )
                             console.log({
@@ -262,6 +268,7 @@ const Item = ({ data }: IIProps) => {
                                     score_player2: player2.score ?? 0,
                                     id_duel: D_response.id_duel,
                                     id_serie: data.lastSerie,
+                                    winner: null,
                                 })
                             )
                             console.log({
@@ -302,6 +309,7 @@ const Item = ({ data }: IIProps) => {
                                         score_player2: player2.score ?? 0,
                                         id_duel: D_response.id_duel,
                                         id_serie: response.id_serie,
+                                        winner: null,
                                     })
                                 )
                                 console.log({

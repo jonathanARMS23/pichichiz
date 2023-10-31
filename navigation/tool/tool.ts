@@ -41,6 +41,7 @@ export type RootStackParams = {
     duel: undefined
     notification: undefined
     duelfinished: undefined
+    bilan: undefined
     duelgame: {
         id_duel: number | string
         id_serie: number | string

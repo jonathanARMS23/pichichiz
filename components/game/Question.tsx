@@ -19,6 +19,7 @@ import PlayerPic from './Question/PlayerPic'
 import PlayerPalmares from './Question/PlayerPalmares'
 import PlayerWC from './Question/PlayerWC'
 import PlayerNationality from './Question/PlayerNationality'
+import ClubLogo from './Question/ClubLogo'
 
 interface IProps {
     data: any
@@ -50,6 +51,7 @@ const Question = ({ type, data }: IQProps) => {
     if (type === 'who_is_this_club_type') return <ClubFormation data={data} />
     if (type === 'who_is_this_club_by_palmares')
         return <ClubPalmares data={data} />
+    if (type === 'who_is_this_club_by_logo') return <ClubLogo data={data} />
     if (type === 'who_is_this_player_by_photos')
         return <PlayerPic data={data} />
     if (type === 'who_is_this_player_by_palmares')
@@ -90,6 +92,8 @@ export default ({ data, type }: IProps) => {
                 return `Pour quelle équipe nationale a joué ce joueur ?`
             case 'who_is_this_player_by_palmares':
                 return `Qui est ce joueur qui a obtenu ces palmarès ?`
+            case 'who_is_this_club_by_logo':
+                return 'À quel club est ce logo ?'
             default:
                 return ''
         }
