@@ -12,16 +12,20 @@ import { Icon } from 'react-native-eva-icons'
 import { Badge } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { useAppSelector } from '../../store/hooks/hooks'
+import { useAppSelector, useAppDispatch } from '../../store/hooks/hooks'
+import { CreateDuel } from '../../store/reducers/duel'
 import { RootStackParams } from '../../navigation/tool/tool'
 import Notifications from '../../services/notification'
 import socket from '../../services/socket/socket'
+import DuelStore from '../../services/store/Duel'
 
 type SoloHeaderNavProp = StackNavigationProp<RootStackParams, 'solo'>
 
 export default () => {
+    const Dispatch = useAppDispatch()
     const { width, height } = useWindowDimensions()
     const [hvisible, setHvisible] = useState(false)
+    const [dvisible, setDvisible] = useState(false)
     const [id_duel, setId_duel] = useState<any>(null)
     const [id_serie, setId_serie] = useState<any>(null)
     const User = useAppSelector((state) => state.user)
@@ -39,14 +43,6 @@ export default () => {
         let tmp = 0
         const handleFinishSerie = (data: any) => {
             tmp += 1
-            /** console.log('finished serie')
-            console.log(`serie data:`)
-            console.log(data)
-            console.log(data.user_id)
-            console.log(User.id)
-            console.log(
-                parseInt(`${data.user_id}`, 10) === parseInt(`${User.id}`, 10)
-            ) */
             if (
                 parseInt(`${data.user_id}`, 10) ===
                     parseInt(`${User.id}`, 10) &&
@@ -63,13 +59,29 @@ export default () => {
                 Notifications.friendNotification()
         }
 
+        const handleFinishDuel = (data: any) => {
+            tmp += 1
+            if (
+                parseInt(`${data.user_id}`, 10) ===
+                    parseInt(`${User.id}`, 10) &&
+                tmp < 2
+            ) {
+                Notifications.duelNotification()
+                setId_duel(data.id_duel)
+                setDvisible(true)
+            }
+        }
+
         socket.on('finished_serie', handleFinishSerie)
 
         socket.on('success_request', handleNotification)
 
+        socket.on('duel_finished_response', handleFinishDuel)
+
         return () => {
             socket.off('finished_serie', handleFinishSerie)
             socket.off('success_request', handleNotification)
+            socket.off('duel_finished_response', handleFinishDuel)
         }
     }, [])
 
@@ -80,6 +92,31 @@ export default () => {
 
     const openNotif = () => {
         navigation.navigate('notification')
+    }
+
+    const onOpenDuel = async () => {
+        const API = new DuelStore()
+        const response = await API.GetDuelById(id_duel)
+        if (response && !response.canceled) {
+            Dispatch(
+                CreateDuel({
+                    id_player1: response.id_user,
+                    pseudo_player1: response.user.pseudo,
+                    id_player2: response.id_friend,
+                    pseudo_player2: response.vs.pseudo,
+                    score_player1: response.user.score,
+                    score_player2: response.vs.score,
+                    id_duel: response.id_duel,
+                    id_serie: response.id_serie,
+                    winner: response.winner,
+                })
+            )
+        }
+        navigation.navigate('bilan')
+    }
+
+    const onCloseD = () => {
+        setDvisible(false)
     }
 
     return (
@@ -171,6 +208,72 @@ export default () => {
                                     backgroundColor: '#1B2444',
                                 }}
                                 onPress={onShow}
+                            >
+                                <Text style={{ color: '#FFFFFF' }}>
+                                    VOIR LES RESULTATS
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={dvisible}
+                onRequestClose={onCloseD}
+            >
+                <View
+                    style={{
+                        ...Style.healthModalWrapper,
+                        minHeight: height,
+                        maxHeight: height,
+                        minWidth: width,
+                        maxWidth: width,
+                    }}
+                >
+                    <View style={Style.healthModal}>
+                        <View style={Style.header}>
+                            <View style={Style.titleContainer}>
+                                <Icon
+                                    name="bell-outline"
+                                    fill="#1B2444"
+                                    height={12}
+                                    width={12}
+                                />
+                                <Text
+                                    style={{
+                                        color: '#1B2444',
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    À vous de jouer !
+                                </Text>
+                            </View>
+                            <TouchableOpacity
+                                style={Style.exitButton}
+                                onPress={onCloseD}
+                            >
+                                <Icon
+                                    name="close-outline"
+                                    height={20}
+                                    width={20}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={Style.healthTextContainer}>
+                            <Text>
+                                Un de vos duels a été terminer, jettez un oeil
+                                aux résultats!
+                            </Text>
+                        </View>
+                        <View style={Style.healthButtons}>
+                            <TouchableOpacity
+                                style={{
+                                    ...Style.Hbuttons,
+                                    backgroundColor: '#1B2444',
+                                }}
+                                onPress={onOpenDuel}
                             >
                                 <Text style={{ color: '#FFFFFF' }}>
                                     VOIR LES RESULTATS

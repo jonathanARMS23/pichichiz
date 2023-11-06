@@ -15,6 +15,7 @@ import { RootStackParams } from '../../../navigation/tool/tool'
 import { clearDuel, setWinner } from '../../../store/reducers/duel'
 import { useAppSelector } from '../../../store/hooks/hooks'
 import DuelStore from '../../../services/store/Duel'
+import socket from '../../../services/socket/socket'
 
 type FooterNavProp = StackNavigationProp<RootStackParams, 'sologame'>
 
@@ -28,6 +29,7 @@ export default ({ isFinished, isEqual = false }: IProps) => {
     const { width } = useWindowDimensions()
     const dispatch = useDispatch()
     const Duel = useAppSelector((state) => state.duel)
+    const User = useAppSelector((state) => state.user)
 
     const onCancel = () => {
         dispatch(clearDuel())
@@ -44,6 +46,15 @@ export default ({ isFinished, isEqual = false }: IProps) => {
                     parseInt(`${Duel.id_duel}`, 10)
                 )
                 if (response && !response.canceled) {
+                    const id =
+                        parseInt(`${Duel.id_player1}`, 10) ===
+                        parseInt(`${User.id}`, 10)
+                            ? Duel.id_player2
+                            : Duel.id_player1
+                    socket.emit('duel_finished', {
+                        id_duel: Duel.id_duel,
+                        id_user: id,
+                    })
                     dispatch(setWinner(response.winner))
                 }
             }
