@@ -341,8 +341,7 @@ const Item = ({ data }: IIProps) => {
                 <Text>{`  ${data.pseudo_vs}`}</Text>
             </View>
             <View style={Style.playerAction}>
-                {!data.turn ||
-                parseInt(`${User.id}`, 10) === parseInt(`${data.turn}`, 10) ? (
+                {parseInt(`${User.id}`, 10) === parseInt(`${data.turn}`, 10) ? (
                     <>
                         <TouchableOpacity
                             onPress={onFight}

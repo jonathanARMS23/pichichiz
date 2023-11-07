@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BackHandler, AppState } from 'react-native'
+import { BackHandler, AppState, AppStateStatus } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -92,8 +92,8 @@ export default () => {
 
     // si le joueur quitte l'app en plein jeu
     useEffect(() => {
-        const onLeave = async () => {
-            if (user.career.length < level + 1) {
+        const onLeave = async (status: AppStateStatus) => {
+            if (user.career.length < level + 1 && status !== 'active') {
                 if (user.id) {
                     // le hp diminue
                     const API = new HPStore()
@@ -113,7 +113,11 @@ export default () => {
             }
         }
 
-        AppState.addEventListener('change', onLeave)
+        const subscription = AppState.addEventListener('change', onLeave)
+
+        return () => {
+            subscription.remove()
+        }
     }, [])
 
     useEffect(() => {
