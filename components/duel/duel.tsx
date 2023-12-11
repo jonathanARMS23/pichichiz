@@ -435,13 +435,13 @@ const Style = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         minHeight: 100,
-        maxHeight: 300,
+        maxHeight: 250,
         overflow: 'scroll',
     },
     duelListContainer: {
         flex: 1,
         minHeight: 100,
-        maxHeight: 300,
+        maxHeight: 250,
         overflow: 'scroll',
     },
     titleContainer: {

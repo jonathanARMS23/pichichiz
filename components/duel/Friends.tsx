@@ -191,7 +191,6 @@ const Style = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        position: 'relative',
     },
     titleContainer: {
         flex: 1,

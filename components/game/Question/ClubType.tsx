@@ -13,17 +13,25 @@ interface IProps {
     data: any
 }
 
-const Player = ({ data }: IProps) => (
-    <View style={Style.player}>
-        <Image
-            source={require('../../../assets/images/ball.png')}
-            style={Style.ball}
-        />
-        <Text
-            style={Style.name}
-        >{`   ${data.first_name} ${data.last_name}`}</Text>
-    </View>
-)
+const Player = ({ data }: IProps) => {
+    const [name, setName] = useState('')
+
+    useEffect(() => {
+        const isLong = `${data.first_name} ${data.last_name}`.length > 12
+        if (isLong) setName(`${data.last_name}`)
+        else setName(`${data.first_name} ${data.last_name}`)
+    }, [data])
+
+    return (
+        <View style={Style.player}>
+            <Image
+                source={require('../../../assets/images/ball.png')}
+                style={Style.ball}
+            />
+            <Text style={Style.name}>{`   ${name}`}</Text>
+        </View>
+    )
+}
 
 export default ({ data }: IProps) => {
     const { width } = useWindowDimensions()

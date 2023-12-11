@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react'
-import { ScrollView, View, StyleSheet, useWindowDimensions } from 'react-native'
+import {
+    ScrollView,
+    View,
+    StyleSheet,
+    useWindowDimensions,
+    Platform,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useAppSelector } from '../store/hooks/hooks'
@@ -23,7 +29,13 @@ export default () => {
     }, [user])
 
     return (
-        <View style={{ ...Style.container, minWidth: width }}>
+        <View
+            style={{
+                ...Style.container,
+                minWidth: width,
+                marginTop: Platform.OS === 'ios' ? 25 : 0,
+            }}
+        >
             <Header />
             <Banner />
             <ScrollView>

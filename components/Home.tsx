@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react'
-import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+    View,
+    Image,
+    Text,
+    TouchableOpacity,
+    StyleSheet,
+    Platform,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useDispatch } from 'react-redux'
@@ -80,7 +87,12 @@ export default () => {
     }
 
     return (
-        <View style={Style.container}>
+        <View
+            style={{
+                ...Style.container,
+                marginVertical: Platform.OS === 'ios' ? 20 : 0,
+            }}
+        >
             <View style={Style.logoContainer}>
                 <Image
                     source={require('../assets/images/quiz.png')}

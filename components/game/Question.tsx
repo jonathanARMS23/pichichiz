@@ -8,7 +8,10 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native'
-import { extractClubTypeSeason } from '../../services/factory/Game'
+import {
+    extractClubTypeSeason,
+    extractClubTransfertQuestion,
+} from '../../services/factory/Game'
 import { useAppSelector } from '../../store/hooks/hooks'
 import PlayedWith from './Question/PlayedWith'
 // import Club from './Question/Club'
@@ -19,6 +22,8 @@ import PlayerPic from './Question/PlayerPic'
 import PlayerPalmares from './Question/PlayerPalmares'
 import PlayerWC from './Question/PlayerWC'
 import PlayerNationality from './Question/PlayerNationality'
+import PlayerBirthPlace from './Question/PlayerBirthPlace'
+import ClubTransfert from './Question/ClubTransfert'
 import ClubLogo from './Question/ClubLogo'
 
 interface IProps {
@@ -45,8 +50,12 @@ interface IQProps {
 const Question = ({ type, data }: IQProps) => {
     if (type === 'who_is_this_player_by_nationality')
         return <PlayerNationality data={data} />
+    if (type === 'who_is_this_player_club_by_transfert')
+        return <ClubTransfert data={data} />
     if (type === 'who_is_this_player_by_teammate')
         return <PlayedWith data={data} />
+    if (type === 'who_is_this_player_by_birth_place')
+        return <PlayerBirthPlace data={data} />
     if (type === 'who_is_this_club') return <ClubType data={data} />
     if (type === 'who_is_this_club_type') return <ClubFormation data={data} />
     if (type === 'who_is_this_club_by_palmares')
@@ -94,6 +103,10 @@ export default ({ data, type }: IProps) => {
                 return `Qui est ce joueur qui a obtenu ces palmarès ?`
             case 'who_is_this_club_by_logo':
                 return 'À quel club appartient ce logo ?'
+            case 'who_is_this_player_club_by_transfert':
+                return extractClubTransfertQuestion(data)
+            case 'who_is_this_player_by_birth_place':
+                return 'Où est né ce joueur ?'
             default:
                 return ''
         }

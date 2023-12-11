@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 import Header from './Header'
 import Response from './ResponsePenalty'
 import Question from './QuestionPenalty'
@@ -55,7 +55,12 @@ export default ({
     if (reload) return <InterLevel name={vs} />
 
     return (
-        <View style={Style.container}>
+        <View
+            style={{
+                ...Style.container,
+                marginTop: Platform.OS === 'ios' ? 35 : 0,
+            }}
+        >
             <Header
                 question={question}
                 time={time}

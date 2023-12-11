@@ -112,6 +112,7 @@ export default ({ show }: IProps) => {
                 const response = await API.GetDailyBonus(
                     parseInt(`${user.id}`, 10)
                 )
+                console.log(response)
                 if (!response.canceled) {
                     setData(response)
                     // checked winned bonus

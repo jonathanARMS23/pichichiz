@@ -1,12 +1,19 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, ScrollView, Platform, StyleSheet } from 'react-native'
 import Header from './mode/Header'
 import Store from './store/store'
 
 export default () => (
-    <View style={Style.container}>
+    <View
+        style={{
+            ...Style.container,
+            marginTop: Platform.OS === 'ios' ? 25 : 0,
+        }}
+    >
         <Header />
-        <Store />
+        <ScrollView>
+            <Store />
+        </ScrollView>
     </View>
 )
 

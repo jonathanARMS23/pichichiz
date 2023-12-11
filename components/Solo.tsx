@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, useWindowDimensions, StyleSheet } from 'react-native'
+import { View, useWindowDimensions, StyleSheet, Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import { InitSologameRoadmap } from '../services/factory/Game'
 import Roadmap from './solo/Roadmap'
@@ -28,7 +28,13 @@ export default () => {
     }, [career])
 
     return (
-        <View style={{ ...Style.container, minWidth: width }}>
+        <View
+            style={{
+                ...Style.container,
+                minWidth: width,
+                marginTop: Platform.OS === 'ios' ? 25 : 0,
+            }}
+        >
             <Header />
             <Banner />
             {!reload ? <Roadmap data={data} /> : null}

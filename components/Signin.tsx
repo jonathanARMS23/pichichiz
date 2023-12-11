@@ -1,11 +1,16 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, Platform, StyleSheet } from 'react-native'
 import Header from './signin/Header'
 import Form from './signin/Form'
 // import Social from './sous-components/Social'
 
 export default () => (
-    <View style={Style.container}>
+    <View
+        style={{
+            ...Style.container,
+            paddingVertical: Platform.OS === 'ios' ? 35 : 0,
+        }}
+    >
         <Header />
         {/** <Social authType="signin" /> */}
         <Form />

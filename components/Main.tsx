@@ -1,6 +1,12 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useEffect } from 'react'
-import { ScrollView, View, StyleSheet, BackHandler } from 'react-native'
+import {
+    ScrollView,
+    View,
+    StyleSheet,
+    BackHandler,
+    Platform,
+} from 'react-native'
 // import { useSelector } from 'react-redux'
 import { InitializeBonusState } from '../store/reducers/bonus'
 import { setCareer, setHP } from '../store/reducers/user'
@@ -148,7 +154,12 @@ export default () => {
     }, [])
 
     return (
-        <View style={Style.container}>
+        <View
+            style={{
+                ...Style.container,
+                paddingTop: Platform.OS === 'ios' ? 25 : 0,
+            }}
+        >
             {dailyBonus.init && <DailyBonus show={true} />}
             <ScrollView>
                 <Header />

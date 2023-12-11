@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, useWindowDimensions, StyleSheet } from 'react-native'
+import { View, useWindowDimensions, StyleSheet, Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/native'
 import { reformatFriendsListForDuel } from '../services/factory/Friends'
@@ -70,7 +70,13 @@ export default () => {
     if (reload) return <Loading />
 
     return (
-        <View style={{ ...Style.container, minWidth: width }}>
+        <View
+            style={{
+                ...Style.container,
+                minWidth: width,
+                marginVertical: Platform.OS === 'ios' ? 25 : 0,
+            }}
+        >
             <Header />
             <Banner />
             <Duels data={duel} />
@@ -84,6 +90,7 @@ const Style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
     },
 })

@@ -32,8 +32,10 @@ export default () => {
         ;(async () => {
             try {
                 const response = await API.InitKeyFromSocketServer()
+                console.log(response)
                 console.log(`token from socket API Server: ${response}`)
             } catch (error) {
+                console.log('error on load token from socket server')
                 console.log(error)
             }
         })()

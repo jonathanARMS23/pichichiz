@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView, Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -39,7 +39,12 @@ export default () => {
     }
 
     return (
-        <View style={Style.container}>
+        <View
+            style={{
+                ...Style.container,
+                marginTop: Platform.OS === 'ios' ? 25 : 0,
+            }}
+        >
             <ScrollView>
                 <Header />
                 <Switch

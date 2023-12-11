@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { MainTabParams } from '../tool/tool'
 import Main from '../stack/Main'
@@ -47,11 +48,18 @@ export default () => (
                 return <Label title={title} focused={focused} />
             },
             headerShown: false,
-            tabBarStyle: {
-                backgroundColor: '#1B2444',
-                height: 60,
-                paddingVertical: 10,
-            },
+            tabBarStyle:
+                Platform.OS === 'ios'
+                    ? {
+                          backgroundColor: '#1B2444',
+                          height: 90,
+                          paddingVertical: 10,
+                      }
+                    : {
+                          backgroundColor: '#1B2444',
+                          height: 60,
+                          paddingVertical: 10,
+                      },
         })}
     >
         <Screen name="main" component={Main} />

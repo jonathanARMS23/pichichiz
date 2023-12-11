@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     useWindowDimensions,
+    Platform,
 } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { useDispatch } from 'react-redux'
@@ -27,7 +28,8 @@ interface IProps {
 
 export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
     const { height, width } = useWindowDimensions()
-    const ResponseHeight = height / 2 - 70
+    const currentHeight = Platform.OS === 'ios' ? height - 100 : height
+    const ResponseHeight = currentHeight / 2 - 70
     const [right, setRight] = useState<any>(null)
     const [choice, setChoice] = useState<Array<any> | null>(null)
     const [verify, setVerify] = useState(false)
@@ -160,7 +162,7 @@ export default ({ data, elapsed, onNext, upTime, setStopped }: IProps) => {
                     </TouchableOpacity>
                 </View>
             ) : (
-                <Bonus onUse={onUse} />
+                <Bonus onUse={onUse} noPass />
             )}
         </View>
     )

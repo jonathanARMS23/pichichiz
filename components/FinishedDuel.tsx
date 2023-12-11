@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet } from 'react-native'
+import { View, ScrollView, StyleSheet, Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import Header from './mode/Header'
 import Board from './profil/ Board'
@@ -10,7 +10,12 @@ export default () => {
     const { pseudo } = user
 
     return (
-        <View style={Style.container}>
+        <View
+            style={{
+                ...Style.container,
+                marginTop: Platform.OS === 'ios' ? 25 : 0,
+            }}
+        >
             <Header />
             <ScrollView>
                 <View style={Style.body}>

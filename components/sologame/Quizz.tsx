@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 import Header from './Header'
 import Response from '../game/Response'
 import Question from '../game/Question'
@@ -45,7 +45,12 @@ export default ({ data, level, question, type, onNext }: IProps) => {
     if (reload) return null
 
     return (
-        <View style={Style.container}>
+        <View
+            style={{
+                ...Style.container,
+                marginTop: Platform.OS === 'ios' ? 35 : 0,
+            }}
+        >
             <Header
                 question={question}
                 time={time}

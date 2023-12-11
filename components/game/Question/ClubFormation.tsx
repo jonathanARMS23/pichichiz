@@ -35,6 +35,8 @@ const Player = ({ data }: IPProps) => {
                 />
             </View>
         ) */
+    if (data && !verify(data.show) && `${data.national_team}` !== '0')
+        return null
 
     if (data && !verify(data.show))
         return (

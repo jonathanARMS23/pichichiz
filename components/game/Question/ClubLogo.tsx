@@ -22,7 +22,7 @@ export default ({ data }: IProps) => {
             <Image
                 source={{ uri: `${info.photos}` }}
                 style={Style.image}
-                blurRadius={2}
+                blurRadius={3}
             />
         </View>
     )

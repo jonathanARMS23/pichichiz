@@ -432,6 +432,7 @@ const Style = StyleSheet.create({
         maxWidth: 354,
         minHeight: 298,
         maxHeight: 298,
+        marginVertical: 10,
     },
     bloc: {
         flex: 1,
@@ -454,6 +455,7 @@ const Style = StyleSheet.create({
         borderRadius: 10,
         minHeight: 115,
         maxHeight: 115,
+        marginVertical: 10,
     },
     desc: {
         flex: 1,
@@ -484,6 +486,7 @@ const Style = StyleSheet.create({
         maxWidth: 354,
         minHeight: 20,
         maxHeight: 20,
+        marginVertical: 10,
     },
     introText: {
         color: '#1B2444',

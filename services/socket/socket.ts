@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 
-export const SOCKET_SERVER_URL = `http://172.252.236.155:1337`
+export const SOCKET_SERVER_URL = `https://node.footballdatabase.eu`
 
 const socket = io(SOCKET_SERVER_URL, { transports: ['websocket'] })
 

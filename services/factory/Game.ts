@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
+import moment from 'moment'
 import { verify, castArray } from './factory'
 import { ICareer } from '../models/User'
 
@@ -134,6 +135,19 @@ export const extractClubTypeSeason = (data: any) => {
     }
 
     return 'Quel est ce club ?'
+}
+
+export const extractClubTransfertQuestion = (data: any) => {
+    const info = extractQuestionData(data)
+    if (info.id) {
+        if (info.transfert && info.transfert.arrival_date)
+            return `Dans quel club a été transféré ${info.text} le ${moment(
+                info.transfert.arrival_date
+            ).format('DD MMMM YYYY')} ?`
+        return `Dans quel club a été transféré ${info.text} ?`
+    }
+
+    return 'Dans quel club ce joueur a été transféré ?'
 }
 
 const pays = [
