@@ -11,8 +11,10 @@ import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParams } from '../../../navigation/tool/tool'
-import { clearDuel } from '../../../store/reducers/duel'
+import { clearDuel, CreateDuel } from '../../../store/reducers/duel'
 import { useAppSelector } from '../../../store/hooks/hooks'
+import DuelStore from '../../../services/store/Duel'
+import SerieStore, { Type } from '../../../services/store/Serie'
 
 type FooterNavProp = StackNavigationProp<RootStackParams, 'bilan'>
 
@@ -26,6 +28,50 @@ export default () => {
     const onCancel = () => {
         dispatch(clearDuel())
         navigation.navigate('duel')
+    }
+
+    const onFight = async () => {
+        const opponent =
+            parseInt(`${User.id}`, 10) === parseInt(`${Duel.id_player1}`, 10)
+                ? parseInt(`${Duel.id_player2}`, 10)
+                : parseInt(`${Duel.id_player1}`, 10)
+
+        if (User.id && opponent) {
+            const API = new DuelStore()
+            const SAPI = new SerieStore()
+            const D_response = await API.CreateDuel(
+                parseInt(`${User.id}`, 10),
+                opponent
+            )
+            if (!D_response.canceled) {
+                const S_response = await SAPI.CreateSerie(
+                    D_response.id_duel,
+                    Type.CLASSIC
+                )
+                if (!S_response.canceled) {
+                    const player1 = D_response.user
+                    const player2 = D_response.vs
+                    dispatch(
+                        CreateDuel({
+                            id_player1: player1.id,
+                            pseudo_player1: player1.pseudo,
+                            id_player2: player2.id,
+                            pseudo_player2: player2.pseudo,
+                            score_player1: 0,
+                            score_player2: 0,
+                            id_duel: D_response.id_duel,
+                            id_serie: S_response.id_serie,
+                            winner: null,
+                        })
+                    )
+                    navigation.navigate('duelgame', {
+                        id_duel: D_response.id_duel,
+                        id_serie: S_response.id_serie,
+                    })
+                }
+            }
+        }
+        // navigation.navigate('duelgame', { vs: data.pseudo })
     }
 
     if (parseInt(`${Duel.winner}`, 10) === parseInt(`${User.id}`, 10))
@@ -47,7 +93,7 @@ export default () => {
 
     return (
         <View style={{ ...Style.container, minWidth: width, maxWidth: width }}>
-            <TouchableOpacity style={Style.revenge}>
+            <TouchableOpacity onPress={onFight} style={Style.revenge}>
                 <Text style={{ color: '#1B2444' }}>REVANCHE</Text>
                 <Icon
                     name="arrow-forward-outline"

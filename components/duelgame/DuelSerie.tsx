@@ -29,7 +29,7 @@ export default ({ level, steps, vs }: IProps) => {
     const Dispatch = useAppDispatch()
     const Duel = useAppSelector((state) => state.duel)
     const User = useAppSelector((state) => state.user)
-    const [saved, setSaved] = useState(false)
+    // const [saved, setSaved] = useState(false)
     const [player, setPlayer] = useState(1)
     const [questions, setQuestions] = useState<Array<any>>([])
     const [step1, setStep1] = useState<any>(null)
@@ -77,7 +77,7 @@ export default ({ level, steps, vs }: IProps) => {
                     setStep3(questionsData[2])
                     setStep4(questionsData[3])
                     setStep5(questionsData[4])
-                    setSaved(response.saved)
+                    // setSaved(response.saved)
                 } else setError(true)
             })()
         }
@@ -110,7 +110,7 @@ export default ({ level, steps, vs }: IProps) => {
     // fonction appelé par le bouton "suivant"
     // valid défini si la question a été correctement répondu ou non
     const onNext = async (valid: boolean) => {
-        if (!saved) {
+        /** if (!saved) {
             console.log('lanceur')
             console.log(`validation: ${valid}`)
             const API = new SerieQuestionStore()
@@ -221,65 +221,81 @@ export default ({ level, steps, vs }: IProps) => {
                     }
                 } else setError(true)
             }
-        } else {
-            console.log('second')
-            console.log(`validation: ${valid}`)
-            const API = new SerieQuestionStore()
-            const SAPI = new SerieStore()
-            const DAPI = new DuelStore()
-            // enregistrement de la validation de la question
-            const question = GetQuestionData(step) // récupérer la question
-            let newstep = step
-            // récupérer des données de la question pour avoir l'id_serie_question
-            const serie_queston = questions.find(
-                (el: any) => `${el.id_question}` === `${question.quizz_id}`
-            )
-            // enregistrement dans la base
-            const response = await API.SetValidation({
-                id_serie_question: serie_queston.id_serie_question,
-                player,
-                validation: valid ? Validation.VALIDE : Validation.RATER,
-            })
-            console.log(`creation question serie: ${response}`)
-            if (!response.canceled) {
-                // si l'enregistrement de la question fut un succès augmenter le score d'un point
-                if (valid)
-                    Dispatch(
-                        player === 1 ? SetScorePlayer1(1) : SetScorePlayer2(1)
-                    )
+        } else { */
+        console.log('second')
+        console.log(`validation: ${valid}`)
+        const API = new SerieQuestionStore()
+        const SAPI = new SerieStore()
+        const DAPI = new DuelStore()
+        // enregistrement de la validation de la question
+        const question = GetQuestionData(step) // récupérer la question
+        let newstep = step
+        // récupérer des données de la question pour avoir l'id_serie_question
+        const serie_queston = questions.find(
+            (el: any) => `${el.id_question}` === `${question.quizz_id}`
+        )
+        // enregistrement dans la base
+        const response = await API.SetValidation({
+            id_serie_question: serie_queston.id_serie_question,
+            player,
+            validation: valid ? Validation.VALIDE : Validation.RATER,
+        })
+        console.log(`creation question serie: ${response}`)
+        if (!response.canceled) {
+            // si l'enregistrement de la question fut un succès augmenter le score d'un point
+            if (valid)
+                Dispatch(player === 1 ? SetScorePlayer1(1) : SetScorePlayer2(1))
 
-                if (step < 4) {
-                    newstep++
-                    setStep(newstep)
-                }
+            if (step < 4) {
+                newstep++
+                setStep(newstep)
+            }
 
-                if (step === 4) {
-                    // récupérer le nombre de question validé pour définir le score final
-                    const SQ_response = await API.GetValidatedCount(
-                        parseInt(`${Duel.id_serie}`, 10),
-                        player
-                    )
-                    if (!SQ_response.canceled) {
-                        // vérifier si les données coincide
-                        const playerScore =
+            if (step === 4) {
+                // récupérer le nombre de question validé pour définir le score final
+                const SQ_response = await API.GetValidatedCount(
+                    parseInt(`${Duel.id_serie}`, 10),
+                    player
+                )
+                if (!SQ_response.canceled) {
+                    // vérifier si les données coincide
+                    const playerScore =
+                        player === 1
+                            ? parseInt(`${Duel.score_player1}`, 10)
+                            : parseInt(`${Duel.score_player2}`, 10)
+                    if (parseInt(`${SQ_response}`, 10) !== playerScore)
+                        Dispatch(
                             player === 1
-                                ? parseInt(`${Duel.score_player1}`, 10)
-                                : parseInt(`${Duel.score_player2}`, 10)
-                        if (parseInt(`${SQ_response}`, 10) !== playerScore)
-                            Dispatch(
-                                player === 1
-                                    ? SetScore1(parseInt(`${SQ_response}`, 10))
-                                    : SetScore2(parseInt(`${SQ_response}`, 10))
-                            )
-
-                        // enregistrement du score dans la base de données
-                        const S_response = await SAPI.SetScore(
-                            parseInt(`${Duel.id_serie}`, 10),
-                            player,
-                            SQ_response
+                                ? SetScore1(parseInt(`${SQ_response}`, 10))
+                                : SetScore2(parseInt(`${SQ_response}`, 10))
                         )
-                        if (!S_response.canceled) {
+
+                    // enregistrement du score dans la base de données
+                    const S_response = await SAPI.SetScore(
+                        parseInt(`${Duel.id_serie}`, 10),
+                        player,
+                        SQ_response
+                    )
+                    if (!S_response.canceled) {
+                        console.log(`score saved: ${SQ_response}`)
+                        // verify if should close
+                        const closeResponse = await SAPI.closeSerie(
+                            parseInt(`${Duel.id_serie}`, 10)
+                        )
+                        if (!closeResponse.canceled && !closeResponse.finish) {
                             console.log(`score saved: ${SQ_response}`)
+                            // envoie du notification de fin de série
+                            socket.emit(`onFinishSerie`, {
+                                id_duel: Duel.id_duel,
+                                user_id:
+                                    player === 1
+                                        ? Duel.id_player2
+                                        : Duel.id_player1,
+                                id_serie: Duel.id_serie,
+                            })
+                            newstep++
+                            setStep(newstep)
+                        } else {
                             // terminer la série
                             const response_S = await SAPI.OnFinish(
                                 parseInt(`${Duel.id_serie}`, 10)
@@ -399,11 +415,12 @@ export default ({ level, steps, vs }: IProps) => {
                                     } else setError(true)
                                 }
                             } else setError(true)
-                        } else setError(true)
+                        }
                     } else setError(true)
-                }
+                } else setError(true)
             }
         }
+        // }
     }
 
     if (error) return <Error />

@@ -11,6 +11,7 @@ import {
 import {
     extractClubTypeSeason,
     extractClubTransfertQuestion,
+    extractPlayerByRecordQuestion,
 } from '../../services/factory/Game'
 import { useAppSelector } from '../../store/hooks/hooks'
 import PlayedWith from './Question/PlayedWith'
@@ -23,6 +24,7 @@ import PlayerPalmares from './Question/PlayerPalmares'
 import PlayerWC from './Question/PlayerWC'
 import PlayerNationality from './Question/PlayerNationality'
 import PlayerBirthPlace from './Question/PlayerBirthPlace'
+import PlayerRecord from './Question/PlayerRecord'
 import ClubTransfert from './Question/ClubTransfert'
 import ClubLogo from './Question/ClubLogo'
 
@@ -48,6 +50,8 @@ interface IQProps {
 } */
 
 const Question = ({ type, data }: IQProps) => {
+    if (type === 'who_is_this_player_by_records')
+        return <PlayerRecord data={data} />
     if (type === 'who_is_this_player_by_nationality')
         return <PlayerNationality data={data} />
     if (type === 'who_is_this_player_club_by_transfert')
@@ -81,6 +85,8 @@ export default ({ data, type }: IProps) => {
 
     const getQuestion = (Qtype: string) => {
         switch (Qtype) {
+            case 'who_is_this_player_by_records':
+                return extractPlayerByRecordQuestion(data)
             case 'who_is_this_player_by_teammate':
                 return 'Quel est ce joueur qui a joué le plus souvent avec ces joueurs-ci ?'
             case 'who_is_this_club':
@@ -133,8 +139,17 @@ export default ({ data, type }: IProps) => {
             >
                 <Question data={data} type={type} />
             </View>
-            <View style={{ ...Style.question, minWidth: 359, maxWidth: 359 }}>
-                <Text>{`${getQuestion(type)}`}</Text>
+            <View
+                style={{
+                    ...Style.question,
+                    minWidth: 359,
+                    maxWidth: 359,
+                    padding: 10,
+                }}
+            >
+                <Text numberOfLines={3} ellipsizeMode="tail">{`${getQuestion(
+                    type
+                )} `}</Text>
             </View>
             <Modal
                 animationType="slide"
@@ -196,8 +211,8 @@ const Style = StyleSheet.create({
     },
     question: {
         flex: 1,
-        minHeight: 50,
-        maxHeight: 50,
+        minHeight: 75,
+        maxHeight: 75,
         paddingHorizontal: 10,
     },
     questionData: {

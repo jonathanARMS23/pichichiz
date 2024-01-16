@@ -22,6 +22,13 @@ export const extractQuestionData = (data: any) => {
     return null
 }
 
+export const IsNationalTeam = (data: any) => {
+    const description = data.quizz_description
+    if (!data || !description || !description.national_team) return false
+    if (`${description.national_team}` === '1') return true
+    return false
+}
+
 export const extractResponseData = (data: any) => {
     const choice = data.quizz_response_choice
     if (data && verify(choice)) {
@@ -148,6 +155,24 @@ export const extractClubTransfertQuestion = (data: any) => {
     }
 
     return 'Dans quel club ce joueur a été transféré ?'
+}
+
+export const extractPlayerByRecordQuestion = (data: any) => {
+    const info = extractQuestionData(data)
+    if (info.record && info.record.record_title) {
+        const { record } = info
+        if (record.competition) {
+            const { competition } = record
+            if (record.date)
+                return `Qui a battu le record du ${record.record_title} en ${competition.competition_name} pendant l'année ${record.date} ?`
+            return `Qui a battu le record du ${record.record_title} en ${competition.competition_name} ?`
+        }
+        if (record.date)
+            return `Qui a battu le record du ${record.record_title} pendant l'année ${record.date} ?`
+        return `Qui a battu le record du ${record.record_title} ?`
+    }
+
+    return ''
 }
 
 const pays = [
@@ -359,6 +384,7 @@ export const manageIndice = (data: any) => {
             'who_is_this_player_by_photos',
             'who_is_this_player_by_palmares',
             'who_is_this_player_by_teammate',
+            'who_is_this_player_by_records',
         ]
         const club = [
             'who_is_this_club_type',

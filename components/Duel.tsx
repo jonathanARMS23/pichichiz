@@ -77,7 +77,7 @@ export default () => {
                 marginVertical: Platform.OS === 'ios' ? 25 : 0,
             }}
         >
-            <Header />
+            <Header isDuel />
             <Banner />
             <Duels data={duel} />
             <Friends data={friends} />

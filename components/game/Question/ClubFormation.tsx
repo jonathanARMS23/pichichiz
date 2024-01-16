@@ -12,6 +12,7 @@ import {
 import {
     extractQuestionData,
     extractFormation,
+    IsNationalTeam,
 } from '../../../services/factory/Game'
 import { verify } from '../../../services/factory/factory'
 
@@ -21,9 +22,10 @@ interface IProps {
 
 interface IPProps {
     data: any
+    national: boolean
 }
 
-const Player = ({ data }: IPProps) => {
+const Player = ({ data, national }: IPProps) => {
     if (data === null) return <View style={Style.item}></View>
 
     /** if (data && !verify(data.show))
@@ -35,8 +37,7 @@ const Player = ({ data }: IPProps) => {
                 />
             </View>
         ) */
-    if (data && !verify(data.show) && `${data.national_team}` !== '0')
-        return null
+    if (data && !verify(data.show) && national) return null
 
     if (data && !verify(data.show))
         return (
@@ -60,6 +61,7 @@ const Player = ({ data }: IPProps) => {
 export default ({ data }: IProps) => {
     const { width } = useWindowDimensions()
     const [info, setInfo] = useState<any>(null)
+    const [isNational, setIsNational] = useState(false)
 
     useEffect(() => {
         const extract = extractQuestionData(data)
@@ -67,7 +69,12 @@ export default ({ data }: IProps) => {
             const format = extractFormation(extract)
             setInfo(format)
         }
-    }, [])
+    }, [data])
+
+    useEffect(() => {
+        const extract = IsNationalTeam(data)
+        setIsNational(extract)
+    }, [data])
 
     if (!info) return null
 
@@ -84,7 +91,11 @@ export default ({ data }: IProps) => {
                         numColumns={5}
                     /> */}
                 {info.map((el: any, index: number) => (
-                    <Player key={`player${index}`} data={el} />
+                    <Player
+                        key={`player${index}`}
+                        data={el}
+                        national={isNational}
+                    />
                 ))}
             </ImageBackground>
         </View>

@@ -48,13 +48,34 @@ const Item = ({ data }: IIProps) => {
             // récupérer la série en cours (il n'y a qu'une seule série en cours par duel)
             const response = await API.GetInProgressSerie(data.id_duel)
             if (!response.canceled) {
-                // récupération des informations du duel pour initialiser le state global
-                const D_response = await DAPI.GetDuelById(data.id_duel)
-                if (!D_response.canceled) {
-                    const player1 = D_response.user
-                    const player2 = D_response.vs
-                    Dispatch(
-                        CreateDuel({
+                // vérifier si on peut jouer ou une partie a déjà été lancer
+                const verification_response = await API.VerifyBeforePlaying(
+                    response.id_serie,
+                    User.id
+                )
+                if (
+                    !verification_response.canceled &&
+                    verification_response.playable
+                ) {
+                    // récupération des informations du duel pour initialiser le state global
+                    const D_response = await DAPI.GetDuelById(data.id_duel)
+                    if (!D_response.canceled) {
+                        const player1 = D_response.user
+                        const player2 = D_response.vs
+                        Dispatch(
+                            CreateDuel({
+                                id_player1: player1.id,
+                                pseudo_player1: player1.pseudo,
+                                id_player2: player2.id,
+                                pseudo_player2: player2.pseudo,
+                                score_player1: player1.score ?? 0,
+                                score_player2: player2.score ?? 0,
+                                id_duel: D_response.id_duel,
+                                id_serie: response.id_serie,
+                                winner: null,
+                            })
+                        )
+                        console.log({
                             id_player1: player1.id,
                             pseudo_player1: player1.pseudo,
                             id_player2: player2.id,
@@ -63,23 +84,12 @@ const Item = ({ data }: IIProps) => {
                             score_player2: player2.score ?? 0,
                             id_duel: D_response.id_duel,
                             id_serie: response.id_serie,
-                            winner: null,
                         })
-                    )
-                    console.log({
-                        id_player1: player1.id,
-                        pseudo_player1: player1.pseudo,
-                        id_player2: player2.id,
-                        pseudo_player2: player2.pseudo,
-                        score_player1: player1.score ?? 0,
-                        score_player2: player2.score ?? 0,
-                        id_duel: D_response.id_duel,
-                        id_serie: response.id_serie,
-                    })
-                    navigation.navigate('duelgame', {
-                        id_duel: data.id_duel,
-                        id_serie: response.id_serie,
-                    })
+                        navigation.navigate('duelgame', {
+                            id_duel: data.id_duel,
+                            id_serie: response.id_serie,
+                        })
+                    }
                 }
             }
         }

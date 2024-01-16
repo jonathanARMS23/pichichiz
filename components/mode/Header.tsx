@@ -21,7 +21,11 @@ import DuelStore from '../../services/store/Duel'
 
 type SoloHeaderNavProp = StackNavigationProp<RootStackParams, 'solo'>
 
-export default () => {
+interface IProps {
+    isDuel?: boolean
+}
+
+export default ({ isDuel }: IProps) => {
     const Dispatch = useAppDispatch()
     const { width, height } = useWindowDimensions()
     const [hvisible, setHvisible] = useState(false)
@@ -32,7 +36,9 @@ export default () => {
     const navigation = useNavigation<SoloHeaderNavProp>()
 
     const onGoBack = () => {
-        navigation.goBack()
+        if (isDuel) {
+            navigation.navigate('room', { screen: 'main' })
+        } else navigation.goBack()
     }
 
     const onCloseH = () => {

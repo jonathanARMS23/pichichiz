@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SOCKET_SERVER_URL } from '../socket/socket'
@@ -344,6 +345,70 @@ export default class SerieStore extends API {
             if (!response.success) return { canceled: true }
 
             return { saved: response.saved, data: response.data }
+        } catch (error) {
+            if (axios.isCancel(error)) return { canceled: true }
+            throw error
+        }
+    }
+
+    public VerifyBeforePlaying = async (
+        id_serie: number | string,
+        id_user: number | string
+    ) => {
+        try {
+            const dataToken = await AsyncStorage.getItem('socket_token')
+            if (!dataToken) return { canceled: true }
+
+            console.log('je lance la recup')
+
+            const { token } = JSON.parse(dataToken)
+            if (!token) return { canceled: true }
+
+            const response = (
+                await axios.get(
+                    `${this.URL}/serie/play/${id_user}/${id_serie}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+            ).data
+
+            console.log(response)
+
+            if (!response.success) return { canceled: true }
+
+            return response.data
+        } catch (error) {
+            if (axios.isCancel(error)) return { canceled: true }
+            throw error
+        }
+    }
+
+    public closeSerie = async (id_serie: number | string) => {
+        try {
+            const dataToken = await AsyncStorage.getItem('socket_token')
+            if (!dataToken) return { canceled: true }
+
+            console.log('je lance la recup')
+
+            const { token } = JSON.parse(dataToken)
+            if (!token) return { canceled: true }
+
+            const response = (
+                await axios.get(`${this.URL}/serie/close/${id_serie}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            ).data
+
+            console.log(response)
+
+            if (!response.success) return { canceled: true }
+
+            return response.data
         } catch (error) {
             if (axios.isCancel(error)) return { canceled: true }
             throw error

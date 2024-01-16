@@ -23,6 +23,12 @@ export default ({ data, level, question, type, onNext }: IProps) => {
         setStopped(false)
     }, [])
 
+    useEffect(() => {
+        console.log(`type de la question lesy: ${type}`)
+        console.log('data: ')
+        console.log(data)
+    }, [type])
+
     const handleNext = () => {
         setReload(true)
         setElapsed(false)
