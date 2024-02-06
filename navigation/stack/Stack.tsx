@@ -20,6 +20,8 @@ import FinishedDuel from '../../screens/FinishedDuel'
 import Bilan from '../../screens/Bilan'
 /** import navigation screen */
 import Main from '../tab/Main'
+import Ligue from '../../screens/ligue'
+import ManageLigue from '../../screens/ManageLigue'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack
@@ -45,6 +47,8 @@ export default () => (
             <Screen name="notification" component={Notification} />
             <Screen name="duelfinished" component={FinishedDuel} />
             <Screen name="bilan" component={Bilan} />
+            <Screen name="ligue" component={Ligue} />
+            <Screen name="manageligue" component={ManageLigue} />
         </Navigator>
     </NavigationContainer>
 )

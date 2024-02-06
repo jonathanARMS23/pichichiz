@@ -39,6 +39,8 @@ export type RootStackParams = {
     noaccess: undefined
     solo: undefined
     duel: undefined
+    ligue: undefined
+    manageligue: undefined
     notification: undefined
     duelfinished: undefined
     bilan: undefined

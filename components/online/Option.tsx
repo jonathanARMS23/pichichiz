@@ -57,6 +57,7 @@ export default ({
     const handlePress = () => {
         if (disabled) return
         if (type === 'duel') navigation.navigate('duel')
+        if (type === 'ligue') navigation.navigate('ligue')
     }
 
     return (

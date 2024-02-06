@@ -54,7 +54,7 @@ export default () => {
                         subtitle="Rejoins une ligue et affronte tes adversaires."
                         description="Tu peux aussi créer ta propre ligue ! Qui vas-tu prendre dans ton équipe ?"
                         color="#FFC085"
-                        disabled
+                        disabled={false}
                     />
                     <Option
                         title="PYRAMIDE"

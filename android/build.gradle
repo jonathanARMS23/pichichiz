@@ -29,5 +29,42 @@ allprojects {
         // Make sure that you have the following two repositories
         google()  // Google's Maven repository
         mavenCentral()  // Maven Central repository
+
+        maven {
+            url 'https://android-sdk.aatkit.com/maven/'
+        }
+        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" } //Smaato repository
+        maven { url 'https://verve.jfrog.io/artifactory/verve-gradle-release' } //PubNative repository
+        maven { //ironSource repository
+            url 'https://android-sdk.is.com/'
+        }
+        maven { //Ogury repository
+            url 'https://maven.ogury.co'
+        }
+        maven { //Mintegral repository
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
+        }
+        maven { //Bluestack repository
+            credentials {
+                username "madvertise-maven"
+                password "GpdGZ9GE9SK7ByWdM987"
+            }
+            url "https://api.bitbucket.org/2.0/repositories/mngcorp/deploy-maven-bluestack/src/master"
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+        maven {
+            url  "https://teads.jfrog.io/artifactory/SDKAndroid-maven-prod"
+        }
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
+        }
+        maven {
+            url "https://aa-sdk.s3-eu-west-1.amazonaws.com/android_repo"
+        }
+        maven {
+            url 'https://packagecloud.io/smartadserver/android/maven2'
+        }
     }
 }

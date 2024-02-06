@@ -17,10 +17,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { useSelector } from 'react-redux'
 import { RootStackParams } from '../../navigation/tool/tool'
 import { reformatFriendsList } from '../../services/factory/Friends'
-// import { CreateDuel } from '../../store/reducers/duel'
 import FriendAPI from '../../services/store/friends'
-// import DuelStore from '../../services/store/Duel'
-// import SerieStore, { Type } from '../../services/store/Serie'
 import Statut from '../sous-components/Statut'
 
 type ListNavProp = StackNavigationProp<RootStackParams, 'room'>
@@ -35,8 +32,6 @@ interface IHProps {
 }
 
 const Item = ({ data, onReload }: IIProps) => {
-    // const Dispatch = useDispatch()
-    // const navigation = useNavigation<ListNavProp>()
     const User = useSelector((state: any) => state.user)
 
     const onRemove = async () => {
@@ -45,44 +40,6 @@ const Item = ({ data, onReload }: IIProps) => {
         if (response) onReload()
     }
 
-    /* const onFight = async () => {
-        console.log(`challenge ${data.user_id}`)
-    } */
-    /** const onFight = async () => {
-        if (User.id && data.user_id) {
-            const API = new DuelStore()
-            const SAPI = new SerieStore()
-            const D_response = await API.CreateDuel(User.id, data.user_id)
-            if (!D_response.canceled) {
-                const S_response = await SAPI.CreateSerie(
-                    D_response.id_duel,
-                    Type.CLASSIC
-                )
-                if (!S_response.canceled) {
-                    const player1 = D_response.user
-                    const player2 = D_response.vs
-                    Dispatch(
-                        CreateDuel({
-                            id_player1: player1.id,
-                            pseudo_player1: player1.pseudo,
-                            id_player2: player2.id,
-                            pseudo_player2: player2.pseudo,
-                            score_player1: 0,
-                            score_player2: 0,
-                            id_duel: D_response.id_duel,
-                            id_serie: S_response.id_serie,
-                        })
-                    )
-                }
-                navigation.navigate('duelgame', {
-                    id_duel: D_response.id_duel,
-                    id_serie: S_response.id_serie,
-                })
-            }
-        }
-        // navigation.navigate('duelgame', { vs: data.pseudo })
-    } */
-
     return (
         <View style={Style.item}>
             <View style={Style.player}>
@@ -90,25 +47,6 @@ const Item = ({ data, onReload }: IIProps) => {
                 <Text>{`  ${data.pseudo}`}</Text>
             </View>
             <View style={Style.playerAction}>
-                {/** <TouchableOpacity
-                    onPress={onFight}
-                    style={{
-                        ...Style.playerActionButton,
-                        borderWidth: 1,
-                        minWidth: 150,
-                        maxWidth: 150,
-                        minHeight: 40,
-                        maxHeight: 40,
-                    }}
-                >
-                    <Image
-                        source={require('../../assets/images/fight.png')}
-                        style={Style.icon}
-                    />
-                    <Text
-                        style={Style.buttonFight}
-                    >{` PROVOQUER EN DUEL`}</Text>
-                </TouchableOpacity> */}
                 <TouchableOpacity
                     onPress={onRemove}
                     style={{
