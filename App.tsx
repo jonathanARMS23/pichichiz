@@ -3,13 +3,37 @@ import { StatusBar } from 'react-native'
 import { Provider } from 'react-redux'
 import 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { RNAatkit } from '@addapptr/react-native-aatkit'
 import moment from 'moment'
 import OAuth from './services/store/OAuth'
 import { Init } from './services/factory/User'
 import Stack from './navigation/stack/Stack'
 import Store from './store/configureStore'
+import { PLACEMENT } from './pubs'
 
 export default () => {
+    useEffect(() => {
+        RNAatkit.initWithConfiguration({
+            // testModeAccountID: 136,
+            consent: {
+                type: RNAatkit.ConsentType_ManagedCMPGoogle,
+            },
+        })
+
+        console.log('init RNAatkit')
+
+        RNAatkit.createPlacement(PLACEMENT, RNAatkit.PlacementSize_Fullscreen)
+
+        RNAatkit.reloadPlacement(PLACEMENT, (placementReloaded) => {
+            console.log('reload placement')
+            console.log(placementReloaded)
+        })
+
+        RNAatkit.showPlacement(PLACEMENT, (interstitialShown) => {
+            console.log(interstitialShown)
+        })
+    }, [])
+
     useEffect(() => {
         const API = new OAuth()
         ;(async () => {

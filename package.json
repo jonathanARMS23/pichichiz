@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@addapptr/react-native-aatkit": "^2.5.2",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/push-notification-ios": "^1.10.1",
@@ -29,7 +30,6 @@
     "react-native": "0.71.8",
     "react-native-eva-icons": "^1.3.1",
     "react-native-gesture-handler": "^2.10.0",
-    "react-native-notifications": "^5.0.0",
     "react-native-picker-select": "^9.0.1",
     "react-native-progress": "^5.0.0",
     "react-native-push-notification": "^8.1.1",

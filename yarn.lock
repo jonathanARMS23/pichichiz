@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@addapptr/react-native-aatkit@^2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@addapptr/react-native-aatkit/-/react-native-aatkit-2.5.2.tgz#adfd060c9e569892f59cc6264433cf9e79fdb87f"
+  integrity sha512-8gcSu/iYrVplXCGpkKZIyNtwWY5qaF6zamv5Yr1anS6hSZYzYyGL6pZr1VA9E1y/LI0hkjeA4/ObflcYo/MqsQ==
+
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.1.tgz#99e8e11851128b8702cd57c33684f1d0f260b630"
@@ -6333,11 +6338,6 @@ react-native-gradle-plugin@^0.71.18:
   version "0.71.18"
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.18.tgz#20ef199bc85be32e45bb6cc069ec2e7dcb1a74a6"
   integrity sha512-7F6bD7B8Xsn3JllxcwHhFcsl9aHIig47+3eN4IHFNqfLhZr++3ElDrcqfMzugM+niWbaMi7bJ0kAkAL8eCpdWg==
-
-react-native-notifications@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-5.0.0.tgz#a6f8cead3372aa81aead50e9fc8bfac77d5b786d"
-  integrity sha512-QXtBBmbDtwq9X8WAPLn+OctIeEtnJOQ+RCT6iweaypvFTydt2baLPtawTAbCSXKuWpVDqDAdmZnlQjCcavNzoA==
 
 react-native-picker-select@^9.0.1:
   version "9.0.1"
