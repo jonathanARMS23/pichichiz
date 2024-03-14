@@ -21,6 +21,7 @@ import Bilan from '../../screens/Bilan'
 /** import navigation screen */
 import Main from '../tab/Main'
 import Ligue from '../../screens/ligue'
+import LigueDetails from '../../components/ligue/LigueDetails'
 import ManageLigue from '../../screens/ManageLigue'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -29,7 +30,7 @@ const { Navigator, Screen } = Stack
 export default () => (
     <NavigationContainer>
         <Navigator
-            initialRouteName="launch"
+            initialRouteName="home"
             screenOptions={{ headerShown: false }}
         >
             <Screen name="home" component={Home} />
@@ -48,6 +49,7 @@ export default () => (
             <Screen name="duelfinished" component={FinishedDuel} />
             <Screen name="bilan" component={Bilan} />
             <Screen name="ligue" component={Ligue} />
+            <Screen name="liguedetails" component={LigueDetails} />
             <Screen name="manageligue" component={ManageLigue} />
         </Navigator>
     </NavigationContainer>

@@ -20,6 +20,7 @@ export default class LigueStore extends API {
     private URL = `${SOCKET_SERVER_URL}/api`
 
     public CreateLigue = async (body: ICreateLigue) => {
+        // retourne la nouvelle ligue
         try {
             const dataToken = await AsyncStorage.getItem('socket_token')
             if (!dataToken) return { canceled: true }
@@ -45,6 +46,7 @@ export default class LigueStore extends API {
     }
 
     public CreateInvitations = async (body: ICreateInvitations) => {
+        // retourne la nouvelle invitation
         try {
             const dataToken = await AsyncStorage.getItem('socket_token')
             if (!dataToken) return { canceled: true }
@@ -70,6 +72,7 @@ export default class LigueStore extends API {
     }
 
     public getLigues = async (user_id: number) => {
+        // retourne les ligues du user_id
         try {
             const dataToken = await AsyncStorage.getItem('socket_token')
             if (!dataToken) return { canceled: true }
@@ -95,6 +98,7 @@ export default class LigueStore extends API {
     }
 
     public getInvitationByUser = async (user_id: number) => {
+        // retourne les invitations pour user_id
         try {
             const dataToken = await AsyncStorage.getItem('socket_token')
             if (!dataToken) return { canceled: true }

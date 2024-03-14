@@ -40,6 +40,9 @@ export type RootStackParams = {
     solo: undefined
     duel: undefined
     ligue: undefined
+    liguedetails: {
+        code: string
+    }
     manageligue: undefined
     notification: undefined
     duelfinished: undefined
