@@ -8,12 +8,15 @@ import {
     FlatList,
     TouchableOpacity,
     Modal,
+    ActivityIndicator,
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../mode/Header'
-import { COLORS, FONT_WEIGHT } from '../../utiles/constantes'
+import { COLORS } from '../../utiles/constantes'
 import Statut from '../sous-components/Statut'
 import { Icon } from 'react-native-eva-icons'
+import { RootStackParams } from '../../navigation/tool/tool'
+import { RouteProp, useRoute } from '@react-navigation/native'
 
 interface IIProps {
     data: {
@@ -39,11 +42,12 @@ const data = [
     },
 ]
 
+type LigueNavProp = RouteProp<RootStackParams, 'liguedetails'>
+
 const Item = ({ data }: IIProps) => {
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
     // const User = useSelector((state: any) => state.user)
-
     const onClose = () => {
         setVisible(false)
     }
@@ -133,6 +137,18 @@ const Item = ({ data }: IIProps) => {
 
 export default () => {
     const { width } = useWindowDimensions()
+    const route = useRoute<LigueNavProp>()
+    const { code, name } = route.params
+    const [listMembre, setListMembre] = useState<any[]>([])
+
+    useEffect(() => {
+        const myTimeout = setTimeout(() => setListMembre(data), 2000)
+
+        return () => {
+            clearTimeout(myTimeout)
+        }
+    }, [])
+
     return (
         <View
             style={{
@@ -144,7 +160,7 @@ export default () => {
             <Header />
             <View style={{ ...Style.banner, width: width }}>
                 <Text style={{ ...Style.title, color: '#FFFFFF' }}>
-                    LIGUE FBDB
+                    {`LIGUE ${name}`}
                 </Text>
                 <Text style={{ color: '#ffffff', fontStyle: 'italic' }}>
                     EN ATTENTE DE TOUS LES MEMBRES
@@ -154,13 +170,23 @@ export default () => {
                 <View style={Style.titleContainer}>
                     <Text style={Style.title}>MEMBRES DE LA LIGUE:</Text>
                 </View>
-                <ScrollView horizontal>
-                    <FlatList
-                        data={data}
-                        keyExtractor={(item, index) => `duel${index}`}
-                        renderItem={({ item }) => <Item data={item} />}
-                    />
-                </ScrollView>
+                {listMembre.length === 0 ? (
+                    <View style={Style.loading}>
+                        <ActivityIndicator
+                            size="large"
+                            color={COLORS.light_primary}
+                        />
+                        <Text style={Style.loadingText}>CHARGEMENT</Text>
+                    </View>
+                ) : (
+                    <ScrollView horizontal>
+                        <FlatList
+                            data={data}
+                            keyExtractor={(item, index) => `duel${index}`}
+                            renderItem={({ item }) => <Item data={item} />}
+                        />
+                    </ScrollView>
+                )}
             </View>
         </View>
     )
@@ -169,7 +195,6 @@ export default () => {
 const Style = StyleSheet.create({
     container: {
         flex: 1,
-        // paddingVertical: 10,
     },
     banner: {
         height: 70,
@@ -177,9 +202,7 @@ const Style = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
     },
-    title: {
-        fontWeight: 'bold',
-    },
+
     dataContainer: {
         flex: 1,
         alignItems: 'center',
@@ -193,6 +216,21 @@ const Style = StyleSheet.create({
         maxWidth: 375,
         borderBottomWidth: 2,
         borderColor: COLORS.primary,
+    },
+    title: {
+        fontWeight: 'bold',
+    },
+    loadingText: {
+        color: '#323D65',
+        fontSize: 17,
+    },
+    loading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        minHeight: 130,
+        maxHeight: 130,
+        marginTop: 25,
     },
     /////ITEM
     item: {

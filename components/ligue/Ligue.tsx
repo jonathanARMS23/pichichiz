@@ -31,7 +31,10 @@ const Item = ({ data }: IIProps) => {
 
     const onFight = () => {
         console.log('dataLigue: ', data)
-        navigation.navigate('liguedetails', { code: data.code })
+        navigation.navigate('liguedetails', {
+            code: data.code,
+            name: data.name,
+        })
     }
 
     return (

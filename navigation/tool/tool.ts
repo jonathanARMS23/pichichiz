@@ -42,6 +42,12 @@ export type RootStackParams = {
     ligue: undefined
     liguedetails: {
         code: string
+        name: string
+    }
+    invitationrejoindre: undefined
+    confirmRejoindre: {
+        data?: object
+        code?: string
     }
     manageligue: undefined
     notification: undefined

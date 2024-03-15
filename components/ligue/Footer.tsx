@@ -19,6 +19,7 @@ export default () => {
         if (User.id) {
             console.log(User)
         }
+        navigation.navigate('invitationrejoindre')
     }
 
     return (

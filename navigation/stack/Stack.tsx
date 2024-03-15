@@ -23,6 +23,8 @@ import Main from '../tab/Main'
 import Ligue from '../../screens/ligue'
 import LigueDetails from '../../components/ligue/LigueDetails'
 import ManageLigue from '../../screens/ManageLigue'
+import RejoindreLigue from '../../components/ligue/RejoindreLigue'
+import confirmRejoindre from '../../components/ligue/confirmRejoindre'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack
@@ -30,7 +32,7 @@ const { Navigator, Screen } = Stack
 export default () => (
     <NavigationContainer>
         <Navigator
-            initialRouteName="home"
+            initialRouteName="launch"
             screenOptions={{ headerShown: false }}
         >
             <Screen name="home" component={Home} />
@@ -50,6 +52,8 @@ export default () => (
             <Screen name="bilan" component={Bilan} />
             <Screen name="ligue" component={Ligue} />
             <Screen name="liguedetails" component={LigueDetails} />
+            <Screen name="invitationrejoindre" component={RejoindreLigue} />
+            <Screen name="confirmRejoindre" component={confirmRejoindre} />
             <Screen name="manageligue" component={ManageLigue} />
         </Navigator>
     </NavigationContainer>
