@@ -44,6 +44,9 @@ export type RootStackParams = {
         code: string
         name: string
     }
+    liguegame: {
+        data?: object
+    }
     invitationrejoindre: undefined
     confirmRejoindre: {
         data?: object

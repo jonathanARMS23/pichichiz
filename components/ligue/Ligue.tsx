@@ -30,10 +30,13 @@ const Item = ({ data }: IIProps) => {
     const navigation = useNavigation<LigueNavProp>()
 
     const onFight = () => {
-        console.log('dataLigue: ', data)
-        navigation.navigate('liguedetails', {
-            code: data.code,
-            name: data.name,
+        // console.log('dataLigue: ', data)
+        // navigation.navigate('liguedetails', {
+        //     code: data.code,
+        //     name: data.name,
+        // })
+        navigation.navigate('liguegame', {
+            data: data,
         })
     }
 
