@@ -7,6 +7,7 @@ interface IProps {
     onClose: Function
     date: string
     adversaire: string
+    setReport: Function
 }
 
 interface IIProps extends IProps {
@@ -22,7 +23,7 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
                         name="clock-outline"
                         height={25}
                         width={25}
-                        color={COLORS.primary}
+                        fill={COLORS.primary}
                     />
                     <Text style={Style.titleModal}>
                         {`REPORTER LE DUEL DU ${
@@ -97,7 +98,7 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
     )
 }
 
-const Confirm = ({ onClose, adversaire }: IIProps) => {
+const Confirm = ({ onClose, adversaire, setReport }: IIProps) => {
     return (
         <View style={Style.info}>
             <View style={{ ...Style.headerModal, justifyContent: 'flex-end' }}>
@@ -137,7 +138,10 @@ const Confirm = ({ onClose, adversaire }: IIProps) => {
                         width: 100,
                         backgroundColor: COLORS.light_primary,
                     }}
-                    onPress={() => onClose()}
+                    onPress={() => {
+                        onClose()
+                        setReport(true)
+                    }}
                 >
                     <Text style={{ fontWeight: 'bold', color: '#ffffff' }}>
                         OK
@@ -148,7 +152,7 @@ const Confirm = ({ onClose, adversaire }: IIProps) => {
     )
 }
 
-export default ({ onClose, date, adversaire }: IProps) => {
+export default ({ onClose, date, adversaire, setReport }: IProps) => {
     const [confirm, setConfirm] = useState(false)
 
     return !confirm ? (
@@ -157,6 +161,7 @@ export default ({ onClose, date, adversaire }: IProps) => {
             date={date}
             adversaire={adversaire}
             setConfirm={setConfirm}
+            setReport={setReport}
         />
     ) : (
         <Confirm
@@ -164,6 +169,7 @@ export default ({ onClose, date, adversaire }: IProps) => {
             date={date}
             adversaire={adversaire}
             setConfirm={setConfirm}
+            setReport={setReport}
         />
     )
 }

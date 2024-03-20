@@ -26,6 +26,7 @@ import ManageLigue from '../../screens/ManageLigue'
 import RejoindreLigue from '../../components/ligue/RejoindreLigue'
 import confirmRejoindre from '../../components/ligue/confirmRejoindre'
 import ligueGame from '../../components/ligue/ligueGame/ligueGame'
+import ligueSettings from '../../components/ligue/ligueGame/ligueSettings'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack
@@ -51,12 +52,15 @@ export default () => (
             <Screen name="notification" component={Notification} />
             <Screen name="duelfinished" component={FinishedDuel} />
             <Screen name="bilan" component={Bilan} />
+
+            {/* LIGUE */}
             <Screen name="ligue" component={Ligue} />
             <Screen name="liguedetails" component={LigueDetails} />
             <Screen name="invitationrejoindre" component={RejoindreLigue} />
-            <Screen name="confirmRejoindre" component={confirmRejoindre} />
+            <Screen name="confirmrejoindre" component={confirmRejoindre} />
             <Screen name="manageligue" component={ManageLigue} />
             <Screen name="liguegame" component={ligueGame} />
+            <Screen name="liguesettings" component={ligueSettings} />
         </Navigator>
     </NavigationContainer>
 )

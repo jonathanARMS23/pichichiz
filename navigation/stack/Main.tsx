@@ -1,10 +1,10 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { OnlineStackParams } from '../tool/tool'
+import { MainStackParams } from '../tool/tool'
 import Online from '../../screens/Online'
 import Main from '../../screens/Main'
 
-const Stack = createStackNavigator<OnlineStackParams>()
+const Stack = createStackNavigator<MainStackParams>()
 const { Navigator, Screen } = Stack
 
 export default () => (

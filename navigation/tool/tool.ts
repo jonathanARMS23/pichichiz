@@ -16,13 +16,13 @@ export type StoreStackParams = {
     }
 }
 
-export type OnlineStackParams = {
+export type MainStackParams = {
     online: undefined
     root: undefined
 }
 
 export type MainTabParams = {
-    main: NavigatorScreenParams<OnlineStackParams>
+    main: NavigatorScreenParams<MainStackParams>
     reward: undefined
     profil: undefined
     store: NavigatorScreenParams<StoreStackParams>
@@ -48,10 +48,11 @@ export type RootStackParams = {
         data?: object
     }
     invitationrejoindre: undefined
-    confirmRejoindre: {
+    confirmrejoindre: {
         data?: object
         code?: string
     }
+    liguesettings: undefined
     manageligue: undefined
     notification: undefined
     duelfinished: undefined

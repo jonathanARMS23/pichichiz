@@ -21,7 +21,7 @@ export default () => {
     const [code, setCode] = useState('')
     const navigation = useNavigation<LigueNavProp>()
     const valider = () => {
-        navigation.navigate('confirmRejoindre', { code: code })
+        navigation.navigate('confirmrejoindre', { code: code })
     }
     return (
         <View

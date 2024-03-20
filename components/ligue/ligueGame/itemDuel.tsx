@@ -7,6 +7,7 @@ import Statut from './statut'
 
 interface IProps {
     data: any
+    key: any
 }
 
 interface IIProps {

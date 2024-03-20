@@ -30,6 +30,8 @@ export default () => {
     const score1 = data.player1.score
     const score2 = data.player2.score
     const { width, height } = useWindowDimensions()
+    const [report, setReport] = useState(false)
+    const [reportConfirm, setReportConfirm] = useState(false)
     const [visible, setVisible] = useState(false)
     const onClose = () => {
         setVisible(false)
@@ -58,32 +60,51 @@ export default () => {
                 <Player statut="draw" nom={data.player2.nom} data={data} />
             )}
         </View>
-    ) : (
-        <View style={Style.containerMyOpponent}>
-            <View style={Style.playerContainer}>
-                <Text style={{ fontSize: 16, letterSpacing: 1 }}>ArnaudK</Text>
-                <View style={Style.statut}>
-                    <Statut size={10} actif={true} />
-                    <Statut size={10} actif={false} />
-                    <Statut size={10} actif={true} />
+    ) : reportConfirm === false ? (
+        <View
+            style={
+                report
+                    ? { ...Style.containerMyOpponent, maxHeight: 120 }
+                    : { ...Style.containerMyOpponent, maxHeight: 60 }
+            }
+        >
+            <View style={Style.duelContainer}>
+                <View style={Style.playerContainer}>
+                    <Text style={{ fontSize: 16, letterSpacing: 1 }}>
+                        ArnaudK
+                    </Text>
+                    <View style={Style.statut}>
+                        <Statut size={10} actif={true} />
+                        <Statut size={10} actif={false} />
+                        <Statut size={10} actif={true} />
+                    </View>
+                </View>
+                <View style={Style.action}>
+                    <View style={Style.reporter}>
+                        <TouchableOpacity onPress={onOpen}>
+                            <Icon
+                                name="clock-outline"
+                                height={30}
+                                width={30}
+                                color={COLORS.primary}
+                            />
+                        </TouchableOpacity>
+                        <Text>reporter</Text>
+                    </View>
+                    <View style={Style.jouer}>
+                        <Text style={{ fontWeight: 'bold' }}>JOUER</Text>
+                    </View>
                 </View>
             </View>
-            <View style={Style.action}>
-                <View style={Style.reporter}>
-                    <TouchableOpacity onPress={onOpen}>
-                        <Icon
-                            name="clock-outline"
-                            height={30}
-                            width={30}
-                            color={COLORS.primary}
-                        />
-                    </TouchableOpacity>
-                    <Text>reporter</Text>
+            {report ? (
+                <View style={{ flex: 1 }}>
+                    <Text style={Style.statutReport}>
+                        Ta demande de report de duel au 07/10/2022 est en
+                        attente
+                    </Text>
                 </View>
-                <View style={Style.jouer}>
-                    <Text style={{ fontWeight: 'bold' }}>JOUER</Text>
-                </View>
-            </View>
+            ) : null}
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -103,10 +124,16 @@ export default () => {
                         date="jour"
                         adversaire="ArnaudK"
                         onClose={onClose}
+                        setReport={setReport}
                     />
                 </View>
             </Modal>
         </View>
+    ) : (
+        <Text style={Style.reportConfirm}>
+            Duel avec ArnaudK reporté au{' '}
+            <Text style={{ color: COLORS.green }}>07/10/2022</Text>
+        </Text>
     )
 }
 
@@ -114,12 +141,18 @@ const Style = StyleSheet.create({
     containerMyOpponent: {
         flex: 1,
         minHeight: 60,
-        maxHeight: 60,
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: COLORS.primary,
+    },
+    duelContainer: {
+        flex: 1,
+        minHeight: 60,
+        maxHeight: 60,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     playerContainer: {
         flex: 1,
@@ -154,6 +187,31 @@ const Style = StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         color: COLORS.primary,
+    },
+    statutReport: {
+        flex: 1,
+        minHeight: 60,
+        maxHeight: 60,
+        minWidth: 375,
+        maxWidth: 375,
+        backgroundColor: COLORS.light_primary,
+        alignItems: 'center',
+        borderRadius: 10,
+        color: COLORS.very_light_primary,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        paddingHorizontal: 5,
+    },
+    reportConfirm: {
+        flex: 1,
+        minHeight: 30,
+        maxHeight: 30,
+        borderRadius: 10,
+        textAlignVertical: 'center',
+        marginTop: 5,
+        backgroundColor: COLORS.light_primary,
+        color: COLORS.very_light_primary,
+        paddingHorizontal: 5,
     },
     //// MODAL
     infoModalWrapper: {

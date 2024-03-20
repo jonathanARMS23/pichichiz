@@ -33,7 +33,7 @@ const Item = ({ data }: IIProps) => {
     const navigation = useNavigation<LigueNavProp>()
 
     const onRejoindre = () => {
-        navigation.navigate('confirmRejoindre', {
+        navigation.navigate('confirmrejoindre', {
             data: data,
         })
     }

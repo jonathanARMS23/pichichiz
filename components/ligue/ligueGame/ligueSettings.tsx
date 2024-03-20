@@ -1,22 +1,19 @@
 import {
-    StyleSheet,
-    Text,
     View,
-    useWindowDimensions,
+    Text,
+    StyleSheet,
     Platform,
-    ScrollView,
+    useWindowDimensions,
+    ActivityIndicator,
     FlatList,
     TouchableOpacity,
     Modal,
-    ActivityIndicator,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Header from '../mode/Header'
-import { COLORS } from '../../utiles/constantes'
-import Statut from '../sous-components/Statut'
+import Header from '../../mode/Header'
 import { Icon } from 'react-native-eva-icons'
-import { RootStackParams } from '../../navigation/tool/tool'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { COLORS } from '../../../utiles/constantes'
+import Statut from '../../sous-components/Statut'
 
 interface IIProps {
     data: {
@@ -42,12 +39,13 @@ const data = [
     },
 ]
 
-type LigueNavProp = RouteProp<RootStackParams, 'liguedetails'>
+const ligueCreator = 'Laulau4'
 
 const Item = ({ data }: IIProps) => {
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
     // const User = useSelector((state: any) => state.user)
+    const User = 'Laulau4'
     const onClose = () => {
         setVisible(false)
     }
@@ -64,9 +62,24 @@ const Item = ({ data }: IIProps) => {
                     {data.user ? `${data.name} (moi)` : data.name}
                 </Text>
             </View>
-            <TouchableOpacity onPress={onOpen} style={Style.playerActionButton}>
-                <Text style={Style.buttonModal}>{data.user ? 'X' : ''}</Text>
-            </TouchableOpacity>
+            {data.user ? (
+                <TouchableOpacity
+                    onPress={onOpen}
+                    style={Style.playerActionButton}
+                >
+                    <Text style={Style.buttonModal}>QUITTER LA LIGUE</Text>
+                </TouchableOpacity>
+            ) : User === ligueCreator ? (
+                <TouchableOpacity onPress={onOpen} style={Style.bannir}>
+                    <Icon
+                        name="close-outline"
+                        height={30}
+                        width={30}
+                        fill={COLORS.red}
+                    />
+                </TouchableOpacity>
+            ) : null}
+
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -103,7 +116,8 @@ const Item = ({ data }: IIProps) => {
                         </View>
                         <View style={Style.information}>
                             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-                                Es-tu sûr de vouloir quitter la ligue FBDB ?
+                                Es-tu sûr de vouloir quitter la ligue SPORT360°
+                                ?
                             </Text>
                         </View>
                         <View style={Style.actionButtonContainer}>
@@ -122,10 +136,7 @@ const Item = ({ data }: IIProps) => {
                                     OUI, PARTIR
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => onClose()}
-                                style={Style.actionButton}
-                            >
+                            <TouchableOpacity style={Style.actionButton}>
                                 <Text style={{ color: COLORS.primary }}>
                                     ANNULER
                                 </Text>
@@ -140,12 +151,10 @@ const Item = ({ data }: IIProps) => {
 
 export default () => {
     const { width } = useWindowDimensions()
-    const route = useRoute<LigueNavProp>()
-    const { code, name } = route.params
     const [listMembre, setListMembre] = useState<any[]>([])
 
     useEffect(() => {
-        const myTimeout = setTimeout(() => setListMembre(data), 2000)
+        const myTimeout = setTimeout(() => setListMembre(data), 500)
 
         return () => {
             clearTimeout(myTimeout)
@@ -161,13 +170,18 @@ export default () => {
             }}
         >
             <Header />
-            <View style={{ ...Style.banner, width: width }}>
-                <Text style={{ ...Style.title, color: '#FFFFFF' }}>
-                    {`LIGUE ${name}`}
-                </Text>
-                <Text style={{ color: '#ffffff', fontStyle: 'italic' }}>
-                    EN ATTENTE DE TOUS LES MEMBRES
-                </Text>
+            <View style={{ ...Style.bannerContainer, width: width }}>
+                <View style={Style.imageWrapper}>
+                    <Text style={{ fontWeight: 'bold', color: '#ffffff' }}>
+                        PARAMETRES
+                    </Text>
+                    <Icon
+                        name="settings-2-outline"
+                        height={30}
+                        width={30}
+                        fill="#FFFFFF"
+                    />
+                </View>
             </View>
             <View style={Style.dataContainer}>
                 <View style={Style.titleContainer}>
@@ -182,13 +196,11 @@ export default () => {
                         <Text style={Style.loadingText}>CHARGEMENT</Text>
                     </View>
                 ) : (
-                    <ScrollView horizontal>
-                        <FlatList
-                            data={data}
-                            keyExtractor={(item, index) => `duel${index}`}
-                            renderItem={({ item }) => <Item data={item} />}
-                        />
-                    </ScrollView>
+                    <FlatList
+                        data={data}
+                        keyExtractor={(item, index) => `duel${index}`}
+                        renderItem={({ item }) => <Item data={item} />}
+                    />
                 )}
             </View>
         </View>
@@ -199,14 +211,26 @@ const Style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        // justifyContent: 'space-between',
+        backgroundColor: '#ffffff',
     },
-    banner: {
-        height: 70,
-        backgroundColor: COLORS.primary,
-        justifyContent: 'space-around',
+    bannerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    imageWrapper: {
+        flex: 1,
+        flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-around',
+        minHeight: 40,
+        maxHeight: 40,
+        minWidth: 200,
+        maxWidth: 200,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        backgroundColor: COLORS.light_primary,
     },
-
     dataContainer: {
         flex: 1,
         alignItems: 'center',
@@ -255,16 +279,29 @@ const Style = StyleSheet.create({
         alignItems: 'center',
     },
     playerActionButton: {
+        flex: 1,
+        minHeight: 30,
+        maxHeight: 30,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        minWidth: 20,
-        maxWidth: 20,
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: COLORS.red,
     },
     buttonModal: {
-        fontSize: 20,
         color: COLORS.red,
         fontWeight: 'bold',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 13,
+    },
+    bannir: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        minHeight: 30,
+        maxHeight: 30,
     },
 
     //// MODAL
