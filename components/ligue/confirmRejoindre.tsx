@@ -12,11 +12,11 @@ import React, { useEffect, useState } from 'react'
 import { COLORS } from '../../utiles/constantes'
 import { Icon } from 'react-native-eva-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParams } from '../../navigation/tool/tool'
+import { MainStackParams } from '../../navigation/tool/tool'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 
-type LigueNavProp = StackNavigationProp<RootStackParams, 'confirmRejoindre'>
-type confirmRejoindreProp = RouteProp<RootStackParams, 'confirmRejoindre'>
+type LigueNavProp = StackNavigationProp<MainStackParams, 'confirmrejoindre'>
+type confirmRejoindreProp = RouteProp<MainStackParams, 'confirmrejoindre'>
 export default () => {
     const [loading, setLoading] = useState(true)
     const { width, height } = useWindowDimensions()
@@ -39,7 +39,7 @@ export default () => {
     }, [])
 
     const goback = () => {
-        navigation.navigate('ligue')
+        navigation.navigate('liguemain')
     }
 
     return (

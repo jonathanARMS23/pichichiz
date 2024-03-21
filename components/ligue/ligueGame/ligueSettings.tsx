@@ -40,12 +40,13 @@ const data = [
 ]
 
 const ligueCreator = 'Laulau4'
+const User = 'Laulau4'
 
 const Item = ({ data }: IIProps) => {
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
     // const User = useSelector((state: any) => state.user)
-    const User = 'Laulau4'
+
     const onClose = () => {
         setVisible(false)
     }
@@ -63,12 +64,14 @@ const Item = ({ data }: IIProps) => {
                 </Text>
             </View>
             {data.user ? (
-                <TouchableOpacity
-                    onPress={onOpen}
-                    style={Style.playerActionButton}
-                >
-                    <Text style={Style.buttonModal}>QUITTER LA LIGUE</Text>
-                </TouchableOpacity>
+                User === ligueCreator ? null : (
+                    <TouchableOpacity
+                        onPress={onOpen}
+                        style={Style.playerActionButton}
+                    >
+                        <Text style={Style.buttonModal}>QUITTER LA LIGUE</Text>
+                    </TouchableOpacity>
+                )
             ) : User === ligueCreator ? (
                 <TouchableOpacity onPress={onOpen} style={Style.bannir}>
                     <Icon
@@ -115,10 +118,21 @@ const Item = ({ data }: IIProps) => {
                             </TouchableOpacity>
                         </View>
                         <View style={Style.information}>
-                            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-                                Es-tu sûr de vouloir quitter la ligue SPORT360°
-                                ?
-                            </Text>
+                            {User === ligueCreator ? (
+                                <Text
+                                    style={{ fontSize: 15, fontWeight: 'bold' }}
+                                >
+                                    Es-tu sûr de vouloir bannir ArnaudK de la
+                                    ligue SPORT360° ?
+                                </Text>
+                            ) : (
+                                <Text
+                                    style={{ fontSize: 15, fontWeight: 'bold' }}
+                                >
+                                    Es-tu sûr de vouloir quitter la ligue
+                                    SPORT360° ?
+                                </Text>
+                            )}
                         </View>
                         <View style={Style.actionButtonContainer}>
                             <TouchableOpacity
@@ -136,7 +150,10 @@ const Item = ({ data }: IIProps) => {
                                     OUI, PARTIR
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={Style.actionButton}>
+                            <TouchableOpacity
+                                onPress={onClose}
+                                style={Style.actionButton}
+                            >
                                 <Text style={{ color: COLORS.primary }}>
                                     ANNULER
                                 </Text>

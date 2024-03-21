@@ -9,6 +9,7 @@ import {
     useWindowDimensions,
 } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
+import { COLORS } from '../../utiles/constantes'
 
 export default () => {
     const { width, height } = useWindowDimensions()
@@ -60,8 +61,8 @@ export default () => {
                             <View style={Style.titleContainer}>
                                 <Icon
                                     name="info-outline"
-                                    height={15}
-                                    width={15}
+                                    height={20}
+                                    width={20}
                                 />
                                 <Text style={Style.title}>
                                     Bienvenue dans LIGUE !
@@ -153,13 +154,14 @@ const Style = StyleSheet.create({
         minHeight: 250,
         maxHeight: 250,
         borderRadius: 10,
-        padding: 20,
+        padding: 10,
         backgroundColor: '#FFFFFF',
     },
     header: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between',
         minHeight: 50,
         maxHeight: 50,
         minWidth: 340,
@@ -186,12 +188,9 @@ const Style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-around',
-        minWidth: 340,
-        maxWidth: 340,
-        minHeight: 200,
-        maxHeight: 200,
     },
     title: {
         fontWeight: 'bold',
+        color: COLORS.light_primary,
     },
 })

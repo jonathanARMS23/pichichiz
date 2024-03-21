@@ -8,9 +8,19 @@ import {
 import React from 'react'
 import { COLORS } from '../../../utiles/constantes'
 import { Icon } from 'react-native-eva-icons'
+import { MainStackParams } from '../../../navigation/tool/tool'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
+
+type LigueNavProp = StackNavigationProp<MainStackParams, 'liguegame'>
 
 export default () => {
     const { width } = useWindowDimensions()
+    const navigation = useNavigation<LigueNavProp>()
+    const goToSettings = () => {
+        navigation.navigate('liguesettings')
+    }
+
     return (
         <View style={{ ...Style.container, width: width }}>
             <View>
@@ -47,7 +57,10 @@ export default () => {
                     backgroundColor: COLORS.light_primary,
                 }}
             >
-                <TouchableOpacity style={Style.settingButton}>
+                <TouchableOpacity
+                    onPress={goToSettings}
+                    style={Style.settingButton}
+                >
                     <Icon
                         name="settings-2-outline"
                         height={30}

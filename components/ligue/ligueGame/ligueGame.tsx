@@ -12,10 +12,10 @@ import MainContent from './mainContent'
 import Calendar from './calendar'
 import Classement from './classement'
 import Footer from './footer'
-import { RootStackParams } from '../../../navigation/tool/tool'
+import { MainStackParams, RootStackParams } from '../../../navigation/tool/tool'
 import { RouteProp, useRoute } from '@react-navigation/native'
 
-type ligueGameProp = RouteProp<RootStackParams, 'liguegame'>
+type ligueGameProp = RouteProp<MainStackParams, 'liguegame'>
 
 const fakedata = {
     code: 'Z3JFOOC',

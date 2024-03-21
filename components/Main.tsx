@@ -28,6 +28,7 @@ import DailyBonusStore from '../services/store/daily_bonus'
 import Solo from '../services/store/Solo'
 import HPStore from '../services/store/HP'
 import DailyBonus from './dailybonus/dailyBonus'
+import { COLORS } from '../utiles/constantes'
 
 export default () => {
     const dailyBonus = useAppSelector((state) => state.dailybonus)

@@ -3,9 +3,9 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useSelector } from 'react-redux'
-import { RootStackParams } from '../../navigation/tool/tool'
+import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
 
-type LigueNavProp = StackNavigationProp<RootStackParams, 'ligue'>
+type LigueNavProp = StackNavigationProp<MainStackParams, 'liguemain'>
 
 export default () => {
     const navigation = useNavigation<LigueNavProp>()
@@ -19,7 +19,7 @@ export default () => {
         if (User.id) {
             console.log(User)
         }
-        navigation.navigate('invitationrejoindre')
+        navigation.navigate('rejoindreligue')
     }
 
     return (

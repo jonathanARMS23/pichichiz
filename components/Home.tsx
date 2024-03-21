@@ -84,6 +84,7 @@ export default () => {
 
         dispatch(Initialize({ hp, score, career }))
         navigation.navigate('room', { screen: 'main' })
+        // navigation.navigate('room', { screen: 'main', params:{screen: 'liguemain'} })
     }
 
     return (

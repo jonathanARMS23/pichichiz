@@ -56,7 +56,7 @@ export default ({ setScreen, screen }: IProps) => {
                     ) : null}
 
                     <Text style={{ color: '#ffffff', fontWeight: 'bold' }}>
-                        {screen === 3 ? 'PRINCIPAL' : 'CALENDRIER'}
+                        {screen === 3 ? 'PRINCIPAL' : 'CLASSEMENT'}
                     </Text>
                 </TouchableOpacity>
             </View>

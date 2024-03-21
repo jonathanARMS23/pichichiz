@@ -3,9 +3,9 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParams } from '../../navigation/tool/tool'
+import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
 
-type OptionNavProp = StackNavigationProp<RootStackParams, 'room'>
+type OptionNavProp = StackNavigationProp<MainStackParams, 'online'>
 
 interface IProps {
     title: string
@@ -57,7 +57,7 @@ export default ({
     const handlePress = () => {
         if (disabled) return
         if (type === 'duel') navigation.navigate('duel')
-        if (type === 'ligue') navigation.navigate('ligue')
+        if (type === 'ligue') navigation.navigate('liguemain')
     }
 
     return (

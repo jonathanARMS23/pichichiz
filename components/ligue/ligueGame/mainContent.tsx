@@ -158,8 +158,6 @@ const Liste = ({ user, ligueCreator, onOpen }: IIProps) => {
 }
 
 export default ({ setScreen }: IProps) => {
-    const ligueCreator = 'Laulau4'
-    const User = 'Laulau4'
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
     const onClose = () => {

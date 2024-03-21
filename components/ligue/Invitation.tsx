@@ -15,7 +15,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParams } from '../../navigation/tool/tool' */
 import Statut from '../sous-components/Statut'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParams } from '../../navigation/tool/tool'
+import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
 import { useNavigation } from '@react-navigation/native'
 
 interface IIProps {
@@ -26,7 +26,7 @@ interface IProps {
     data: Array<any>
 }
 
-type LigueNavProp = StackNavigationProp<RootStackParams, 'ligue'>
+type LigueNavProp = StackNavigationProp<MainStackParams, 'liguemain'>
 
 const Item = ({ data }: IIProps) => {
     // const User = useSelector((state: any) => state.user)
