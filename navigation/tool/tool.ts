@@ -49,11 +49,7 @@ export type MainStackParams = {
         data?: object
     }
     manageligue: undefined
-    confirmrejoindre: {
-        data?: object
-        code?: string
-    }
-    rejoindreligue: undefined
+
     liguesettings: undefined
 }
 
@@ -76,7 +72,11 @@ export type RootStackParams = {
     solo: undefined
     duel: undefined
     ligue: undefined
-    liguesettings: undefined
+    rejoindreligue: undefined
+    confirmrejoindre: {
+        data?: object
+        code?: string
+    }
     liguedetails: {
         code: string
         name: string

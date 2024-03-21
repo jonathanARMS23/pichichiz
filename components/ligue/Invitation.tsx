@@ -26,7 +26,7 @@ interface IProps {
     data: Array<any>
 }
 
-type LigueNavProp = StackNavigationProp<MainStackParams, 'liguemain'>
+type LigueNavProp = StackNavigationProp<RootStackParams, 'confirmrejoindre'>
 
 const Item = ({ data }: IIProps) => {
     // const User = useSelector((state: any) => state.user)

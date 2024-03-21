@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux'
 import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
 
 type LigueNavProp = StackNavigationProp<MainStackParams, 'liguemain'>
+type RejoindreLigueProp = StackNavigationProp<RootStackParams, 'rejoindreligue'>
 
 export default () => {
     const navigation = useNavigation<LigueNavProp>()
+    const navigationRejoindre = useNavigation<RejoindreLigueProp>()
     const User = useSelector((state: any) => state.user)
 
     const handleCreateLigue = () => {
@@ -19,7 +21,7 @@ export default () => {
         if (User.id) {
             console.log(User)
         }
-        navigation.navigate('rejoindreligue')
+        navigationRejoindre.navigate('rejoindreligue')
     }
 
     return (

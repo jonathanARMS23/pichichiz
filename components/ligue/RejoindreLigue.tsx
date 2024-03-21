@@ -14,7 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParams } from '../../navigation/tool/tool'
 import { useNavigation } from '@react-navigation/native'
 
-type LigueNavProp = StackNavigationProp<RootStackParams, 'ligue'>
+type LigueNavProp = StackNavigationProp<RootStackParams, 'confirmrejoindre'>
 
 export default () => {
     const { width } = useWindowDimensions()
