@@ -84,6 +84,7 @@ interface IIProps {
 const Item = ({ data }: IProps) => {
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
+    const [report, setReport] = useState(false)
     const onClose = () => {
         setVisible(false)
     }
@@ -99,11 +100,8 @@ const Item = ({ data }: IProps) => {
             <View style={{ ...Style.itemContent, ...Style.right }}>
                 <Text style={{ color: COLORS.primary }}>{data.date}</Text>
                 <TouchableOpacity onPress={onOpen} style={Style.reporter}>
-                    <Icon
-                        name="clock-outline"
-                        height={20}
-                        width={20}
-                        color={COLORS.primary}
+                    <Image
+                        source={require('../../../assets/images/more_time.png')}
                     />
                 </TouchableOpacity>
             </View>
@@ -126,6 +124,7 @@ const Item = ({ data }: IProps) => {
                         date="08/10/2022"
                         adversaire={data.adversaire}
                         onClose={onClose}
+                        setReport={setReport}
                     />
                 </View>
             </Modal>
@@ -181,11 +180,8 @@ export default () => {
         <View style={{ ...Style.container, width: 375 }}>
             <View style={Style.titleContainer}>
                 <View style={Style.itemTitle}>
-                    <Icon
-                        name="calendar-outline"
-                        height={20}
-                        width={20}
-                        color={COLORS.primary}
+                    <Image
+                        source={require('../../../assets/images/calendar_month.png')}
                     />
                     <Text style={Style.title}>CALENDRIER (DUELS A VENIR)</Text>
                 </View>

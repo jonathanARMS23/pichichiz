@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     Modal,
     useWindowDimensions,
+    Image,
 } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS } from '../../../utiles/constantes'
@@ -82,11 +83,8 @@ export default () => {
                 <View style={Style.action}>
                     <View style={Style.reporter}>
                         <TouchableOpacity onPress={onOpen}>
-                            <Icon
-                                name="clock-outline"
-                                height={30}
-                                width={30}
-                                color={COLORS.primary}
+                            <Image
+                                source={require('../../../assets/images/more_time.png')}
                             />
                         </TouchableOpacity>
                         <Text>reporter</Text>

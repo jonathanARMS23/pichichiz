@@ -9,9 +9,10 @@ import {
 import { Icon } from 'react-native-eva-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParams } from '../../navigation/tool/tool'
+import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
+import { ScrollView } from 'react-native-gesture-handler'
 
-type MLigueNavProp = StackNavigationProp<RootStackParams, 'manageligue'>
+type MLigueNavProp = StackNavigationProp<MainStackParams, 'manageligue'>
 
 interface IProps {
     code: string
@@ -22,87 +23,90 @@ export default ({ code }: IProps) => {
     const navigation = useNavigation<MLigueNavProp>()
 
     const onCreate = async () => {
-        navigation.navigate('ligue')
+        navigation.navigate('liguemain')
     }
 
     return (
         <View style={Style.screen}>
-            <View
-                style={{
-                    ...Style.container,
-                    maxHeight: height - 250,
-                    minHeight: height - 250,
-                }}
-            >
-                <View style={Style.notifContainer}>
-                    <View style={Style.titleContainer}>
-                        <Text style={Style.title}>MEMBRE DE LA LIGUE</Text>
-                    </View>
-                    <View style={Style.notification}>
-                        <Icon
-                            name="checkmark-outline"
-                            height={30}
-                            width={30}
-                            fill="#1B2444"
-                        />
-                        <Text style={Style.notificationText}>
-                            Les invitations ont bien été envoyés à tes amis.
-                        </Text>
-                    </View>
-                    <View>
-                        <Text>
-                            Tu peux aussi leur partager ce code pour les inviter
-                            à la ligue FBDB.
-                        </Text>
-                    </View>
-                </View>
-                <View style={Style.stack}>
-                    <View>
-                        <Text>
-                            Partage ce code aux utilisateurs que tu souhaites
-                            intégrer à cette ligue.
-                        </Text>
-                    </View>
-                    <View style={Style.codeContainer}>
-                        <Text style={Style.code}>
-                            {code.toLocaleUpperCase()}
-                        </Text>
-                    </View>
-                    <View></View>
-                </View>
-                <View>
-                    <Text>
-                        Merci de patienter, tu pourras commencer la ligue quand
-                        tout le monde aura accepté l’invitation à rejoindre la
-                        ligue.
-                    </Text>
-                </View>
-            </View>
-            <View
-                style={{
-                    flex: 1,
-                    minWidth: 375,
-                    maxWidth: 375,
-                    minHeight: 60,
-                    maxHeight: 60,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginTop: 5,
-                }}
-            >
-                <TouchableOpacity
+            <ScrollView>
+                <View
                     style={{
-                        ...Style.buttonAdd,
-                        borderWidth: 1,
-                        borderColor: '#1B2444',
+                        ...Style.container,
+                        maxHeight: height - 250,
+                        minHeight: height - 250,
                     }}
-                    onPress={onCreate}
                 >
-                    <Text
-                        style={{ ...Style.buttonAddText, color: '#1B2444' }}
-                    >{`  OK`}</Text>
-                </TouchableOpacity>
-            </View>
+                    <View style={Style.notifContainer}>
+                        <View style={Style.titleContainer}>
+                            <Text style={Style.title}>MEMBRE DE LA LIGUE</Text>
+                        </View>
+                        <View style={Style.notification}>
+                            <Icon
+                                name="checkmark-outline"
+                                height={30}
+                                width={30}
+                                fill="#1B2444"
+                            />
+                            <Text style={Style.notificationText}>
+                                Les invitations ont bien été envoyés à tes amis.
+                            </Text>
+                        </View>
+                        <View>
+                            <Text>
+                                Tu peux aussi leur partager ce code pour les
+                                inviter à la ligue FBDB.
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={Style.stack}>
+                        <View>
+                            <Text>
+                                Partage ce code aux utilisateurs que tu
+                                souhaites intégrer à cette ligue.
+                            </Text>
+                        </View>
+                        <View style={Style.codeContainer}>
+                            <Text style={Style.code}>
+                                {code.toLocaleUpperCase()}
+                            </Text>
+                        </View>
+                        <View></View>
+                    </View>
+                    <View>
+                        <Text>
+                            Merci de patienter, tu pourras commencer la ligue
+                            quand tout le monde aura accepté l’invitation à
+                            rejoindre la ligue.
+                        </Text>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        flex: 1,
+                        minWidth: 375,
+                        maxWidth: 375,
+                        minHeight: 60,
+                        maxHeight: 60,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 5,
+                        marginBottom: 10,
+                    }}
+                >
+                    <TouchableOpacity
+                        style={{
+                            ...Style.buttonAdd,
+                            borderWidth: 1,
+                            borderColor: '#1B2444',
+                        }}
+                        onPress={onCreate}
+                    >
+                        <Text
+                            style={{ ...Style.buttonAddText, color: '#1B2444' }}
+                        >{`  OK`}</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </View>
     )
 }

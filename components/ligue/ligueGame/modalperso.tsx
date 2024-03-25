@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS } from '../../../utiles/constantes'
 import { Icon } from 'react-native-eva-icons'
@@ -19,11 +19,8 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
         <View style={Style.info}>
             <View style={Style.headerModal}>
                 <View style={Style.titleContainerModal}>
-                    <Icon
-                        name="clock-outline"
-                        height={25}
-                        width={25}
-                        fill={COLORS.primary}
+                    <Image
+                        source={require('../../../assets/images/more_time.png')}
                     />
                     <Text style={Style.titleModal}>
                         {`REPORTER LE DUEL DU ${
@@ -57,11 +54,8 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
                 </Text>
                 <View style={Style.inputDateContainer}>
                     <Text style={{ color: COLORS.primary }}>07/10/2022</Text>
-                    <Icon
-                        name="calendar-outline"
-                        height={25}
-                        width={25}
-                        color={COLORS.primary}
+                    <Image
+                        source={require('../../../assets/images/calendar_month.png')}
                     />
                 </View>
             </View>

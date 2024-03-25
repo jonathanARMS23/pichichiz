@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, useWindowDimensions } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    useWindowDimensions,
+    Image,
+} from 'react-native'
 import React from 'react'
 import { COLORS } from '../../../utiles/constantes'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -20,11 +26,8 @@ export default ({ setScreen, screen }: IProps) => {
                     }}
                 >
                     {screen !== 2 ? (
-                        <Icon
-                            name="calendar-outline"
-                            height={25}
-                            width={25}
-                            color={COLORS.primary}
+                        <Image
+                            source={require('../../../assets/images/calendar_month.png')}
                         />
                     ) : null}
 
@@ -47,11 +50,9 @@ export default ({ setScreen, screen }: IProps) => {
                     }}
                 >
                     {screen !== 3 ? (
-                        <Icon
-                            name="bar-chart-outline"
-                            height={25}
-                            width={25}
-                            fill="#ffffff"
+                        <Image
+                            source={require('../../../assets/images/leaderboard_xl.png')}
+                            style={{ width: 25, height: 25 }}
                         />
                     ) : null}
 

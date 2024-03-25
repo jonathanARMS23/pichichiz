@@ -6,6 +6,7 @@ import {
     ScrollView,
     FlatList,
     Modal,
+    Image,
 } from 'react-native'
 import React, { useState } from 'react'
 import DailyOpponent from './dailyOpponent'
@@ -161,7 +162,6 @@ export default ({ setScreen }: IProps) => {
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
     const onClose = () => {
-        console.log('close modal')
         setVisible(false)
     }
 
@@ -194,11 +194,9 @@ export default ({ setScreen }: IProps) => {
                     <View style={Style.info}>
                         <View style={Style.headerModal}>
                             <View style={Style.titleContainerModal}>
-                                <Icon
-                                    name="clock-outline"
-                                    height={25}
-                                    width={25}
-                                    fill={COLORS.red}
+                                <Image
+                                    style={{ width: 25, height: 25 }}
+                                    source={require('../../../assets/images/front_hand.png')}
                                 />
                                 <View style={Style.textTitleContainer}>
                                     <Text style={Style.titleModal}>

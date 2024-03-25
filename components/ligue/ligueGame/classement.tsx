@@ -4,6 +4,7 @@ import {
     useWindowDimensions,
     StyleSheet,
     FlatList,
+    Image,
 } from 'react-native'
 import React from 'react'
 import { COLORS } from '../../../utiles/constantes'
@@ -103,17 +104,15 @@ export default () => {
     return (
         <View style={{ ...Style.container, width: 375 }}>
             <View style={Style.titleContainer}>
-                <Icon
-                    name="bar-chart-outline"
-                    height={20}
-                    width={20}
-                    fill={COLORS.primary}
+                <Image
+                    source={require('../../../assets/images/leaderboard.png')}
+                    // style={{ width: 20, height: 20 }}
                 />
                 <Text style={Style.title}>CLASSEMENT</Text>
             </View>
             <FlatList
                 style={{ width: 375 }}
-                data={data}
+                data={dataSort}
                 keyExtractor={(item, index) => `duel${index}`}
                 renderItem={({ item, index }) => (
                     <Item data={item} index={index + 1} />

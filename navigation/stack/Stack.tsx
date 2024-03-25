@@ -30,7 +30,7 @@ const { Navigator, Screen } = Stack
 export default () => (
     <NavigationContainer>
         <Navigator
-            initialRouteName="home"
+            initialRouteName="launch"
             screenOptions={{ headerShown: false }}
         >
             <Screen name="home" component={Home} />
