@@ -13,6 +13,11 @@ import Statut from '../../sous-components/Statut'
 import ItemOpponent, { Player } from './itemDuel'
 import { Icon } from 'react-native-eva-icons'
 import Modalperso from './modalperso'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParams } from '../../../navigation/tool/tool'
+import { useNavigation } from '@react-navigation/native'
+
+type ligueNavProp = StackNavigationProp<RootStackParams>
 
 const data = {
     finished: false,
@@ -34,6 +39,7 @@ export default () => {
     const [report, setReport] = useState(false)
     const [reportConfirm, setReportConfirm] = useState(false)
     const [visible, setVisible] = useState(false)
+    const navigation = useNavigation<ligueNavProp>()
     const onClose = () => {
         setVisible(false)
     }
@@ -41,6 +47,11 @@ export default () => {
     const onOpen = () => {
         setVisible(true)
     }
+
+    const jouer = () => {
+        navigation.navigate('pretajouer')
+    }
+
     return isFinished ? (
         <View style={Style.containerMyOpponent}>
             {score1 > score2 ? (
@@ -89,9 +100,9 @@ export default () => {
                         </TouchableOpacity>
                         <Text>reporter</Text>
                     </View>
-                    <View style={Style.jouer}>
+                    <TouchableOpacity onPress={jouer} style={Style.jouer}>
                         <Text style={{ fontWeight: 'bold' }}>JOUER</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
             {report ? (

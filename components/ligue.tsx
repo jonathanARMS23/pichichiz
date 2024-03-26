@@ -18,36 +18,36 @@ export default () => {
     const [invitations, setInvitations] = useState<any[]>([])
     const isFocused = useIsFocused()
 
-    // useEffect(() => {
-    //     const API = new LigueStore()
-    //     let isSubscribed = true
-    //     if (isSubscribed && reload && User?.id) {
-    //         ;(async () => {
-    //             // get ligue
-    //             const response = await API.getLigues(parseInt(`${User.id}`, 10))
-    //             if (!response.canceled) setLigues(response)
-    //             // get invitations
-    //             const result = await API.getInvitationByUser(
-    //                 parseInt(`${User.id}`, 10)
-    //             )
-    //             if (!result.canceled) setInvitations(result)
-    //             setReload(false)
-    //         })()
-    //     }
+    useEffect(() => {
+        const API = new LigueStore()
+        let isSubscribed = true
+        if (isSubscribed && reload && User?.id) {
+            ;(async () => {
+                // get ligue
+                const response = await API.getLigues(parseInt(`${User.id}`, 10))
+                if (!response.canceled) setLigues(response)
+                // get invitations
+                const result = await API.getInvitationByUser(
+                    parseInt(`${User.id}`, 10)
+                )
+                if (!result.canceled) setInvitations(result)
+                setReload(false)
+            })()
+        }
 
-    //     return () => {
-    //         isSubscribed = false
-    //         API.Cancel()
-    //     }
-    // }, [reload])
+        return () => {
+            isSubscribed = false
+            API.Cancel()
+        }
+    }, [reload])
 
-    // useEffect(() => {
-    //     if (isFocused) {
-    //         setReload(true)
-    //     }
-    // }, [isFocused])
+    useEffect(() => {
+        if (isFocused) {
+            setReload(true)
+        }
+    }, [isFocused])
 
-    // if (reload) return <Loading />
+    if (reload) return <Loading />
 
     return (
         <View

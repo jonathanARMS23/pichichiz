@@ -23,6 +23,7 @@ import Main from '../tab/Main'
 import LigueDetails from '../../components/ligue/LigueDetails'
 import confirmRejoindre from '../../components/ligue/confirmRejoindre'
 import RejoindreLigue from '../../components/ligue/RejoindreLigue'
+import Pret from '../../components/ligue/ligueGame/pret'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack
@@ -44,13 +45,12 @@ export default () => (
             <Screen name="duelgame" component={DuelGame} />
             <Screen name="launch" component={Launch} />
             <Screen name="confirmrejoindre" component={confirmRejoindre} />
-            <Screen name="rejoindreligue" component={RejoindreLigue} />
             <Screen name="noaccess" component={NoAccess} />
             <Screen name="results" component={Results} />
             <Screen name="notification" component={Notification} />
             <Screen name="duelfinished" component={FinishedDuel} />
             <Screen name="bilan" component={Bilan} />
-
+            <Screen name="pretajouer" component={Pret} />
             {/* LIGUE */}
             <Screen name="liguedetails" component={LigueDetails} />
         </Navigator>

@@ -42,12 +42,11 @@ export default () => {
             <View style={{ ...Style.infoContainer, minWidth: width }}>
                 <View style={Style.info}>
                     <Text>
-                        {' '}
-                        Pour{' '}
+                        Pour
                         <Text style={{ fontWeight: 'bold' }}>
                             rejoindre une ligue
                         </Text>
-                        , tu dois entrer le{' '}
+                        , tu dois entrer le
                         <Text style={{ fontWeight: 'bold' }}>code</Text> qu'un
                         membre de la ligue t'aura partagé
                     </Text>
