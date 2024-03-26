@@ -6,7 +6,9 @@ import {
     StyleSheet,
     BackHandler,
     Platform,
+    // NativeEventEmitter,
 } from 'react-native'
+// import { RNAatkit } from '@addapptr/react-native-aatkit'
 // import { useSelector } from 'react-redux'
 import { InitializeBonusState } from '../store/reducers/bonus'
 import { setCareer, setHP } from '../store/reducers/user'
@@ -28,6 +30,7 @@ import DailyBonusStore from '../services/store/daily_bonus'
 import Solo from '../services/store/Solo'
 import HPStore from '../services/store/HP'
 import DailyBonus from './dailybonus/dailyBonus'
+// import { PLACEMENT } from '../pubs'
 
 export default () => {
     const dailyBonus = useAppSelector((state) => state.dailybonus)
@@ -35,6 +38,49 @@ export default () => {
     const user = useAppSelector((state) => state.user)
     const { pseudo, career } = user
     const { level } = career[career.length - 1]
+
+    // test bloc
+    // const aatkitEmitter = new NativeEventEmitter(RNAatkit as any)
+
+    /* const subscriptionHaveAd = aatkitEmitter.addListener(
+        'AATKitHaveAd',
+        (data) => console.log('AATKitHaveAd placementName ', data.placementName)
+    )
+
+    const subscriptionNoAds = aatkitEmitter.addListener('AATKitNoAds', (data) =>
+        console.log('AATKitNoAds placementName: ', data.placementName)
+    )
+
+    const subscriptionPauseForAd = aatkitEmitter.addListener(
+        'AATKitPauseForAd',
+        (data) =>
+            console.log('AATKitPauseForAd placementName: ', data.placementName)
+    )
+
+    const subscriptionResumeAfterAd = aatkitEmitter.addListener(
+        'AATKitResumeAfterAd',
+        (data) =>
+            console.log(
+                'AATKitResumeAfterAd placementName: ',
+                data.placementName
+            )
+    ) */
+
+    // end of test
+
+    // test fullscreen pub
+    /* useEffect(() => {
+        RNAatkit.startPlacementAutoReload(PLACEMENT)
+    }, [])
+
+    useEffect(() => {
+        aatkitEmitter.addListener('AATKitHaveAd', (data) => {
+            console.log('AATKitHaveAd placementName ', data.placementName)
+            RNAatkit.showPlacement(PLACEMENT, (interstitialShown) => {
+                console.log('interstitialShown', interstitialShown)
+            })
+        })
+    }, []) */
 
     // empêcher le retour en arrière
     useEffect(() => {

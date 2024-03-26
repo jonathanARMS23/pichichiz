@@ -13,25 +13,31 @@ import { PLACEMENT } from './pubs'
 
 export default () => {
     useEffect(() => {
-        RNAatkit.initWithConfiguration({
-            // testModeAccountID: 136,
-            consent: {
-                type: RNAatkit.ConsentType_ManagedCMPGoogle,
+        RNAatkit.initWithConfigurationAndCallback(
+            {
+                // testModeAccountID: 136,
+                consent: {
+                    type: RNAatkit.ConsentType_ManagedCMPGoogle,
+                    yourAccountID: 22679766841,
+                    showIfNeededSetting: RNAatkit.ShowIfNeededSetting_Always,
+                },
+                consentRequired: true,
             },
-        })
-
-        console.log('init RNAatkit')
-
-        RNAatkit.createPlacement(PLACEMENT, RNAatkit.PlacementSize_Fullscreen)
-
-        RNAatkit.reloadPlacement(PLACEMENT, (placementReloaded) => {
-            console.log('reload placement')
-            console.log(placementReloaded)
-        })
-
-        RNAatkit.showPlacement(PLACEMENT, (interstitialShown) => {
-            console.log(interstitialShown)
-        })
+            (initialized) => {
+                console.log('AATKIT INIT', initialized)
+                RNAatkit.setDebugEnabled(true)
+                if (initialized) {
+                    RNAatkit.reloadConsent()
+                    RNAatkit.showConsentDialogIfNeeded()
+                    RNAatkit.createPlacement(
+                        PLACEMENT,
+                        RNAatkit.PlacementSize_Fullscreen
+                    )
+                    // reload placement
+                    // RNAatkit.startPlacementAutoReload(PLACEMENT)
+                }
+            }
+        )
     }, [])
 
     useEffect(() => {

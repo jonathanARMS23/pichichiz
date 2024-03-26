@@ -7,6 +7,7 @@ import RewardReducer from './reducers/reward'
 import SettingReducer from './reducers/setting'
 import ModeReducer from './reducers/mode'
 import DailyBonus from './reducers/dailyBonus'
+import PubReducer from './reducers/pubs'
 
 const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
         setting: SettingReducer,
         mode: ModeReducer,
         dailybonus: DailyBonus,
+        pubs: PubReducer,
     },
 })
 

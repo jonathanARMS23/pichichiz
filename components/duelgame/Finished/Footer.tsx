@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -7,10 +7,13 @@ import {
     useWindowDimensions,
     StyleSheet,
 } from 'react-native'
+import { RNAatkit } from '@addapptr/react-native-aatkit'
 import { Icon } from 'react-native-eva-icons'
 import { useDispatch } from 'react-redux'
+import { Bar } from 'react-native-progress'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { PLACEMENT } from '../../../pubs'
 import { RootStackParams } from '../../../navigation/tool/tool'
 import { clearDuel, setWinner } from '../../../store/reducers/duel'
 import { useAppSelector } from '../../../store/hooks/hooks'
@@ -27,14 +30,52 @@ interface IProps {
 export default ({ isFinished, isEqual = false }: IProps) => {
     const navigation = useNavigation<FooterNavProp>()
     const { width } = useWindowDimensions()
+    const { haveAd } = useAppSelector((state) => state.pubs)
     const dispatch = useDispatch()
     const Duel = useAppSelector((state) => state.duel)
     const User = useAppSelector((state) => state.user)
+    const [load, setLoad] = useState(false)
+
+    const duration = 4000
+
+    const [progress, setProgress] = useState(0)
+    const incrementRate = (100 / duration) * 100 // Calcul du taux d'incrémentation pour atteindre 100% en "totalDuration" millisecondes
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (progress < 100) {
+                setProgress((prevProgress) =>
+                    Math.min(prevProgress + incrementRate, 100)
+                ) // Assure que la progression n'excède pas 100
+            } else {
+                clearInterval(interval)
+            }
+        }, duration / 100) // Intervalle de mise à jour basé sur le temps total nécessaire pour atteindre 100%
+
+        return () => clearInterval(interval) // Nettoyage de l'intervalle lorsque le composant est démonté
+    }, [progress, duration, incrementRate])
 
     const onCancel = () => {
         dispatch(clearDuel())
         navigation.navigate('duel')
     }
+
+    useEffect(() => {
+        setLoad(false)
+        let timeout: any
+        if (haveAd) {
+            timeout = setTimeout(() => {
+                RNAatkit.showPlacement(PLACEMENT, (inter) =>
+                    console.log('show placement', inter)
+                )
+                setLoad(true)
+            }, duration)
+        }
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [haveAd])
 
     useEffect(() => {
         const API = new DuelStore()
@@ -77,7 +118,11 @@ export default ({ isFinished, isEqual = false }: IProps) => {
             ) : null}
             {isFinished ? <Text style={Style.title}>Fin du duel</Text> : null}
             {isFinished && Duel.winner ? (
-                <TouchableOpacity onPress={onShowResult} style={Style.revenge}>
+                <TouchableOpacity
+                    disabled={!load}
+                    onPress={onShowResult}
+                    style={{ ...Style.revenge, opacity: !load ? 0.5 : 1 }}
+                >
                     <Text style={{ color: '#1B2444' }}>VOIR LE RESULTAT</Text>
                     <Icon
                         name="arrow-forward-outline"
@@ -87,7 +132,11 @@ export default ({ isFinished, isEqual = false }: IProps) => {
                     />
                 </TouchableOpacity>
             ) : null}
-            <TouchableOpacity onPress={onCancel} style={Style.cancel}>
+            <TouchableOpacity
+                disabled={!load}
+                onPress={onCancel}
+                style={{ ...Style.cancel, opacity: !load ? 0.5 : 1 }}
+            >
                 <Icon
                     name="close-outline"
                     fill="#FFFFFF"
@@ -95,6 +144,7 @@ export default ({ isFinished, isEqual = false }: IProps) => {
                     width={35}
                 />
             </TouchableOpacity>
+            <Bar progress={progress} width={100} color="#EBECF0" />
         </View>
     )
 }
