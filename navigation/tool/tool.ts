@@ -33,6 +33,7 @@ export type MainStackParams = {
     manageligue: undefined
 
     liguesettings: undefined
+    pyramide: undefined
 }
 
 export type MainTabParams = {

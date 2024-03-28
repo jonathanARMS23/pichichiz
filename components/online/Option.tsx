@@ -58,6 +58,7 @@ export default ({
         if (disabled) return
         if (type === 'duel') navigation.navigate('duel')
         if (type === 'ligue') navigation.navigate('liguemain')
+        if (type === 'pyramide') navigation.navigate('pyramide')
     }
 
     return (

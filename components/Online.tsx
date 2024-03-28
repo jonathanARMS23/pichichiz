@@ -62,7 +62,7 @@ export default () => {
                         subtitle=""
                         description="Joue avec tes amis à une série de questions. Le temps et les points sont sous forme de pyramide. Vas-tu t’en sortir ?"
                         color="#FFE09E"
-                        disabled
+                        disabled={false}
                     />
                 </View>
             </ScrollView>

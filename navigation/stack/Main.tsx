@@ -8,6 +8,7 @@ import ManageLigue from '../../components/ManageLigue'
 import ligueGame from '../../components/ligue/ligueGame/ligueGame'
 import ligueSettings from '../../components/ligue/ligueGame/ligueSettings'
 import RejoindreLigue from '../../components/ligue/RejoindreLigue'
+import Pyramide from '../../components/Pyramide'
 
 const Stack = createStackNavigator<MainStackParams>()
 const { Navigator, Screen } = Stack
@@ -21,5 +22,6 @@ export default () => (
         <Screen name="liguegame" component={ligueGame} />
         <Screen name="liguesettings" component={ligueSettings} />
         <Screen name="rejoindreligue" component={RejoindreLigue} />
+        <Screen name="pyramide" component={Pyramide} />
     </Navigator>
 )

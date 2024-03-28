@@ -23,7 +23,7 @@ export default () => {
     const { width } = useWindowDimensions()
     const navigation = useNavigation<ligueNavProp>()
     const quitter = () => {
-        navigation.navigate('liguegame')
+        navigation.navigate('liguegame') //mety
     }
     return (
         <View
