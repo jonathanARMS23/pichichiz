@@ -22,8 +22,9 @@ import Bilan from '../../screens/Bilan'
 import Main from '../tab/Main'
 import LigueDetails from '../../components/ligue/LigueDetails'
 import confirmRejoindre from '../../components/ligue/confirmRejoindre'
-import RejoindreLigue from '../../components/ligue/RejoindreLigue'
 import Pret from '../../components/ligue/ligueGame/pret'
+import RulesScreen from '../../components/pyramide/RulesScreen'
+import QuestionPour from '../../components/pyramide/QuestionPour'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack
@@ -53,6 +54,10 @@ export default () => (
             <Screen name="pretajouer" component={Pret} />
             {/* LIGUE */}
             <Screen name="liguedetails" component={LigueDetails} />
+
+            {/* PYRAMIDE */}
+            <Screen name="rulesscreen" component={RulesScreen} />
+            <Screen name="questionpour" component={QuestionPour} />
         </Navigator>
     </NavigationContainer>
 )

@@ -79,4 +79,7 @@ export type RootStackParams = {
         id_duel: number | string
         id_serie: number | string
     }
+
+    rulesscreen: undefined
+    questionpour: undefined
 }

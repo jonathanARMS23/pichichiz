@@ -14,11 +14,16 @@ import { Icon } from 'react-native-eva-icons'
 import { COLORS } from '../../utiles/constantes'
 import CheckBox from '@react-native-community/checkbox'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
+import { RootStackParams } from '../../navigation/tool/tool'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 interface IIProps {
     data: any
     friend?: boolean
 }
+
+type PyramideNavProp = StackNavigationProp<RootStackParams>
 
 const invitationList = [
     {
@@ -64,14 +69,8 @@ const friendList = [
 
 const Item = ({ data, friend }: IIProps) => {
     // const User = useSelector((state: any) => state.user)
-
-    // const onRejoindre = () => {
-    //     navigation.navigate('confirmrejoindre', {
-    //         data: data,
-    //     })
-    // }
     const [value, setValue] = useState(false)
-    const onFight = async () => {
+    const onSuprr = async () => {
         console.log('supprimer invitation')
     }
 
@@ -100,7 +99,7 @@ const Item = ({ data, friend }: IIProps) => {
                         <Text style={Style.buttonFight}>{` JOUER `}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={onFight}
+                        onPress={onSuprr}
                         style={{
                             flex: 1,
                             alignItems: 'center',
@@ -127,6 +126,12 @@ const Item = ({ data, friend }: IIProps) => {
 export default () => {
     const [search, setSearch] = useState('')
     const [friendSearch, setFriendSearch] = useState(friendList)
+
+    const navigation = useNavigation<PyramideNavProp>()
+
+    const jouer = () => {
+        navigation.navigate('rulesscreen')
+    }
 
     function recherche(value: string) {
         let newList: any[] = []
@@ -186,7 +191,7 @@ export default () => {
                 ))}
             </ScrollView>
             <View>
-                <TouchableOpacity style={Style.btnJouer}>
+                <TouchableOpacity onPress={jouer} style={Style.btnJouer}>
                     <Text style={{ fontSize: 16, color: '#ffffff' }}>
                         JOUER
                     </Text>
