@@ -183,7 +183,7 @@ export default () => {
                     <Image
                         source={require('../../../assets/images/calendar_month.png')}
                     />
-                    <Text style={Style.title}>CALENDRIER (DUELS A VENIR)</Text>
+                    <Text style={Style.title}>CALENDRIER (DUELS À VENIR)</Text>
                 </View>
                 <TouchableOpacity
                     style={{

@@ -149,7 +149,7 @@ export default () => {
     return (
         <View style={Style.container}>
             <View style={Style.titleContainer}>
-                <Text style={Style.title}>INVITATIONS RECUES</Text>
+                <Text style={Style.title}>INVITATIONS REÇUES</Text>
             </View>
             <View style={Style.invitationList}>
                 <FlatList
@@ -170,7 +170,7 @@ export default () => {
                 </Text>
             </View>
             <View style={{ ...Style.titleContainer, borderBottomWidth: 0 }}>
-                <Text style={Style.title}>AMIS CONNECTES</Text>
+                <Text style={Style.title}>AMIS CONNECTÉS</Text>
             </View>
             <SafeAreaView style={Style.recherche}>
                 <TextInput

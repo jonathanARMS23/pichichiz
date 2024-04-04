@@ -49,7 +49,7 @@ export default () => {
                     LIGUE SPORT360°
                 </Text>
                 <Text style={{ color: COLORS.very_light_primary }}>
-                    JOURNEE 4
+                    JOURNÉE 4
                 </Text>
             </View>
             <View

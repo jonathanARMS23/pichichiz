@@ -173,7 +173,7 @@ export default ({ setScreen }: IProps) => {
             <Text style={Style.title}>MON ADVERSAIRE DU JOUR</Text>
             <DailyOpponent />
             <Text style={Style.title}>
-                LISTE DES AFFRONTEMENTS DE LA JOURNEE
+                LISTE DES AFFRONTEMENTS DE LA JOURNÉE
             </Text>
             <Liste ligueCreator="Laulau4" user="Laulau4" onOpen={onOpen} />
             <Modal
@@ -200,7 +200,7 @@ export default ({ setScreen }: IProps) => {
                                 />
                                 <View style={Style.textTitleContainer}>
                                     <Text style={Style.titleModal}>
-                                        TERMINER UNE JOURNEE
+                                        TERMINER UNE JOURNÉE
                                     </Text>
                                     <Text
                                         style={{
@@ -247,7 +247,7 @@ export default ({ setScreen }: IProps) => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    TERMINER LA JOURNEE
+                                    TERMINER LA JOURNÉE
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity

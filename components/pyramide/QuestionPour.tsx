@@ -35,7 +35,7 @@ export default () => {
                 </View>
                 <View style={Style.playerContainer}>
                     <Text style={{ color: COLORS.light_primary }}>
-                        QUESTION !
+                        QUESTION 1
                     </Text>
                     <Text style={Style.player}>Pour didiboot</Text>
                     <Text style={Style.ligne}></Text>

@@ -77,7 +77,7 @@ export default () => {
                     </Text>
                 </View>
                 <View style={Style.series}>
-                    <Text style={{ color: '#ffffff' }}>SERIES</Text>
+                    <Text style={{ color: '#ffffff' }}>SÉRIES</Text>
                     <View style={Style.levelContainer}>
                         <Text style={Style.level}>1</Text>
                         <Text style={Style.level}>2</Text>
@@ -107,7 +107,7 @@ export default () => {
                         onValueChange={(newValue) => setValue(newValue)}
                     />
                     <Text style={{ fontWeight: 'bold', marginRight: 20 }}>
-                        JE SUIS PRET A JOUER !
+                        JE SUIS PRET À JOUER !
                     </Text>
                 </View>
                 <TouchableOpacity style={Style.btn} onPress={quitter}>

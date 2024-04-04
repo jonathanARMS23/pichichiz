@@ -81,7 +81,7 @@ const TimeOut = () => {
                 navigation.navigate('questionpour')
                 clearInterval(myTimeout)
             }
-        }, 1000)
+        }, 2000)
     }, [count])
 
     return (
@@ -128,7 +128,7 @@ export default () => {
                 <View style={{ ...Style.rulesContainer, width: width }}>
                     <View style={Style.textRulesContainer}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }}>
-                            REGLES DU JEU :
+                            RÈGLES DU JEU :
                         </Text>
                         <Text style={{ fontWeight: 'bold' }}>
                             Le jeu compte 10 questions.
@@ -169,10 +169,10 @@ export default () => {
                     <View style={Style.checkBoxContainer}>
                         <CheckBox
                             value={ready}
-                            onValueChange={(newValue) => setReady(newValue)}
+                            onValueChange={() => setReady(!ready)}
                         />
                         <Text style={{ fontWeight: 'bold', marginRight: 20 }}>
-                            JE SUIS PRET A JOUER !
+                            JE SUIS PRET À JOUER !
                         </Text>
                     </View>
                     <TouchableOpacity style={Style.btn}>
