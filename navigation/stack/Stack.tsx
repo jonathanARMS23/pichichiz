@@ -25,6 +25,7 @@ import confirmRejoindre from '../../components/ligue/confirmRejoindre'
 import Pret from '../../components/ligue/ligueGame/pret'
 import RulesScreen from '../../components/pyramide/RulesScreen'
 import QuestionPour from '../../components/pyramide/QuestionPour'
+import PyramideResult from '../../components/pyramide/PyramideResult'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack
@@ -58,6 +59,7 @@ export default () => (
             {/* PYRAMIDE */}
             <Screen name="rulesscreen" component={RulesScreen} />
             <Screen name="questionpour" component={QuestionPour} />
+            <Screen name="pyramideresult" component={PyramideResult} />
         </Navigator>
     </NavigationContainer>
 )

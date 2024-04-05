@@ -82,4 +82,5 @@ export type RootStackParams = {
 
     rulesscreen: undefined
     questionpour: undefined
+    pyramideresult: undefined
 }
