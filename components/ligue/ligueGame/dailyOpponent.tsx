@@ -7,7 +7,7 @@ import {
     useWindowDimensions,
     Image,
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { COLORS } from '../../../utiles/constantes'
 import Statut from '../../sous-components/Statut'
 import ItemOpponent, { Player } from './itemDuel'
@@ -36,9 +36,10 @@ export default () => {
     const score1 = data.player1.score
     const score2 = data.player2.score
     const { width, height } = useWindowDimensions()
-    const [report, setReport] = useState(false)
+    const [reportRequest, setReportRequest] = useState(false)
     const [reportConfirm, setReportConfirm] = useState(false)
     const [visible, setVisible] = useState(false)
+    const [date, setDate] = useState('.../.../...')
     const navigation = useNavigation<ligueNavProp>()
     const onClose = () => {
         setVisible(false)
@@ -51,6 +52,22 @@ export default () => {
     const jouer = () => {
         navigation.navigate('pretajouer')
     }
+
+    const formatDate = (date: Date) => {
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let fDate = `${day < 10 ? `0${day}` : day}/${
+            month < 10 ? `0${month}` : month
+        }/${year}`
+        return fDate
+    }
+
+    useEffect(() => {
+        let currentDate = new Date()
+        let fDate = formatDate(currentDate)
+        setDate(fDate)
+    }, [date])
 
     return isFinished ? (
         <View style={Style.containerMyOpponent}>
@@ -75,7 +92,7 @@ export default () => {
     ) : reportConfirm === false ? (
         <View
             style={
-                report
+                reportRequest
                     ? { ...Style.containerMyOpponent, maxHeight: 120 }
                     : { ...Style.containerMyOpponent, maxHeight: 60 }
             }
@@ -105,7 +122,7 @@ export default () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            {report ? (
+            {reportRequest ? (
                 <View style={{ flex: 1 }}>
                     <Text style={Style.statutReport}>
                         Ta demande de report de duel au 07/10/2022 est en
@@ -130,10 +147,11 @@ export default () => {
                     }}
                 >
                     <Modalperso
-                        date="jour"
+                        date={date}
+                        jour={true}
                         adversaire="ArnaudK"
                         onClose={onClose}
-                        setReport={setReport}
+                        setReportRequest={setReportRequest}
                     />
                 </View>
             </Modal>

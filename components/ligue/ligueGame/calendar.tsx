@@ -121,10 +121,11 @@ const Item = ({ data }: IProps) => {
                     }}
                 >
                     <Modalperso
-                        date="08/10/2022"
+                        date={data.date}
+                        jour={false}
                         adversaire={data.adversaire}
                         onClose={onClose}
-                        setReport={setReport}
+                        setReportRequest={setReport}
                     />
                 </View>
             </Modal>

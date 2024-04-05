@@ -1,20 +1,49 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { COLORS } from '../../../utiles/constantes'
 import { Icon } from 'react-native-eva-icons'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import WebView from 'react-native-webview'
 
 interface IProps {
     onClose: Function
     date: string
     adversaire: string
-    setReport: Function
+    setReportRequest: Function
+    jour?: boolean
 }
 
 interface IIProps extends IProps {
     setConfirm: Function
 }
 
-const Requete = ({ onClose, setConfirm, date }: IIProps) => {
+const Requete = ({ onClose, setConfirm, date, jour }: IIProps) => {
+    const [myDate, setMyDate] = useState(date)
+    const [showPicker, setShowPicker] = useState(false)
+
+    const formatDate = (date: Date) => {
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let fDate = `${day < 10 ? `0${day}` : day}/${
+            month < 10 ? `0${month}` : month
+        }/${year}`
+        return fDate
+    }
+
+    const onChange = (selectedDate: any) => {
+        const tmp = new Date(selectedDate.nativeEvent.timestamp)
+        const fDate = formatDate(tmp)
+        setShowPicker(false)
+        setMyDate(fDate)
+    }
+    useEffect(() => {
+        if (jour === false) {
+            let tempDate = myDate.split(' ')
+            setMyDate(tempDate[1])
+        }
+    }, [])
+
     return (
         <View style={Style.info}>
             <View style={Style.headerModal}>
@@ -23,9 +52,7 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
                         source={require('../../../assets/images/more_time.png')}
                     />
                     <Text style={Style.titleModal}>
-                        {`REPORTER LE DUEL DU ${
-                            date !== 'jour' ? date : 'JOUR'
-                        }`}
+                        {`REPORTER LE DUEL DU ${jour ? 'JOUR' : myDate}`}
                     </Text>
                 </View>
                 <TouchableOpacity
@@ -36,12 +63,16 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
                 </TouchableOpacity>
             </View>
             <View style={Style.texte}>
-                <Text
+                <WebView
                     style={{ color: COLORS.primary }}
-                >{`Si tu ne peux pas jouer ton duel ${
-                    date === 'jour' ? "aujourd'hui" : `du ${date}`
-                }, tu peux choisir une autre date. Ton adversaire devra accepter ou proposer une autre date.`}</Text>
+                    source={{
+                        html: `<p style='text-align: justify; font-size: 2.7em;'>Si tu ne peux pas jouer ton duel ${
+                            jour ? `aujourd'hui` : `du ${myDate}`
+                        } , tu peux choisir une autre date. Ton adversaire devra accepter ou proposer une autre date.</p>`,
+                    }}
+                />
             </View>
+
             <View style={Style.dateContainer}>
                 <Text
                     style={{
@@ -53,12 +84,22 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
                     Nouvelle date :
                 </Text>
                 <View style={Style.inputDateContainer}>
-                    <Text style={{ color: COLORS.primary }}>07/10/2022</Text>
-                    <Image
-                        source={require('../../../assets/images/calendar_month.png')}
-                    />
+                    <Text style={{ color: COLORS.primary }}>{myDate}</Text>
+                    <TouchableOpacity onPress={() => setShowPicker(true)}>
+                        <Image
+                            source={require('../../../assets/images/calendar_month.png')}
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
+            {showPicker && (
+                <DateTimePicker
+                    testID="dateTimePicker"
+                    value={new Date()}
+                    mode={'date'}
+                    onChange={onChange}
+                />
+            )}
             <View style={Style.actionContainer}>
                 <TouchableOpacity
                     onPress={() => setConfirm(true)}
@@ -92,7 +133,7 @@ const Requete = ({ onClose, setConfirm, date }: IIProps) => {
     )
 }
 
-const Confirm = ({ onClose, adversaire, setReport }: IIProps) => {
+const Confirm = ({ onClose, adversaire, setReportRequest }: IIProps) => {
     return (
         <View style={Style.info}>
             <View style={{ ...Style.headerModal, justifyContent: 'flex-end' }}>
@@ -134,7 +175,7 @@ const Confirm = ({ onClose, adversaire, setReport }: IIProps) => {
                     }}
                     onPress={() => {
                         onClose()
-                        setReport(true)
+                        setReportRequest(true)
                     }}
                 >
                     <Text style={{ fontWeight: 'bold', color: '#ffffff' }}>
@@ -146,16 +187,23 @@ const Confirm = ({ onClose, adversaire, setReport }: IIProps) => {
     )
 }
 
-export default ({ onClose, date, adversaire, setReport }: IProps) => {
+export default ({
+    onClose,
+    date,
+    adversaire,
+    setReportRequest,
+    jour,
+}: IProps) => {
     const [confirm, setConfirm] = useState(false)
 
     return !confirm ? (
         <Requete
             onClose={onClose}
             date={date}
+            jour={jour}
             adversaire={adversaire}
             setConfirm={setConfirm}
-            setReport={setReport}
+            setReportRequest={setReportRequest}
         />
     ) : (
         <Confirm
@@ -163,7 +211,7 @@ export default ({ onClose, date, adversaire, setReport }: IProps) => {
             date={date}
             adversaire={adversaire}
             setConfirm={setConfirm}
-            setReport={setReport}
+            setReportRequest={setReportRequest}
         />
     )
 }
@@ -176,7 +224,7 @@ const Style = StyleSheet.create({
         minWidth: 350,
         maxWidth: 350,
         minHeight: 300,
-        maxHeight: 300,
+        maxHeight: 305,
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
         paddingHorizontal: 20,
@@ -216,7 +264,7 @@ const Style = StyleSheet.create({
     texte: {
         flex: 1,
         minHeight: 60,
-        maxHeight: 60,
+        maxHeight: 65,
         minWidth: 310,
         maxWidth: 310,
     },
