@@ -184,7 +184,7 @@ export default () => {
                         color="#91AFEC"
                         scoreColor="#375DAB"
                         iconColor="#375DAB"
-                        disabled
+                        // disabled
                     />
                     <Option
                         title="MODE EN LIGNE"

@@ -21,6 +21,8 @@ export type MainStackParams = {
     online: undefined
     root: undefined
     duel: undefined
+    multijoueur: undefined
+    tournoi: undefined
     liguemain: undefined
     rejoindreligue: undefined
     liguedetails: {

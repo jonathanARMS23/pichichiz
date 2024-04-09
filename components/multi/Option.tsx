@@ -3,19 +3,16 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParams } from '../../navigation/tool/tool'
+import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
 
-type OptionNavProp = StackNavigationProp<RootStackParams, 'room'>
+type OptionNavProp = StackNavigationProp<MainStackParams, 'online'>
 
 interface IProps {
     title: string
     type: string
     description: string
-    level?: boolean
-    levelValue: string | number
     color: string
-    scoreColor?: string
-    iconColor?: string
+    nbMax: number
     disabled?: boolean
 }
 
@@ -24,21 +21,26 @@ interface OIProps {
 }
 
 const images = {
-    single: require('../../assets/images/solo.png'),
-    multi: require('../../assets/images/multi.png'),
-    online: require('../../assets/images/online.png'),
+    tournoi: require('../../assets/images/tournoi.png'),
+    montre: require('../../assets/images/contre-montre.png'),
+    mort: require('../../assets/images/mort-subite.png'),
 }
 
 const OImage = ({ type }: OIProps) => {
     switch (type) {
-        case 'solo':
-            return <Image source={images.single} style={Style.icon} />
-        case 'multi':
-            return <Image source={images.multi} style={Style.icon} />
-        case 'online':
-            return <Image source={images.online} style={Style.icon} />
+        case 'tournoi':
+            return (
+                <Image
+                    source={images.tournoi}
+                    style={{ minWidth: 59, minHeight: 53 }}
+                />
+            )
+        case 'montre':
+            return <Image source={images.montre} style={Style.icon} />
+        case 'mort':
+            return <Image source={images.mort} style={Style.icon} />
         default:
-            return <Image source={images.single} style={Style.icon} />
+            return <Image source={images.tournoi} style={Style.icon} />
     }
 }
 
@@ -46,27 +48,17 @@ export default ({
     title,
     type,
     description,
-    level,
-    levelValue,
     color,
-    scoreColor,
-    iconColor,
+    nbMax,
     disabled,
 }: IProps) => {
     const navigation = useNavigation<OptionNavProp>()
 
     const handlePress = () => {
-        if (type === 'solo') navigation.navigate('solo')
-        if (type === 'online')
-            navigation.navigate('room', {
-                screen: 'main',
-                params: { screen: 'online' },
-            })
-        if (type === 'multi')
-            navigation.navigate('room', {
-                screen: 'main',
-                params: { screen: 'multijoueur' },
-            })
+        if (disabled) return
+        if (type === 'tournoi') navigation.navigate('tournoi')
+        if (type === 'ligue') navigation.navigate('liguemain')
+        if (type === 'pyramide') navigation.navigate('pyramide')
     }
 
     return (
@@ -95,12 +87,6 @@ export default ({
             >
                 <View style={Style.header}>
                     <View style={Style.titleContainer}>
-                        <Icon
-                            name="play-circle-outline"
-                            height={20}
-                            width={20}
-                            fill={iconColor}
-                        />
                         <Text style={Style.title}>{` ${title}`}</Text>
                     </View>
                     <View style={Style.iconContainer}>
@@ -110,6 +96,16 @@ export default ({
                 <View style={Style.body}>
                     <View style={Style.descriptionContainer}>
                         <Text style={Style.description}>{description}</Text>
+                        <Text
+                            style={{
+                                ...Style.description,
+                                fontSize: 13,
+                                fontStyle: 'italic',
+                                marginBottom: 5,
+                            }}
+                        >
+                            {nbMax} joueurs max.
+                        </Text>
                     </View>
                     <View style={Style.arrowContainer}>
                         <Icon
@@ -120,20 +116,6 @@ export default ({
                         />
                     </View>
                 </View>
-                {level ? (
-                    <View style={Style.footer}>
-                        <View
-                            style={{
-                                ...Style.score,
-                                backgroundColor: scoreColor,
-                            }}
-                        >
-                            <Text
-                                style={{ fontWeight: 'bold' }}
-                            >{`Niveau ${levelValue}`}</Text>
-                        </View>
-                    </View>
-                ) : null}
             </View>
         </TouchableOpacity>
     )
@@ -149,8 +131,8 @@ const Style = StyleSheet.create({
     },
     container: {
         flex: 1,
-        minHeight: 170,
-        maxHeight: 170,
+        minHeight: 200,
+        maxHeight: 200,
         minWidth: 325,
         maxWidth: 325,
         borderRadius: 15,
@@ -198,24 +180,22 @@ const Style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        minHeight: 70,
-        maxHeight: 70,
+        minHeight: 150,
+        maxHeight: 150,
     },
     descriptionContainer: {
         flex: 1,
         minWidth: 250,
         maxWidth: 250,
-        minHeight: 70,
-        maxHeight: 70,
-        alignItems: 'center',
-        justifyContent: 'center',
+        minHeight: '100%',
+        maxHeight: '100%',
+        alignItems: 'flex-start',
+        justifyContent: 'space-around',
         paddingHorizontal: 5,
     },
     description: {
         minWidth: 250,
         maxWidth: 250,
-        minHeight: 40,
-        maxHeight: 40,
         fontSize: 15,
         paddingHorizontal: 10,
         fontStyle: 'italic',
@@ -224,33 +204,10 @@ const Style = StyleSheet.create({
     arrowContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         minWidth: 50,
         maxWidth: 50,
-        minHeight: 70,
-        maxHeight: 70,
-    },
-    footer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        minWidth: 300,
-        maxWidth: 300,
-        minHeight: 50,
-        maxHeight: 50,
-        paddingHorizontal: 20,
-    },
-    score: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 30,
-        maxHeight: 30,
-        minWidth: 100,
-        maxWidth: 150,
-        paddingHorizontal: 10,
-        borderRadius: 10,
-        backgroundColor: '#31CCC5',
+        minHeight: '100%',
+        maxHeight: '100%',
     },
 })
