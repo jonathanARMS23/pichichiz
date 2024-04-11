@@ -16,13 +16,30 @@ export type StoreStackParams = {
     }
 }
 
-export type OnlineStackParams = {
+export type MainStackParams = {
+    //modeSolo: undefined tsy misy tab de tsy napidirina
     online: undefined
     root: undefined
+    duel: undefined
+    multijoueur: undefined
+    tournoi: undefined
+    liguemain: undefined
+    rejoindreligue: undefined
+    liguedetails: {
+        code: string
+        name: string
+    }
+    liguegame: {
+        data?: object
+    }
+    manageligue: undefined
+
+    liguesettings: undefined
+    pyramide: undefined
 }
 
 export type MainTabParams = {
-    main: NavigatorScreenParams<OnlineStackParams>
+    main: NavigatorScreenParams<MainStackParams>
     reward: undefined
     profil: undefined
     store: NavigatorScreenParams<StoreStackParams>
@@ -40,7 +57,16 @@ export type RootStackParams = {
     solo: undefined
     duel: undefined
     ligue: undefined
-    manageligue: undefined
+
+    confirmrejoindre: {
+        data?: object
+        code?: string
+    }
+    liguedetails: {
+        code: string
+        name: string
+    }
+    pretajouer: undefined
     notification: undefined
     duelfinished: undefined
     bilan: undefined
@@ -55,4 +81,8 @@ export type RootStackParams = {
         id_duel: number | string
         id_serie: number | string
     }
+
+    rulesscreen: undefined
+    questionpour: undefined
+    pyramideresult: undefined
 }

@@ -30,6 +30,7 @@ import DailyBonusStore from '../services/store/daily_bonus'
 import Solo from '../services/store/Solo'
 import HPStore from '../services/store/HP'
 import DailyBonus from './dailybonus/dailyBonus'
+import { COLORS } from '../utiles/constantes'
 // import { PLACEMENT } from '../pubs'
 
 export default () => {
@@ -229,7 +230,7 @@ export default () => {
                         color="#91AFEC"
                         scoreColor="#375DAB"
                         iconColor="#375DAB"
-                        disabled
+                        // disabled
                     />
                     <Option
                         title="MODE EN LIGNE"

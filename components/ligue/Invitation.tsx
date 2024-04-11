@@ -14,6 +14,9 @@ import { Icon } from 'react-native-eva-icons'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParams } from '../../navigation/tool/tool' */
 import Statut from '../sous-components/Statut'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { MainStackParams, RootStackParams } from '../../navigation/tool/tool'
+import { useNavigation } from '@react-navigation/native'
 
 interface IIProps {
     data: any
@@ -23,14 +26,20 @@ interface IProps {
     data: Array<any>
 }
 
-// type LigueNavProp = StackNavigationProp<RootStackParams, 'ligue'>
+type LigueNavProp = StackNavigationProp<RootStackParams, 'confirmrejoindre'>
 
 const Item = ({ data }: IIProps) => {
     // const User = useSelector((state: any) => state.user)
-    // const navigation = useNavigation<LigueNavProp>()
+    const navigation = useNavigation<LigueNavProp>()
+
+    const onRejoindre = () => {
+        navigation.navigate('confirmrejoindre', {
+            data: data,
+        })
+    }
 
     const onFight = async () => {
-        console.log(data)
+        console.log('supprimer invitation')
     }
 
     return (
@@ -41,7 +50,7 @@ const Item = ({ data }: IIProps) => {
             </View>
             <View style={Style.playerAction}>
                 <TouchableOpacity
-                    onPress={onFight}
+                    onPress={onRejoindre}
                     style={{
                         ...Style.playerActionButton,
                         minWidth: 140,

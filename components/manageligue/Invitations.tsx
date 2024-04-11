@@ -144,8 +144,7 @@ export default ({ setSteps, ligue_id }: IProps) => {
             <View
                 style={{
                     ...Style.container,
-                    minHeight: height - 400,
-                    maxHeight: height - 400,
+                    backgroundColor: 'aqua',
                 }}
             >
                 <View style={Style.titleContainer}>
@@ -154,8 +153,6 @@ export default ({ setSteps, ligue_id }: IProps) => {
                 <View
                     style={{
                         ...Style.listContainer,
-                        minHeight: height - 395,
-                        maxHeight: height - 395,
                     }}
                 >
                     {list.length > 0 ? (
@@ -181,31 +178,31 @@ export default ({ setSteps, ligue_id }: IProps) => {
                         </>
                     )}
                 </View>
-                <View
+            </View>
+            <View
+                style={{
+                    flex: 1,
+                    minWidth: 375,
+                    maxWidth: 375,
+                    minHeight: 60,
+                    maxHeight: 60,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 15,
+                }}
+            >
+                <TouchableOpacity
                     style={{
-                        flex: 1,
-                        minWidth: 375,
-                        maxWidth: 375,
-                        minHeight: 60,
-                        maxHeight: 60,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginTop: 5,
+                        ...Style.buttonAdd,
+                        borderWidth: 1,
+                        borderColor: '#1B2444',
                     }}
+                    onPress={onCreate}
                 >
-                    <TouchableOpacity
-                        style={{
-                            ...Style.buttonAdd,
-                            borderWidth: 1,
-                            borderColor: '#1B2444',
-                        }}
-                        onPress={onCreate}
-                    >
-                        <Text
-                            style={{ ...Style.buttonAddText, color: '#1B2444' }}
-                        >{`  ENVOYER LES INVITATIONS`}</Text>
-                    </TouchableOpacity>
-                </View>
+                    <Text
+                        style={{ ...Style.buttonAddText, color: '#1B2444' }}
+                    >{`  ENVOYER LES INVITATIONS`}</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )

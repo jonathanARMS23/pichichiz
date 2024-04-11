@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
 import {
     View,
     Text,
-    Image,
-    Modal,
-    TouchableOpacity,
     StyleSheet,
     useWindowDimensions,
+    Image,
+    TouchableOpacity,
+    Modal,
 } from 'react-native'
+import React, { useState } from 'react'
+import { COLORS } from '../../../utiles/constantes'
 import { Icon } from 'react-native-eva-icons'
-import { COLORS } from '../../utiles/constantes'
 
 export default () => {
     const { width, height } = useWindowDimensions()
     const [visible, setVisible] = useState(false)
-
     const onClose = () => {
         setVisible(false)
     }
@@ -22,12 +21,11 @@ export default () => {
     const onOpen = () => {
         setVisible(true)
     }
-
     return (
         <View style={{ ...Style.container, minWidth: width }}>
             <View style={Style.imageWrapper}>
                 <Image
-                    source={require('../../assets/images/ligueBanner.png')}
+                    source={require('../../../assets/images/tournoi-banner.png')}
                     style={Style.banner}
                 />
             </View>
@@ -65,7 +63,7 @@ export default () => {
                                     width={20}
                                 />
                                 <Text style={Style.title}>
-                                    Bienvenue dans LIGUE !
+                                    Bienvenue dans le TOURNOIS !
                                 </Text>
                             </View>
                             <TouchableOpacity
@@ -81,12 +79,42 @@ export default () => {
                         </View>
                         <View style={Style.information}>
                             <Text>
-                                Rejoins une ligue ou créé ta propre ligue en
-                                invitant tes amis !
+                                Inscrit le prénom de tes amis à côté de toi et
+                                lance la partie!{' '}
+                                <Text style={{ fontWeight: 'normal' }}>
+                                    (6 joueurs max)
+                                </Text>
                             </Text>
                             <Text>
-                                Tu affronteras tes adversaires par séries de
-                                duel, organisé par journée de championnat.
+                                Vous répondrez chacun à une série de 5 questions
+                                sous forme de QCM.
+                            </Text>
+                            <Text>
+                                Celui qui obtient le plus mauvais score est{' '}
+                                <Text style={{ fontWeight: 'bold' }}>
+                                    éliminé
+                                </Text>{' '}
+                                à chaque tour.
+                            </Text>
+                            <Text>
+                                Quand il reste 3 joueurs, les questions
+                                passeront de QCM à des{' '}
+                                <Text style={{ fontWeight: 'bold' }}>
+                                    réponses directes
+                                </Text>
+                            </Text>
+                        </View>
+                        <View style={Style.footer}>
+                            <Icon
+                                name="info-outline"
+                                height={20}
+                                width={20}
+                                fill="#000000"
+                            />
+                            <Text style={{ maxWidth: 310, marginLeft: 3 }}>
+                                Ce jeu nécessite sérieusement un téléphone, à
+                                faire tourner chacun votre tour. À jouer sans
+                                modération autour d'une table avec tes amis!
                             </Text>
                         </View>
                     </View>
@@ -111,12 +139,12 @@ const Style = StyleSheet.create({
         justifyContent: 'flex-start',
         minHeight: 70,
         maxHeight: 70,
-        minWidth: 300,
-        maxWidth: 300,
+        minWidth: '78%',
+        maxWidth: '78%',
     },
     banner: {
         height: 60,
-        width: 158,
+        width: 200,
     },
     controls: {
         flex: 1,
@@ -132,7 +160,7 @@ const Style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#EBECF0',
+        backgroundColor: COLORS.very_light_primary,
         borderRadius: 10,
         minHeight: 40,
         maxHeight: 40,
@@ -151,8 +179,8 @@ const Style = StyleSheet.create({
         justifyContent: 'space-around',
         minWidth: 350,
         maxWidth: 350,
-        minHeight: 250,
-        maxHeight: 250,
+        minHeight: 400,
+        maxHeight: 400,
         borderRadius: 10,
         padding: 10,
         backgroundColor: '#FFFFFF',
@@ -164,14 +192,19 @@ const Style = StyleSheet.create({
         justifyContent: 'space-between',
         minHeight: 50,
         maxHeight: 50,
-        minWidth: 340,
-        maxWidth: 340,
+        minWidth: 330,
+        maxWidth: 330,
     },
     titleContainer: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+    },
+    title: {
+        fontWeight: 'bold',
+        color: COLORS.light_primary,
+        marginLeft: 5,
     },
     exitButton: {
         flex: 1,
@@ -182,15 +215,26 @@ const Style = StyleSheet.create({
         minWidth: 40,
         maxWidth: 40,
         borderRadius: 20,
-        backgroundColor: '#EBECF0',
+        backgroundColor: COLORS.very_light_primary,
     },
     information: {
         flex: 1,
+        minHeight: 240,
+        maxHeight: 240,
+        minWidth: 330,
+        maxWidth: 330,
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-    title: {
-        fontWeight: 'bold',
-        color: COLORS.light_primary,
+    footer: {
+        flexDirection: 'row',
+        minWidth: 330,
+        maxWidth: 330,
+        minHeight: 65,
+        maxHeight: 65,
+        marginTop: 5,
+        backgroundColor: COLORS.very_light_primary,
+        borderRadius: 5,
+        padding: 5,
     },
 })

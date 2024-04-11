@@ -25,8 +25,12 @@ import FinishedDuel from '../../screens/FinishedDuel'
 import Bilan from '../../screens/Bilan'
 /** import navigation screen */
 import Main from '../tab/Main'
-import Ligue from '../../screens/ligue'
-import ManageLigue from '../../screens/ManageLigue'
+import LigueDetails from '../../components/ligue/LigueDetails'
+import confirmRejoindre from '../../components/ligue/confirmRejoindre'
+import Pret from '../../components/ligue/ligueGame/pret'
+import RulesScreen from '../../components/pyramide/RulesScreen'
+import QuestionPour from '../../components/pyramide/QuestionPour'
+import PyramideResult from '../../components/pyramide/PyramideResult'
 
 const Stack = createStackNavigator<RootStackParams>()
 const { Navigator, Screen } = Stack

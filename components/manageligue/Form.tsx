@@ -155,7 +155,7 @@ export default ({ setSteps, setLigue, setCode }: IProps) => {
 
     return (
         <View>
-            <View style={{ maxHeight: height - 250, minHeight: height - 250 }}>
+            <View style={{ maxHeight: height - 280, minHeight: height - 280 }}>
                 <ScrollView>
                     <View style={Style.container}>
                         <View style={Style.titleContainer}>

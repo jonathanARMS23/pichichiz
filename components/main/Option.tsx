@@ -62,6 +62,11 @@ export default ({
                 screen: 'main',
                 params: { screen: 'online' },
             })
+        if (type === 'multi')
+            navigation.navigate('room', {
+                screen: 'main',
+                params: { screen: 'multijoueur' },
+            })
     }
 
     return (

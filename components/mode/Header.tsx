@@ -37,7 +37,10 @@ export default ({ isDuel }: IProps) => {
 
     const onGoBack = () => {
         if (isDuel) {
-            navigation.navigate('room', { screen: 'main' })
+            navigation.navigate('room', {
+                screen: 'main',
+                params: { screen: 'online' },
+            })
         } else navigation.goBack()
     }
 

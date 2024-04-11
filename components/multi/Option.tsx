@@ -12,7 +12,7 @@ interface IProps {
     type: string
     description: string
     color: string
-    subtitle: string
+    nbMax: number
     disabled?: boolean
 }
 
@@ -21,26 +21,26 @@ interface OIProps {
 }
 
 const images = {
-    duel: require('../../assets/images/duel.png'),
-    ligue: require('../../assets/images/ligue.png'),
-    pyramide: require('../../assets/images/pyramide.png'),
+    tournoi: require('../../assets/images/tournoi.png'),
+    montre: require('../../assets/images/contre-montre.png'),
+    mort: require('../../assets/images/mort-subite.png'),
 }
 
 const OImage = ({ type }: OIProps) => {
     switch (type) {
-        case 'duel':
+        case 'tournoi':
             return (
                 <Image
-                    source={images.duel}
+                    source={images.tournoi}
                     style={{ minWidth: 59, minHeight: 53 }}
                 />
             )
-        case 'ligue':
-            return <Image source={images.ligue} style={Style.icon} />
-        case 'pyramide':
-            return <Image source={images.pyramide} style={Style.icon} />
+        case 'montre':
+            return <Image source={images.montre} style={Style.icon} />
+        case 'mort':
+            return <Image source={images.mort} style={Style.icon} />
         default:
-            return <Image source={images.duel} style={Style.icon} />
+            return <Image source={images.tournoi} style={Style.icon} />
     }
 }
 
@@ -49,14 +49,14 @@ export default ({
     type,
     description,
     color,
-    subtitle,
+    nbMax,
     disabled,
 }: IProps) => {
     const navigation = useNavigation<OptionNavProp>()
 
     const handlePress = () => {
         if (disabled) return
-        if (type === 'duel') navigation.navigate('duel')
+        if (type === 'tournoi') navigation.navigate('tournoi')
         if (type === 'ligue') navigation.navigate('liguemain')
         if (type === 'pyramide') navigation.navigate('pyramide')
     }
@@ -95,10 +95,17 @@ export default ({
                 </View>
                 <View style={Style.body}>
                     <View style={Style.descriptionContainer}>
-                        {subtitle && subtitle !== '' ? (
-                            <Text style={Style.subtittle}>{subtitle}</Text>
-                        ) : null}
                         <Text style={Style.description}>{description}</Text>
+                        <Text
+                            style={{
+                                ...Style.description,
+                                fontSize: 13,
+                                fontStyle: 'italic',
+                                marginBottom: 5,
+                            }}
+                        >
+                            {nbMax} joueurs max.
+                        </Text>
                     </View>
                     <View style={Style.arrowContainer}>
                         <Icon
@@ -180,23 +187,15 @@ const Style = StyleSheet.create({
         flex: 1,
         minWidth: 250,
         maxWidth: 250,
-        minHeight: 150,
-        maxHeight: 150,
+        minHeight: '100%',
+        maxHeight: '100%',
         alignItems: 'flex-start',
         justifyContent: 'space-around',
         paddingHorizontal: 5,
     },
-    subtittle: {
-        fontWeight: 'bold',
-        paddingHorizontal: 10,
-        minHeight: 50,
-        maxHeight: 50,
-    },
     description: {
         minWidth: 250,
         maxWidth: 250,
-        minHeight: 100,
-        maxHeight: 100,
         fontSize: 15,
         paddingHorizontal: 10,
         fontStyle: 'italic',
@@ -205,10 +204,10 @@ const Style = StyleSheet.create({
     arrowContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         minWidth: 50,
         maxWidth: 50,
-        minHeight: 70,
-        maxHeight: 70,
+        minHeight: '100%',
+        maxHeight: '100%',
     },
 })
