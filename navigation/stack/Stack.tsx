@@ -90,13 +90,20 @@ export default () => {
                 <Screen name="duel" component={Duel} />
                 <Screen name="duelgame" component={DuelGame} />
                 <Screen name="launch" component={Launch} />
+                <Screen name="confirmrejoindre" component={confirmRejoindre} />
                 <Screen name="noaccess" component={NoAccess} />
                 <Screen name="results" component={Results} />
                 <Screen name="notification" component={Notification} />
                 <Screen name="duelfinished" component={FinishedDuel} />
                 <Screen name="bilan" component={Bilan} />
-                <Screen name="ligue" component={Ligue} />
-                <Screen name="manageligue" component={ManageLigue} />
+                <Screen name="pretajouer" component={Pret} />
+                {/* LIGUE */}
+                <Screen name="liguedetails" component={LigueDetails} />
+
+                {/* PYRAMIDE */}
+                <Screen name="rulesscreen" component={RulesScreen} />
+                <Screen name="questionpour" component={QuestionPour} />
+                <Screen name="pyramideresult" component={PyramideResult} />
             </Navigator>
         </NavigationContainer>
     )
