@@ -28,7 +28,6 @@ export default () => {
                 RNAatkit.setDebugEnabled(true)
                 if (initialized) {
                     RNAatkit.reloadConsent()
-                    RNAatkit.showConsentDialogIfNeeded()
                     RNAatkit.createPlacement(
                         PLACEMENT,
                         RNAatkit.PlacementSize_Fullscreen

@@ -67,10 +67,16 @@ export default () => {
             )
         })
 
+        aatkitEmitter.addListener('managedConsentNeedsUserInterface', () => {
+            console.log('managedConsentNeedsUserInterface')
+            RNAatkit.showConsentDialogIfNeeded()
+        })
+
         return () => {
             aatkitEmitter.removeAllListeners('AATKitHaveAd')
             aatkitEmitter.removeAllListeners('AATKitNoAds')
             aatkitEmitter.removeAllListeners('AATKitResumeAfterAd')
+            aatkitEmitter.removeAllListeners('managedConsentNeedsUserInterface')
         }
     }, [haveAd])
 

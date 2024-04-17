@@ -54,7 +54,7 @@ export default () => {
                         subtitle="Rejoins une ligue et affronte tes adversaires."
                         description="Tu peux aussi créer ta propre ligue ! Qui vas-tu prendre dans ton équipe ?"
                         color="#FFC085"
-                        disabled={false}
+                        disabled={true}
                     />
                     <Option
                         title="PYRAMIDE"
@@ -62,7 +62,7 @@ export default () => {
                         subtitle=""
                         description="Joue avec tes amis à une série de questions. Le temps et les points sont sous forme de pyramide. Vas-tu t’en sortir ?"
                         color="#FFE09E"
-                        disabled={false}
+                        disabled={true}
                     />
                 </View>
             </ScrollView>
