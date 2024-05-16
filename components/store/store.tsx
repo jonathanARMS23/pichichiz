@@ -120,6 +120,7 @@ export default () => {
             const response = await API.Create(data)
             if (!response.canceled) {
                 const { id_order } = response
+                setOpen(false)
                 navigation.navigate('order', { id_order })
             }
         }
@@ -147,7 +148,7 @@ export default () => {
     const getBonusDesc = (type: string) => {
         switch (type) {
             case 'INDICE':
-                return 'Le bonus INDICE te donne une indication vers la réponse.'
+                return 'Le bonus INDICE te donne des informations complémentaires sur la réponse à trouver.'
             case 'PASSER':
                 return 'Le bonus PASSER te permet de passer une question qui sera comptée comme un point cadeau.'
             case 'DOUBLE CHANCE':
@@ -176,14 +177,14 @@ export default () => {
                     break
                 case 'hp':
                     setDescription(
-                        'Les vies sont utilisables pour le mode SOLO. Tu perds une vie quand tu as moins de 8 points sur un niveau, tu peux donc acheter des vies pour augmenter tes chances de passer le niveau !'
+                        'Les vies sont utilisables pour le mode SOLO. Tu perds une vie quand tu as moins de 8 points sur un niveau pas encore réussi.'
                     )
                     setTitle(`Acheter 1 VIE`)
                     setLabel(`VIE`)
                     break
                 case 'pack':
                     setDescription(
-                        'Le pack premium vous offres un exemplaire de tout les types de bonus existant.'
+                        `Le pack premium t'offre un exemplaire de tous les types de bonus existants.`
                     )
                     setTitle(`Acheter 1 PACK PREMIUM`)
                     setLabel(`PACK PREMIUM`)
@@ -205,13 +206,13 @@ export default () => {
         if (selected && selected.type) {
             switch (selected.type) {
                 case 'bonus':
-                    return '2,79 €'
+                    return selected.name === 'PASSER' ? '1,99' : '0,99 €'
                 case 'hp':
-                    return '1,79 €'
+                    return '0,99 €'
                 case 'pack':
-                    return '12,99 €'
+                    return '4,99 €'
                 case 'pub':
-                    return '9,99 €'
+                    return '2,99 €'
                 default:
                     return '0 €'
             }
@@ -277,7 +278,7 @@ export default () => {
                     <View
                         style={{ ...Style.price, backgroundColor: '#FFFFFF' }}
                     >
-                        <Text style={{ color: '#1B2444' }}>12,99 €</Text>
+                        <Text style={{ color: '#1B2444' }}>4,99 €</Text>
                     </View>
                 </View>
                 <Image
@@ -302,7 +303,7 @@ export default () => {
                     <View
                         style={{ ...Style.price, backgroundColor: '#1B2444' }}
                     >
-                        <Text style={{ color: '#FFFFFF' }}>9,99 €</Text>
+                        <Text style={{ color: '#FFFFFF' }}>2,99 €</Text>
                     </View>
                 </View>
                 <Image

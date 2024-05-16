@@ -92,13 +92,13 @@ export default ({ id_order }: IProps) => {
         if (data && data.type) {
             switch (data.type) {
                 case 'bonus':
-                    return '2,79 €'
+                    return data.name === 'PASSER' ? '1,99' : '0,99 €'
                 case 'hp':
-                    return '1,79 €'
+                    return '0,99 €'
                 case 'pack':
-                    return '12,99 €'
+                    return '4,99 €'
                 case 'pub':
-                    return '9,99 €'
+                    return '2,99 €'
                 default:
                     return '0 €'
             }

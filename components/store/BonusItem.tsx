@@ -49,19 +49,19 @@ export default ({ type, onSelect }: IProps) => {
     const getPrice = () => {
         switch (type) {
             case 'INDICE':
-                return '2,79'
+                return '0,99'
             case 'PASSER':
-                return '2,79'
+                return '1,99'
             case 'DOUBLE CHANCE':
-                return '2,79'
+                return '0,99'
             case 'TEMPS':
-                return '2,79'
+                return '0,99'
             case 'LETTRES':
-                return 0
+                return '0,99'
             case '50/50':
-                return '2,79'
+                return '0,99'
             default:
-                return 0
+                return '0,99'
         }
     }
 

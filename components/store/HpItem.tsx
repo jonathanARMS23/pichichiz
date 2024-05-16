@@ -24,7 +24,7 @@ export default ({ onSelect }: IProps) => {
                 <Text style={Style.type}>ACHETER 1 VIE</Text>
             </View>
             <View style={Style.price}>
-                <Text style={Style.priceText}>{`1,79 €`}</Text>
+                <Text style={Style.priceText}>{`0,99 €`}</Text>
             </View>
         </TouchableOpacity>
     )

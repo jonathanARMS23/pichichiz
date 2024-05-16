@@ -643,7 +643,8 @@ PODS:
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.20.0):
+  - RNScreens (3.31.1):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
     - React-RCTImage
   - RNSVG (13.9.0):
@@ -1039,7 +1040,7 @@ SPEC CHECKSUMS:
   RNDateTimePicker: 08f00a2c341bf96e4b30da15799fbdd4c5fa48a3
   RNGestureHandler: e145476da655f3dbc48ef2f0a08cf7a34338c02b
   RNReanimated: 4943d1e286130877c0539f053c3f36a22d8c66f5
-  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNScreens: 93ae3be2f119d955620f9bbb39ad372adb53b7a9
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   smaato-ios-sdk: 6e5c5699b249e4793485ea0137bd649ec72c7473
