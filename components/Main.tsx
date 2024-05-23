@@ -26,11 +26,12 @@ import User from './main/User'
 import Header from './sous-components/Header'
 import Socket from '../services/socket/socket'
 import Bonus from '../services/store/Bonus'
+import StripeStore from '../services/store/Stripe'
 import DailyBonusStore from '../services/store/daily_bonus'
 import Solo from '../services/store/Solo'
 import HPStore from '../services/store/HP'
 import DailyBonus from './dailybonus/dailyBonus'
-import { COLORS } from '../utiles/constantes'
+// import { COLORS } from '../utiles/constantes'
 // import { PLACEMENT } from '../pubs'
 
 export default () => {
@@ -119,6 +120,28 @@ export default () => {
         return 1
     }
 
+    // init customer verification
+    useEffect(() => {
+        const API = new StripeStore()
+        let isSubscribe = true
+        ;(async () => {
+            if (isSubscribe) {
+                if (!user.id) return
+                const response = await API.verifyCustomer(
+                    parseInt(`${user.id}`, 10)
+                )
+                if (!response.canceled) {
+                    console.log('customer verified')
+                }
+            }
+        })()
+
+        return () => {
+            API.Cancel()
+            isSubscribe = false
+        }
+    }, [user])
+
     // initialisation de bonus
     useEffect(() => {
         const DailyBonusAPI = new DailyBonusStore()
@@ -144,8 +167,6 @@ export default () => {
                             bonus = formatBonus(bonusList)
                         } else bonus = formatBonus(response)
                     }
-                    console.log('initialisation de bonus en ligne')
-                    console.log(bonus)
                     // load hp
                     const loaded_hp = await InitHP(parseInt(`${user.id}`, 10))
                     Dispatch(setHP(loaded_hp))

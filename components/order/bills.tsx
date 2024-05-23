@@ -5,6 +5,8 @@ import Badge from '../sous-components/Badge'
 
 interface IProps {
     id_order: number
+    // eslint-disable-next-line no-unused-vars
+    setStatus?: (status: string) => void
 }
 
 interface IBonus {
@@ -67,7 +69,7 @@ const Pub = () => (
     />
 )
 
-export default ({ id_order }: IProps) => {
+export default ({ id_order, setStatus }: IProps) => {
     const [data, setData] = useState<any>(null)
 
     useEffect(() => {
@@ -78,6 +80,7 @@ export default ({ id_order }: IProps) => {
                 const response = await API.getOrder(id_order)
                 if (!response.canceled) {
                     setData(response)
+                    if (setStatus) setStatus(response.status)
                 }
             }
         })()
